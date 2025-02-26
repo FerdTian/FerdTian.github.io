@@ -1,0 +1,734 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>Hello World</title>
+    <url>/2025/02/26/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very
+first post. Check <a href="https://hexo.io/docs/">documentation</a> for
+more info. If you get any problems when using Hexo, you can find the
+answer in <a
+href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or
+you can ask me on <a
+href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="quick-start">Quick Start</h2>
+<h3 id="create-a-new-post">Create a new post</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+<p>More info: <a
+href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="run-server">Run server</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="generate-static-files">Generate static files</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>More info: <a
+href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="deploy-to-remote-sites">Deploy to remote sites</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p>More info: <a
+href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+]]></content>
+  </entry>
+  <entry>
+    <title>Jordan 标准型笔记</title>
+    <url>/2024/04/14/jordan_canonical_form/</url>
+    <content><![CDATA[<p>整理了 Jordan 标准型的一些定理和证明.</p>
+<span id="more"></span>
+<h1 id="jordan-标准型">Jordan 标准型</h1>
+<h2 id="几何视角---广义特征空间">几何视角 - 广义特征空间</h2>
+<h3 id="子空间分解">子空间分解</h3>
+<p><strong>定义 1</strong><br />
+称子空间<span class="math inline">\(V_1, V_2, \dots, V_n \subset
+V\)</span>是<strong>线性无关</strong>的，如果<br />
+<span class="math display">\[
+\dim(V_1 + V_2 + \dots + V_n) = \dim V_1 + \dots + \dim V_n.
+\]</span> 如果<span class="math inline">\(V = V_1 + \dots +
+V_n\)</span>，且<span class="math inline">\(V_1, V_2, \dots, V_n \subset
+V\)</span>线性无关，则<span
+class="math inline">\(V\)</span>有子空间分解<span
+class="math inline">\(V = V_1 \oplus \dots \oplus V_n\)</span>。</p>
+<p><strong>命题 1</strong><br />
+对于子空间<span class="math inline">\(V_1, V_2, \dots, V_n \subset
+V\)</span>，以下结论等价：<br />
+1.<span class="math inline">\(V_1, V_2, \dots,
+V_n\)</span>线性无关。<br />
+2. 任取<span class="math inline">\(\boldsymbol{v_1} \in V_1, \dots,
+\boldsymbol{v_n} \in V_n\)</span>，若<span class="math inline">\(\sum
+\boldsymbol{v_i} = \boldsymbol{0}\)</span>，则<span
+class="math inline">\(\boldsymbol{v_i} =
+\boldsymbol{0}\)</span>对所有<span
+class="math inline">\(i\)</span>成立。<br />
+3.<span class="math inline">\(\dim(V_1 + V_2 + \dots + V_n) = \dim V_1 +
+\dots + \dim V_n\)</span>，特别地，为<span
+class="math inline">\(V_i\)</span>分别选取基<span
+class="math inline">\(\mathcal{B}_i\)</span>，则<span
+class="math inline">\(\bigcup_{i=1}^n \mathcal{B}_i\)</span>是<span
+class="math inline">\(V_1 + \dots + V_n\)</span>的一组基。</p>
+<p><strong>证明</strong><br />
+一方面，任取<span class="math inline">\(\boldsymbol{v_1} \in V_1, \dots,
+\boldsymbol{v_n} \in V_n\)</span>，且若<span class="math inline">\(\sum
+\boldsymbol{v_i} = \boldsymbol{0}\)</span>，则<span
+class="math inline">\(\boldsymbol{v_i} =
+\boldsymbol{0}\)</span>，归纳证明<span class="math inline">\(\dim(V_1 +
+V_2 + \dots + V_n) = \dim V_1 + \dots + \dim V_n\)</span>。<br />
+当<span class="math inline">\(n =
+1\)</span>时结论显然成立。由容斥原理，<br />
+<span class="math display">\[
+\dim(V_1 + V_2 + \dots + V_n) = \dim(V_1 + V_2 + \dots + V_{n-1}) + \dim
+V_n - \dim(V_n \cap (V_1 + \dots + V_{n-1})).
+\]</span> 任取<span class="math inline">\(\boldsymbol{v_n} \in V_n \cap
+(V_1 + \dots + V_{n-1})\)</span>，则<span
+class="math inline">\(\boldsymbol{v_n} \in V_n\)</span>且<span
+class="math inline">\(\boldsymbol{v_n} \in (V_1 + \dots +
+V_{n-1})\)</span>。存在<span class="math inline">\(\boldsymbol{v_1} \in
+V_1, \dots, \boldsymbol{v_{n-1}} \in V_{n-1}\)</span>，使得<span
+class="math inline">\(\boldsymbol{v_n} = \boldsymbol{v_1} + \dots +
+\boldsymbol{v_{n-1}}\)</span>。即<span
+class="math inline">\(\boldsymbol{v_1} + \dots + \boldsymbol{v_{n-1}} -
+\boldsymbol{v_n} = \boldsymbol{0}\)</span>，注意到<span
+class="math inline">\(-\boldsymbol{v_n} \in V_n\)</span>，由前提知<span
+class="math inline">\(\boldsymbol{v_i} =
+\boldsymbol{0}\)</span>，故<span class="math inline">\(\boldsymbol{v_n}
+= \boldsymbol{0}\)</span>。因此<span class="math inline">\(V_n \cap (V_1
++ \dots + V_{n-1}) =
+\{\boldsymbol{0}\}\)</span>。所以利用归纳假设，<br />
+<span class="math display">\[
+\dim(V_1 + V_2 + \dots + V_n) = \dim(V_1 + V_2 + \dots + V_{n-1}) + \dim
+V_n - \dim(V_n \cap (V_1 + \dots + V_{n-1})) = \dim(V_1 + V_2 + \dots +
+V_{n-1}) + \dim V_n = \dim V_1 + \dots + \dim V_n.
+\]</span> 另一方面，设<span class="math inline">\(\dim(V_1 + V_2 + \dots
++ V_n) = \dim V_1 + \dots + \dim V_n\)</span>，如果任取<span
+class="math inline">\(\boldsymbol{v_1} \in V_1, \dots, \boldsymbol{v_n}
+\in V_n\)</span>，有<span class="math inline">\(\sum \boldsymbol{v_i} =
+\boldsymbol{0}\)</span>，但存在某个<span
+class="math inline">\(i\)</span>使得<span
+class="math inline">\(\boldsymbol{v_i} \neq
+\boldsymbol{0}\)</span>，不妨设<span
+class="math inline">\(\boldsymbol{v_n} \neq
+\boldsymbol{0}\)</span>。则<span class="math inline">\(\boldsymbol{v_n}
+= -\boldsymbol{v_1} - \dots - \boldsymbol{v_{n-1}} \in V_n \cap (V_1 +
+\dots + V_{n-1})\)</span>。因此<span class="math inline">\(\dim(V_n \cap
+(V_1 + \dots + V_{n-1})) &gt; 0\)</span>。所以，<br />
+<span class="math display">\[
+\dim(V_1 + V_2 + \dots + V_n) = \dim(V_1 + V_2 + \dots + V_{n-1}) + \dim
+V_n - \dim(V_n \cap (V_1 + \dots + V_{n-1})) &lt; \dim(V_1 + V_2 + \dots
++ V_{n-1}) + \dim V_n \leq \dim V_1 + \dots + \dim V_n,
+\]</span> 这与假设不符。<br />
+任取<span class="math inline">\(\boldsymbol{v_1} \in V_1, \dots,
+\boldsymbol{v_n} \in V_n\)</span>，则若<span class="math inline">\(\sum
+\boldsymbol{v_i} = \boldsymbol{0}\)</span>，有<span
+class="math inline">\(\boldsymbol{v_i} =
+\boldsymbol{0}\)</span>。而<span
+class="math inline">\(\boldsymbol{v_i}\)</span>又可以用<span
+class="math inline">\(\mathcal{B}_i\)</span>线性表示，由<span
+class="math inline">\(\mathcal{B}_i\)</span>的线性无关可知线性组合的系数均为<span
+class="math inline">\(0\)</span>，因此<span
+class="math inline">\(\bigcup_{i=1}^n
+\mathcal{B}_i\)</span>的线性组合系数为<span
+class="math inline">\(0\)</span>，由<span
+class="math inline">\(\boldsymbol{v_i}\)</span>的任意性，<span
+class="math inline">\(\bigcup_{i=1}^n
+\mathcal{B}_i\)</span>线性无关，且可生成<span class="math inline">\(V_1
++ \dots + V_n\)</span>。</p>
+<p><strong>定义 2</strong><br />
+（不变子空间）设<span class="math inline">\(L: V \rightarrow
+V\)</span>是一个线性变换，若<span
+class="math inline">\(V\)</span>的子空间<span
+class="math inline">\(E\)</span>满足<span class="math inline">\(L(E)
+\subset E\)</span>，则称<span class="math inline">\(E\)</span>是<span
+class="math inline">\(L\)</span>的<strong>不变子空间</strong>（invariable
+subspace）。即：<span class="math inline">\(\forall \boldsymbol{v} \in
+E, L(\boldsymbol{v}) \in E\)</span>。</p>
+<p><strong>推论 1</strong><br />
+如果<span class="math inline">\(AE \subset E\)</span>，则<span
+class="math inline">\(A^k E \subset E\)</span>对所有<span
+class="math inline">\(k \geq 1\)</span>成立。</p>
+<p><strong>推论 2</strong><br />
+如果<span class="math inline">\(AE \subset
+E\)</span>，则对于任意多项式<span
+class="math inline">\(p(x)\)</span>，<span class="math inline">\(p(A) E
+\subset E\)</span>对所有<span class="math inline">\(k \geq
+1\)</span>成立。即：<span
+class="math inline">\(A\)</span>-不变子空间一定是<span
+class="math inline">\(p(A)\)</span>-不变子空间。</p>
+<p><strong>定义 3</strong><br />
+对于线性映射<span class="math inline">\(A\)</span>，定义<br />
+<span class="math display">\[
+N_\infty(A) = \bigcup_{k=1}^\infty \mathrm{Ker}(A^k), \quad R_\infty(A)
+= \bigcap_{k=1}^\infty \mathrm{Ran}(A^k).
+\]</span></p>
+<p><strong>注 1</strong><br />
+<span class="math display">\[
+\{\boldsymbol{0}\} = \mathrm{Ker} A^0 \subset \mathrm{Ker} A^1 \subset
+\dots \subset \mathrm{Ker} A^k \subset \dots
+\]</span> <span class="math display">\[
+V = \mathrm{Ran} A^0 \supset \mathrm{Ran} A^1 \supset \dots \supset
+\mathrm{Ran} A^k \supset \dots
+\]</span> 这两个过程将在某个<span
+class="math inline">\(k\)</span>同时停止变化，达到稳定。</p>
+<p><strong>命题 2</strong><br />
+设<span class="math inline">\(A \in \mathrm{M}_{n \times
+n}(\mathbb{C})\)</span>，如果<span
+class="math inline">\(\mathrm{Ker}(A^k) =
+\mathrm{Ker}(A^{k+1})\)</span>，那么<span
+class="math inline">\(\mathrm{Ker}(A^{k+1}) =
+\mathrm{Ker}(A^{k+2})\)</span>，以此类推。</p>
+<p><strong>证明</strong><br />
+任取<span class="math inline">\(\boldsymbol{v} \in \mathrm{Ker}
+A^{k+2}\)</span>，则<span class="math inline">\(A^{k+2} \boldsymbol{v} =
+\boldsymbol{0}\)</span>，即<span class="math inline">\(A^{k+1}(A
+\boldsymbol{v}) = \boldsymbol{0}\)</span>，说明<span
+class="math inline">\(A \boldsymbol{v} \in \mathrm{Ker}(A^{k+1}) =
+\mathrm{Ker}(A^k)\)</span>，因此<span class="math inline">\(A^k(A
+\boldsymbol{v}) = \boldsymbol{0}\)</span>，即<span
+class="math inline">\(A^{k+1} \boldsymbol{v} =
+\boldsymbol{0}\)</span>，故<span class="math inline">\(\boldsymbol{v}
+\in \mathrm{Ker}(A^{k+1})\)</span>。因此<span
+class="math inline">\(\mathrm{Ker} A^{k+2} \subset \mathrm{Ker}
+A^{k+1}\)</span>。另一方面显然有<span class="math inline">\(\mathrm{Ker}
+A^{k+1} \subset \mathrm{Ker} A^{k+2}\)</span>，故结论得证。</p>
+<p><strong>命题 3</strong><br />
+设<span class="math inline">\(A \in \mathrm{M}_{n \times
+n}(\mathbb{C})\)</span>，存在<span class="math inline">\(k \leq
+n\)</span>，使得<span class="math inline">\(N_\infty(A) =
+\mathrm{Ker}(A^k)\)</span>。特别地，总有<span
+class="math inline">\(N_\infty(A) = \mathrm{Ker}(A^n)\)</span>。</p>
+<p><strong>证明</strong><br />
+反证法，假设<span class="math inline">\(\{\boldsymbol{0}\} =
+\mathrm{Ker} A^0 \subsetneq \mathrm{Ker} A^1 \subsetneq \dots \subsetneq
+\mathrm{Ker} A^k \subsetneq
+\dots\)</span>，那么上式中各个子空间的维数严格递增，这与<span
+class="math inline">\(\dim \mathrm{Ker}(A^i) \leq
+n\)</span>不符。因此上述过程不能一直继续。</p>
+<p><strong>注 2</strong><br />
+由<span class="math inline">\(\dim \mathrm{Ran}(A^k) = n - \dim
+\mathrm{Ker}(A^k)\)</span>知，两者同时达到稳定。</p>
+<p><strong>定理 1</strong><br />
+设<span class="math inline">\(A \in \mathrm{M}_{n \times
+n}(\mathbb{C})\)</span>，总有<br />
+<span class="math display">\[
+\mathbb{C}^n = N_\infty(A) \oplus R_\infty(A).
+\]</span></p>
+<p><strong>证明</strong><br />
+存在<span class="math inline">\(k \leq n\)</span>，使得<br />
+<span class="math display">\[
+n = \dim \mathrm{Ran}(A^k) + \dim \mathrm{Ker}(A^k) = \dim R_\infty(A) +
+\dim N_\infty(A),
+\]</span> 只需证<span class="math inline">\(R_\infty(A) \cap N_\infty(A)
+= \{\boldsymbol{0}\}\)</span>。设<span
+class="math inline">\(\boldsymbol{v} \in R_\infty(A) \cap
+N_\infty(A)\)</span>，则<span class="math inline">\(A^k \boldsymbol{v} =
+\boldsymbol{0}\)</span>，且存在<span
+class="math inline">\(\boldsymbol{w} \in
+\mathrm{Ran}(A^n)\)</span>，使得<span class="math inline">\(A^n
+\boldsymbol{w} = \boldsymbol{v}\)</span>。故<span
+class="math inline">\(A^{k+n} \boldsymbol{w} = A^k \boldsymbol{v} =
+\boldsymbol{0}\)</span>。这说明<span
+class="math inline">\(\boldsymbol{w} \in N_\infty(A)\)</span>，故<span
+class="math inline">\(\boldsymbol{w} \in
+\mathrm{Ker}(A^n)\)</span>。因此<span class="math inline">\(0 = A^n
+\boldsymbol{w} = \boldsymbol{v}\)</span>。</p>
+<p><strong>注 3</strong><br />
+在所有<span
+class="math inline">\(A\)</span>在其上全部特征值都为零的子空间中，<span
+class="math inline">\(N_\infty(A)\)</span>最大。在所有<span
+class="math inline">\(A\)</span>在其上为双射（可逆）的子空间中，<span
+class="math inline">\(R_\infty(A)\)</span>最大。即：<span
+class="math inline">\(A\)</span>在子空间分解<span
+class="math inline">\(\mathbb{C}^n = N_\infty(A) \oplus
+R_\infty(A)\)</span>下的表示矩阵为<br />
+<span class="math display">\[
+\begin{bmatrix}
+A_N &amp; O \\
+O &amp; A_R
+\end{bmatrix},
+\]</span> 其中<span class="math inline">\(A_N\)</span>的特征值全为<span
+class="math inline">\(0\)</span>，<span
+class="math inline">\(A_R\)</span>可逆。</p>
+<h3 id="广义特征空间">广义特征空间</h3>
+<p><strong>定义 4</strong><br />
+（广义特征空间）矩阵<span class="math inline">\(A\)</span>的特征值<span
+class="math inline">\(\lambda\)</span>的<strong>广义特征空间</strong>（generalized
+eigenspace）定义为<br />
+<span class="math display">\[
+K_\lambda = N_\infty(A - \lambda I).
+\]</span></p>
+<p><strong>引理 1</strong><br />
+若<span class="math inline">\(\lambda \neq \mu\)</span>，则<span
+class="math inline">\(N_\infty(A - \lambda I) \subset R_\infty(A - \mu
+I)\)</span>。</p>
+<p><strong>证明</strong><br />
+考虑在子空间<span class="math inline">\(K_\lambda = N_\infty(A - \lambda
+I)\)</span>上的限制。<span class="math inline">\((A - \lambda
+I)|_{K_\lambda}\)</span>的特征值全为<span
+class="math inline">\(0\)</span>，故<span class="math inline">\((A - \mu
+I)|_{K_\lambda}\)</span>的特征值全为<span class="math inline">\(\lambda
+- \mu \neq 0\)</span>。因此<span class="math inline">\((A - \mu I):
+K_\lambda \rightarrow K_\lambda\)</span>是双射。故<span
+class="math inline">\(K_\lambda \subset R_\infty(A - \mu
+I)\)</span>。</p>
+<p><strong>定理 2</strong><br />
+设<span class="math inline">\(A\)</span>的互不相同的特征值分别为<span
+class="math inline">\(\lambda_1, \lambda_2, \dots,
+\lambda_k\)</span>，则对应的广义特征空间<span
+class="math inline">\(K_{\lambda_1}, K_{\lambda_2}, \dots,
+K_{\lambda_k}\)</span>线性无关。</p>
+<p><strong>证明</strong><br />
+记<span class="math inline">\(K_{\lambda_i} = K_i\)</span>，只需证<span
+class="math inline">\(K_i \cap (K_1 + K_2 + \dots + K_{i-1}) =
+\{\boldsymbol{0}\}\)</span>对所有<span class="math inline">\(1 \leq i
+\leq n\)</span>成立。由引理，<span class="math inline">\(K_1, \dots,
+K_{i-1} \subset R_\infty(A - \lambda_i I)\)</span>。故<br />
+<span class="math display">\[
+K_i \cap (K_1 + K_2 + \dots + K_{i-1}) \subset K_i \cap R_\infty(A -
+\lambda_i I) = N_\infty(A - \lambda_i I) \cap R_\infty(A - \lambda_i I)
+= \{\boldsymbol{0}\}.
+\]</span></p>
+<p><strong>定理 3</strong><br />
+（代数重数的几何意义）设<span class="math inline">\(A \in \mathrm{M}_{n
+\times n}(\mathbb{C})\)</span>，<span
+class="math inline">\(A\)</span>的互不相同的特征值分别为<span
+class="math inline">\(\lambda_1, \lambda_2, \dots,
+\lambda_k\)</span>，代数重数分别为<span
+class="math inline">\(m_a(\lambda_1), m_a(\lambda_2), \dots,
+m_a(\lambda_k)\)</span>，广义特征空间为<span
+class="math inline">\(K_{\lambda_1}, K_{\lambda_2}, \dots,
+K_{\lambda_k}\)</span>。则<br />
+<span class="math display">\[
+\dim K_{\lambda_i} = m_a(\lambda_i), \quad \forall i.
+\]</span> 即：<strong>代数重数为广义特征空间的维数</strong>。</p>
+<p><strong>注 4</strong><br />
+几何重数为特征空间的维数。</p>
+<p><strong>证明</strong><br />
+利用<span class="math inline">\(\mathbb{C}^n = N_\infty(A - \lambda I)
+\oplus R_\infty(A - \lambda
+I)\)</span>。按照该子空间分解任意选取一组基底，则<span
+class="math inline">\((A - \lambda
+I)\)</span>在其中的矩阵具有分块形式<br />
+<span class="math display">\[
+\begin{bmatrix}
+(A - \lambda I)_N &amp; O \\
+O &amp; (A - \lambda I)_R
+\end{bmatrix},
+\]</span> 其中<span class="math inline">\((A - \lambda
+I)_N\)</span>的特征值全为<span class="math inline">\(0\)</span>，<span
+class="math inline">\((A - \lambda I)_R\)</span>的特征值都不为<span
+class="math inline">\(0\)</span>。<span
+class="math inline">\(A\)</span>在该基底下的矩阵为<br />
+<span class="math display">\[
+\begin{bmatrix}
+(A - \lambda I)_N + \lambda I &amp; O \\
+O &amp; (A - \lambda I)_R + \lambda I
+\end{bmatrix}.
+\]</span> <span class="math inline">\(A\)</span>的特征多项式为<span
+class="math inline">\(p_A(x) = p_N(x) \cdot
+p_R(x)\)</span>。前者根全为<span
+class="math inline">\(\lambda\)</span>，后者根全不为<span
+class="math inline">\(\lambda\)</span>。<span
+class="math inline">\(p_N(x)\)</span>中<span
+class="math inline">\(\lambda\)</span>的重数为<span
+class="math inline">\(m_a(\lambda) = \dim(N_\infty(A - \lambda
+I))\)</span>。</p>
+<p><strong>注 5</strong><br />
+设<span class="math inline">\(d\)</span>为最小的正整数，使得<span
+class="math inline">\(K_\lambda = N_\infty(A - \lambda I) =
+\mathrm{Ker}(A - \lambda I)^d\)</span>。则必有<span
+class="math inline">\(d \leq m_a(\lambda)\)</span>。由此可知总有：<span
+class="math inline">\(K_\lambda = \mathrm{Ker}(A - \lambda
+I)^m\)</span>，其中<span
+class="math inline">\(m\)</span>为代数重数。</p>
+<p><strong>定理 4</strong><br />
+（广义特征子空间分解）设<span class="math inline">\(A \in \mathrm{M}_{n
+\times n}(\mathbb{C})\)</span>的互不相同的特征值分别为<span
+class="math inline">\(\lambda_1, \lambda_2, \dots,
+\lambda_k\)</span>，对应的广义特征空间为<span
+class="math inline">\(K_{\lambda_1}, K_{\lambda_2}, \dots,
+K_{\lambda_k}\)</span>。则有<br />
+<span class="math display">\[
+\boxed{\mathbb{C}^n = K_{\lambda_1} \oplus K_{\lambda_2} \oplus \dots
+\oplus K_{\lambda_k}}.
+\]</span></p>
+<p><strong>证明</strong><br />
+由于<span class="math inline">\(K_{\lambda_1}, K_{\lambda_2}, \dots,
+K_{\lambda_k}\)</span>线性无关，且<br />
+<span class="math display">\[
+\sum_{i=1}^k \dim K_{\lambda_i} = \sum_{i=1}^k m_a(\lambda_i) = n.
+\]</span></p>
+<p><strong>注 6</strong><br />
+由上述分析，按<span class="math inline">\(\mathbb{C}^n = K_{\lambda_1}
+\oplus K_{\lambda_2} \oplus \dots \oplus
+K_{\lambda_k}\)</span>选取一组基，<span
+class="math inline">\(A\)</span>在其下有分块形式<br />
+<span class="math display">\[
+\begin{bmatrix}
+A_1 &amp; &amp; &amp; \\
+&amp; A_2 &amp; &amp; \\
+&amp; &amp; \ddots &amp; \\
+&amp; &amp; &amp; A_n
+\end{bmatrix},
+\]</span> 其中<span class="math inline">\(A_i\)</span>的特征值全为<span
+class="math inline">\(\lambda_i\)</span>。</p>
+<p><strong>注 7</strong><br />
+由于<strong>特征值的几何重数小于等于代数重数</strong>，矩阵不可对角化的原因是：特征空间“太小了”。即如果矩阵不可对角化，有<span
+class="math inline">\(\mathbb{C}^n \supsetneq E_{\lambda_1} \oplus \dots
+\oplus E_{\lambda_k}\)</span>。</p>
+<p><strong>注 8</strong><br />
+（另一种证明思路）对子空间的维数进行归纳。<span class="math inline">\(n
+=
+1\)</span>时结论显然成立。假设对于较小维数的子空间均能进行如上的子空间分解。由最终分解定理（1.1.3），<br />
+<span class="math display">\[
+V = N_\infty(A - \lambda_1 I) \oplus R_\infty(A - \lambda_1 I).
+\]</span> 由于<span class="math inline">\(\dim N_\infty(A - \lambda_1 I)
+&gt; 0\)</span>，<span class="math inline">\(\dim R_\infty(A - \lambda_1
+I) &lt; n\)</span>。又由于<span class="math inline">\(R_\infty(A -
+\lambda_1 I)\)</span>是<span
+class="math inline">\(A\)</span>-不变子空间，且<span
+class="math inline">\(N_\infty(A - \lambda_1 I)\)</span>包含了全部<span
+class="math inline">\(\lambda_1\)</span>，<span
+class="math inline">\(A\)</span>在<span class="math inline">\(R_\infty(A
+- \lambda_1 I)\)</span>上含特征值<span class="math inline">\(\lambda_2,
+\dots, \lambda_k\)</span>。<br />
+可对在其上的限制使用归纳假设，即：<br />
+<span class="math display">\[
+R_\infty(A - \lambda_1 I) = K_{\lambda_2} \oplus \dots \oplus
+K_{\lambda_k}.
+\]</span> 故<br />
+<span class="math display">\[
+V = N_\infty(A - \lambda_1 I) \oplus R_\infty(A - \lambda_1 I) =
+N_\infty(A - \lambda_1 I) \oplus K_{\lambda_2} \oplus \dots \oplus
+K_{\lambda_k} = K_{\lambda_1} \oplus K_{\lambda_2} \oplus \dots \oplus
+K_{\lambda_k}.
+\]</span></p>
+<h3 id="幂零算子的结构">幂零算子的结构</h3>
+<p><strong>定义 5</strong><br />
+称线性变换<span
+class="math inline">\(A\)</span>是<strong>幂零的</strong>，如果存在正整数<span
+class="math inline">\(k\)</span>，使得<span class="math inline">\(A^k =
+\boldsymbol{0}\)</span>。</p>
+<p><strong>命题 4</strong><br />
+线性变换<span
+class="math inline">\(A\)</span>是幂零的，当且仅当它的全部特征值都为<span
+class="math inline">\(0\)</span>。</p>
+<p><strong>证明</strong><br />
+一方面，由谱映射定理，<span class="math inline">\(A^k =
+O\)</span>可知<span class="math inline">\(A\)</span>的全部特征值为<span
+class="math inline">\(0\)</span>。<br />
+另一方面，如果<span
+class="math inline">\(A\)</span>的全部特征值为零，则在<span
+class="math inline">\(V = N_\infty(A) \oplus
+R_\infty(A)\)</span>下，<span class="math inline">\(\dim R_\infty(A) =
+0\)</span>。故<span class="math inline">\(V = N_\infty(A) =
+\mathrm{Ker}(A^k)\)</span>。</p>
+<p>注意到<br />
+<span class="math display">\[
+\begin{bmatrix}
+0 &amp; 1 &amp; &amp; \\
+&amp; 0 &amp; 1 &amp; \\
+&amp; &amp; \ddots &amp; \ddots \\
+&amp; &amp; &amp; 0 &amp; 1 \\
+\end{bmatrix}
+\]</span>
+是典型的幂零矩阵，因此希望能为任何幂零算子选取一组基，使得其矩阵具有分块对角形式<br />
+<span class="math display">\[
+\begin{bmatrix}
+A_1 &amp; &amp; &amp; \\
+&amp; A_2 &amp; &amp; \\
+&amp; &amp; \ddots &amp; \\
+&amp; &amp; &amp; A_n
+\end{bmatrix},
+\]</span> 其中的每个分块都具有上述的形式。先考虑单个分块<span
+class="math inline">\(A\)</span>。<br />
+设<span class="math inline">\(\boldsymbol{v}_1, \boldsymbol{v}_2, \dots,
+\boldsymbol{v}_n\)</span>是所需要的基底，则有：<br />
+<span class="math display">\[
+A \boldsymbol{v}_1 = \boldsymbol{0}, \quad A \boldsymbol{v}_2 =
+\boldsymbol{v}_1, \quad \dots, \quad A \boldsymbol{v}_{k+1} =
+\boldsymbol{v}_k.
+\]</span> 即：<br />
+<span class="math display">\[
+A(\boldsymbol{v}_1, \boldsymbol{v}_2, \dots, \boldsymbol{v}_n) =
+(\boldsymbol{v}_1, \boldsymbol{v}_2, \dots, \boldsymbol{v}_n)
+\begin{bmatrix}
+0 &amp; 1 &amp; &amp; \\
+&amp; 0 &amp; 1 &amp; \\
+&amp; &amp; \ddots &amp; \ddots \\
+&amp; &amp; &amp; 0 &amp; 1 \\
+\end{bmatrix}.
+\]</span></p>
+<p><strong>定义 6</strong><br />
+对于幂零算子<span class="math inline">\(A\)</span>，称非零向量<span
+class="math inline">\(\boldsymbol{v}_1, \boldsymbol{v}_2, \dots,
+\boldsymbol{v}_p\)</span>为一个<strong>循环子空间</strong>（cycle），如果满足<br />
+<span class="math display">\[
+A \boldsymbol{v}_1 = \boldsymbol{0}, \quad A \boldsymbol{v}_{k+1} =
+\boldsymbol{v}_k, \quad k = 1, 2, \dots, p-1.
+\]</span> <span
+class="math inline">\(\boldsymbol{v}_1\)</span>称为<strong>首向量</strong>，<span
+class="math inline">\(\boldsymbol{v}_p\)</span>称为<strong>尾向量</strong>，<span
+class="math inline">\(p\)</span>称为循环的长度。</p>
+<p><strong>注 9</strong><br />
+对于任意的线性变换，也可按如上方法定义某一特征子空间的循环。即：<br />
+<span class="math display">\[
+\boldsymbol{v}_1, \boldsymbol{v}_2, \dots, \boldsymbol{v}_p \in
+E_\lambda, \quad (A - \lambda I) \boldsymbol{v}_1 = \boldsymbol{0},
+\quad (A - \lambda I) \boldsymbol{v}_{k+1} = \boldsymbol{v}_k, \quad k =
+1, 2, \dots, p-1.
+\]</span> 事实上，上述的循环就是：<br />
+<span class="math display">\[
+\boldsymbol{\gamma} = \{\underbrace{(A - \lambda I)^{p-1}
+\boldsymbol{x}}_{\boldsymbol{v}_1}, \underbrace{(A - \lambda I)^{p-2}
+\boldsymbol{x}}_{\boldsymbol{v}_2}, \dots,
+\underbrace{\boldsymbol{x}}_{\boldsymbol{v}_p}\}.
+\]</span></p>
+<p><strong>定理 5</strong><br />
+循环<span class="math inline">\(\boldsymbol{\gamma} = \{(A - \lambda
+I)^{p-1} \boldsymbol{x}, (A - \lambda I)^{p-2} \boldsymbol{x}, \dots,
+\boldsymbol{x}\}\)</span>线性无关。</p>
+<p><strong>证明</strong><br />
+设<span class="math inline">\(c_1 (A - \lambda I)^{p-1} \boldsymbol{x} +
+c_2 (A - \lambda I)^{p-2} \boldsymbol{x} + \dots + c_p \boldsymbol{x} =
+\boldsymbol{0}\)</span>，两边依次同乘<span class="math inline">\((A -
+\lambda I), (A - \lambda I)^2, \dots, (A - \lambda
+I)^{p-1}\)</span>，就可以得到系数均为<span
+class="math inline">\(0\)</span>。</p>
+<p><strong>定理 6</strong><br />
+如果<span class="math inline">\(\boldsymbol{\gamma}_1,
+\boldsymbol{\gamma}_2, \dots,
+\boldsymbol{\gamma}_r\)</span>是幂零算子<span
+class="math inline">\(A\)</span>的循环，且<span
+class="math inline">\(\boldsymbol{\gamma}_k = \{\boldsymbol{v}_1^k,
+\boldsymbol{v}_2^k, \dots,
+\boldsymbol{v}_{p_k}^k\}\)</span>。如果它们的首向量<span
+class="math inline">\(\boldsymbol{v}_1^1, \boldsymbol{v}_1^2, \dots,
+\boldsymbol{v}_1^r\)</span>线性无关，则<span
+class="math inline">\(\boldsymbol{\gamma} = \boldsymbol{\gamma}_1 \cup
+\boldsymbol{\gamma}_2 \cup \dots \cup
+\boldsymbol{\gamma}_r\)</span>线性无关。</p>
+<p><strong>定理 7</strong><br />
+设<span class="math inline">\(A: V \rightarrow
+V\)</span>是一个幂零算子，那么<span
+class="math inline">\(V\)</span>有一组由循环的不交并构成的基，即<span
+class="math inline">\(\boldsymbol{\gamma} = \boldsymbol{\gamma}_1 \cup
+\boldsymbol{\gamma}_2 \cup \dots \cup
+\boldsymbol{\gamma}_r\)</span>。</p>
+<p><strong>证明</strong><br />
+记<span class="math inline">\(n = \dim V\)</span>，对<span
+class="math inline">\(n\)</span>进行归纳。当<span
+class="math inline">\(n =
+1\)</span>时结论显然成立，设对于任何作用在维数小于<span
+class="math inline">\(n\)</span>的算子，定理都成立。由于<span
+class="math inline">\(A\)</span>是幂零算子，所以<span
+class="math inline">\(A\)</span>不可逆，故<span
+class="math inline">\(\dim \mathrm{Ran} A &lt; \dim
+V\)</span>。因此可以对<span class="math inline">\(A\)</span>在<span
+class="math inline">\(\mathrm{Ran}
+A\)</span>上的限制用归纳假设。可以找到一组循环<span
+class="math inline">\(\boldsymbol{\gamma}_1, \boldsymbol{\gamma}_2,
+\dots, \boldsymbol{\gamma}_r\)</span>，其中<span
+class="math inline">\(\boldsymbol{\gamma}_k = \{\boldsymbol{v}_1^k,
+\boldsymbol{v}_2^k, \dots, \boldsymbol{v}_{p_k}^k\}\)</span>使得<span
+class="math inline">\(\boldsymbol{\gamma} = \boldsymbol{\gamma}_1 \cup
+\boldsymbol{\gamma}_2 \cup \dots \cup
+\boldsymbol{\gamma}_r\)</span>是<span class="math inline">\(\mathrm{Ran}
+A\)</span>的一组基。每一个循环中，尾向量<span
+class="math inline">\(\boldsymbol{v}_{p_k}^k \in \mathrm{Ran}
+A\)</span>。所以存在<span
+class="math inline">\(\boldsymbol{v}_{p_k+1}^k\)</span>，使得<span
+class="math inline">\(A \boldsymbol{v}_{p_k+1}^k =
+\boldsymbol{v}_{p_k}^k\)</span>。按这样的方式将每一个循环扩张成为<span
+class="math inline">\(\tilde{\boldsymbol{\gamma}}_k =
+\boldsymbol{\gamma}_k \cup \{\boldsymbol{v}_{p_k+1}^k\} =
+\{\boldsymbol{v}_1^k, \boldsymbol{v}_2^k, \dots, \boldsymbol{v}_{p_k}^k,
+\boldsymbol{v}_{p_k+1}^k\}\)</span>。新循环的首向量仍然线性无关，根据之前的定理，它们的并集<span
+class="math inline">\(\tilde{\boldsymbol{\gamma}}_1 \cup
+\tilde{\boldsymbol{\gamma}}_2 \cup \dots \cup
+\tilde{\boldsymbol{\gamma}}_r\)</span>线性无关。</p>
+<p>注意到<span class="math inline">\(A \boldsymbol{v}_1^k =
+\boldsymbol{0}\)</span>，<span class="math inline">\(\boldsymbol{v}_1^k
+\in \mathrm{Ker} A\)</span>。且各个循环的首向量<span
+class="math inline">\(\{\boldsymbol{v}_1^1, \dots,
+\boldsymbol{v}_1^r\}\)</span>线性无关。故可以将它们扩充成为<span
+class="math inline">\(\mathrm{Ker} A\)</span>的一组基底<span
+class="math inline">\(\{\boldsymbol{v}_1^1, \dots, \boldsymbol{v}_1^r,
+\boldsymbol{u}_1, \boldsymbol{u}_2, \dots,
+\boldsymbol{u}_q\}\)</span>。<span
+class="math inline">\(\boldsymbol{u}_1, \boldsymbol{u}_2, \dots,
+\boldsymbol{u}_q\)</span>这些向量可以被当作长度为<span
+class="math inline">\(1\)</span>的循环。令<span
+class="math inline">\(\tilde{\boldsymbol{\gamma}} =
+\tilde{\boldsymbol{\gamma}}_1 \cup \tilde{\boldsymbol{\gamma}}_2 \cup
+\dots \cup \tilde{\boldsymbol{\gamma}}_r \cup \{\boldsymbol{u}_1\} \cup
+\dots \cup
+\{\boldsymbol{u}_q\}\)</span>。它们的首向量线性无关，由之前的定理，<span
+class="math inline">\(\tilde{\boldsymbol{\gamma}}\)</span>线性无关。</p>
+<p><span class="math inline">\(\boldsymbol{\gamma} =
+\boldsymbol{\gamma}_1 \cup \boldsymbol{\gamma}_2 \cup \dots \cup
+\boldsymbol{\gamma}_r\)</span>是<span class="math inline">\(\mathrm{Ran}
+A\)</span>的一组基。所以<span class="math inline">\(\#
+\boldsymbol{\gamma} = \dim \mathrm{Ran} A\)</span>。<span
+class="math inline">\(\# \tilde{\boldsymbol{\gamma}}_1 \cup
+\tilde{\boldsymbol{\gamma}}_2 \cup \dots \cup
+\tilde{\boldsymbol{\gamma}}_r = \dim \mathrm{Ran} A + r\)</span>。<span
+class="math inline">\(\# \tilde{\boldsymbol{\gamma}} = \dim \mathrm{Ran}
+A + r + q\)</span>。另一方面，<span
+class="math inline">\(\{\boldsymbol{v}_1^1, \dots, \boldsymbol{v}_1^r,
+\boldsymbol{u}_1, \boldsymbol{u}_2, \dots,
+\boldsymbol{u}_q\}\)</span>是<span class="math inline">\(\mathrm{Ker}
+A\)</span>的基底，所以<span class="math inline">\(\dim \mathrm{Ker} A =
+r + q\)</span>。</p>
+<p>综上，<span class="math inline">\(\# \tilde{\boldsymbol{\gamma}} =
+\dim \mathrm{Ran} A + r + q = \dim \mathrm{Ran} A + \dim \mathrm{Ker} A
+= \dim V\)</span>。这就证明了<span
+class="math inline">\(\tilde{\boldsymbol{\gamma}}\)</span>构成<span
+class="math inline">\(V\)</span>的一组基。</p>
+<p><strong>注 10</strong><br />
+循环子空间是一种“killing chain”，即：<br />
+<span class="math display">\[
+\boldsymbol{v}_p \xrightarrow{A} \boldsymbol{v}_{p-1} \xrightarrow{A}
+\dots \xrightarrow{A} \boldsymbol{v}_1 \xrightarrow{A} \boldsymbol{0}.
+\]</span> 称上述选定的基底为 <strong>Jordan 标准基</strong>。</p>
+<p><strong>推论 3</strong><br />
+设<span class="math inline">\(A: V \rightarrow
+V\)</span>是幂零算子，则存在一组基底，使得<span
+class="math inline">\(A\)</span>的矩阵具有分块对角形式<span
+class="math inline">\(\mathrm{diag}\{A_1, A_2, \dots,
+A_k\}\)</span>，其中每个分块具有<br />
+<span class="math display">\[
+\begin{bmatrix}
+0 &amp; 1 &amp; &amp; \\
+&amp; 0 &amp; 1 &amp; \\
+&amp; &amp; \ddots &amp; \ddots \\
+&amp; &amp; &amp; 0 &amp; 1 \\
+\end{bmatrix}
+\]</span> 的形式。</p>
+<p><strong>证明</strong><br />
+为其选择 Jordan 标准基，长度为<span
+class="math inline">\(p\)</span>的循环对应<span class="math inline">\(p
+\times p\)</span>的分块，长度为<span
+class="math inline">\(1\)</span>的循环对应一个<span
+class="math inline">\(0\)</span>，可看做这些<span
+class="math inline">\(0\)</span>共拼成一个大的分块。</p>
+<h3 id="jordan-标准型-1">Jordan 标准型</h3>
+<p>至此，完全证明了 Jordan 分解定理。</p>
+<p><strong>定理 8</strong><br />
+（Jordan 分解定理）设<span class="math inline">\(A \in \mathrm{M}_{n
+\times n}(\mathbb{C})\)</span>，特征值为<span
+class="math inline">\(\lambda_1, \lambda_2, \dots,
+\lambda_k\)</span>（互不相同），代数重数分别为<span
+class="math inline">\(m_1, m_2, \dots, m_k\)</span>。那么：<br />
+1.<span class="math inline">\(\dim K_{\lambda_i} = m_i\)</span>。<br />
+2.<span class="math inline">\(\mathbb{C}^n = K_{\lambda_1} \oplus
+K_{\lambda_2} \oplus \dots \oplus K_{\lambda_k}\)</span>。<br />
+3. 每个<span class="math inline">\(K_{\lambda_i}\)</span>有一组基<span
+class="math inline">\(\mathcal{B}_i = \boldsymbol{\gamma}_1^i \cup \dots
+\cup \boldsymbol{\gamma}_r^i\)</span>，其中<br />
+<span class="math display">\[
+\boldsymbol{\gamma}_k^i = \{\underbrace{(A - \lambda I)^{p-1}
+\boldsymbol{x}}_{\boldsymbol{v}_1}, \underbrace{(A - \lambda I)^{p-2}
+\boldsymbol{x}}_{\boldsymbol{v}_2}, \dots,
+\underbrace{\boldsymbol{x}}_{\boldsymbol{v}_p}\}.
+\]</span> 特别地，根据定义，首向量是一个特征向量。</p>
+<p><strong>定理 9</strong><br />
+对于任意矩阵<span class="math inline">\(A \in \mathrm{M}_{n \times
+n}(\mathbb{C})\)</span>，存在可逆矩阵<span
+class="math inline">\(X\)</span>，使得<span class="math inline">\(A = X
+J X^{-1}\)</span>，其中：<br />
+<span class="math display">\[
+J =
+\begin{bmatrix}
+J_1 &amp; &amp; &amp; \\
+&amp; J_2 &amp; &amp; \\
+&amp; &amp; \ddots &amp; \\
+&amp; &amp; &amp; J_n
+\end{bmatrix},
+\]</span> 其中<span class="math inline">\(J_k =
+\begin{bmatrix}
+\lambda_k &amp; 1 &amp; &amp; \\
+&amp; \ddots &amp; \ddots &amp; \\
+&amp; &amp; \ddots &amp; 1 \\
+&amp; &amp; &amp; \lambda_k
+\end{bmatrix}\)</span>。</p>
+<p><strong>证明</strong><br />
+由<span class="math inline">\(\mathbb{C}^n = K_{\lambda_1} \oplus
+K_{\lambda_2} \oplus \dots \oplus
+K_{\lambda_k}\)</span>，每个广义特征空间都是<span
+class="math inline">\(A\)</span>-不变子空间，所以<span
+class="math inline">\((A - \lambda_i I)\)</span>在<span
+class="math inline">\(K_{\lambda_i}\)</span>上的限制是幂零算子。</p>
+<p>由此可知，存在可逆矩阵<span
+class="math inline">\(X_i\)</span>，使得<span class="math inline">\((A -
+\lambda_i I)|_{K_{\lambda_i}}\)</span>的表示矩阵<br />
+<span class="math display">\[
+A_i - \lambda_i I = X_i
+\begin{bmatrix}
+0 &amp; 1 &amp; &amp; \\
+&amp; 0 &amp; 1 &amp; \\
+&amp; &amp; \ddots &amp; \ddots \\
+&amp; &amp; &amp; 0 &amp; 1 \\
+\end{bmatrix}
+X_i^{-1},
+\]</span> 所以<br />
+<span class="math display">\[
+A_i = X_i
+\begin{bmatrix}
+\lambda_i &amp; 1 &amp; &amp; \\
+&amp; \ddots &amp; \ddots &amp; \\
+&amp; &amp; \ddots &amp; 1 \\
+&amp; &amp; &amp; \lambda_i
+\end{bmatrix}
+X_i^{-1} = X_i J_i X_i^{-1}.
+\]</span> 故：<br />
+<span class="math display">\[
+A = P
+\begin{bmatrix}
+A_1 &amp; &amp; &amp; \\
+&amp; A_2 &amp; &amp; \\
+&amp; &amp; \ddots &amp; \\
+&amp; &amp; &amp; A_n
+\end{bmatrix}
+P^{-1} = P
+\begin{bmatrix}
+X_1 J_1 X_1^{-1} &amp; &amp; &amp; \\
+&amp; X_2 J_2 X_2^{-1} &amp; &amp; \\
+&amp; &amp; \ddots &amp; \\
+&amp; &amp; &amp; X_k J_k X_k^{-1}
+\end{bmatrix}
+P^{-1} = P
+\begin{bmatrix}
+X_1 &amp; &amp; &amp; \\
+&amp; X_2 &amp; &amp; \\
+&amp; &amp; \ddots &amp; \\
+&amp; &amp; &amp; X_k
+\end{bmatrix}
+\begin{bmatrix}
+J_1 &amp; &amp; &amp; \\
+&amp; J_2 &amp; &amp; \\
+&amp; &amp; \ddots &amp; \\
+&amp; &amp; &amp; J_n
+\end{bmatrix}
+\begin{bmatrix}
+X_1^{-1} &amp; &amp; &amp; \\
+&amp; X_2^{-1} &amp; &amp; \\
+&amp; &amp; \ddots &amp; \\
+&amp; &amp; &amp; X_k^{-1}
+\end{bmatrix}
+P^{-1}.
+\]</span> 所以只要令<br />
+<span class="math display">\[
+X = P
+\begin{bmatrix}
+X_1 &amp; &amp; &amp; \\
+&amp; X_2 &amp; &amp; \\
+&amp; &amp; \ddots &amp; \\
+&amp; &amp; &amp; X_k
+\end{bmatrix},
+\]</span> 就完成了证明。</p>
+]]></content>
+      <categories>
+        <category>数学</category>
+      </categories>
+      <tags>
+        <tag>笔记</tag>
+        <tag>线性代数</tag>
+      </tags>
+  </entry>
+</search>
