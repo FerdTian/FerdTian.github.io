@@ -29,8 +29,23 @@ href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
 ]]></content>
   </entry>
   <entry>
+    <title>线性回归分析笔记</title>
+    <url>/2025/02/14/linear_regression/linear_regression/</url>
+    <content><![CDATA[<p>2025 Fall 线性回归分析课程笔记及课程总结.</p>
+<span id="more"></span>
+<h2 id="前言">前言</h2>
+]]></content>
+      <categories>
+        <category>统计</category>
+      </categories>
+      <tags>
+        <tag>笔记</tag>
+        <tag>线性回归</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Jordan 标准型笔记</title>
-    <url>/2024/04/14/jordan_canonical_form/</url>
+    <url>/2025/02/14/jordan_canonical_form/</url>
     <content><![CDATA[<p>整理了 Jordan 标准型的一些定理和证明.</p>
 <span id="more"></span>
 <h1 id="jordan-标准型">Jordan 标准型</h1>
@@ -729,6 +744,94 @@ X_1 &amp; &amp; &amp; \\
       <tags>
         <tag>笔记</tag>
         <tag>线性代数</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>随机过程笔记</title>
+    <url>/2025/02/14/stochastic_process/stochastic_process.md/stochastic_process/</url>
+    <content><![CDATA[<p>2025 Fall 高等概率论 II 课程笔记及课程总结.</p>
+<span id="more"></span>
+<p><span class="math display">\[
+    \newcommand{\E}{\mathbb E}
+    \newcommand{\p}{\mathbb P}
+    \newcommand{\F}{\mathcal F}
+    \newcommand{\Q}{\mathbb Q}
+\]</span></p>
+<h2 id="鞅的几乎处处收敛">鞅的几乎处处收敛</h2>
+<div class="note info"><p><strong>定理</strong> 设 <span class="math inline">\(\{X_n, n\ge
+0\}\)</span> 是关于 <span class="math inline">\(\mathcal F_n\)</span>
+的下鞅. 且满足 <span class="math inline">\(\sup_n \mathbb E
+X_n^+&lt;\infty\)</span>, 则 <span class="math inline">\(X_n\to
+X\)</span> a.s. 且 <span class="math inline">\(\mathbb E
+|X|&lt;\infty\)</span>.</p>
+</div>
+<p>证明: 要证 <span class="math inline">\(\mathbb
+P(\{\omega:\lim_{n\to\infty} X_n(\omega)存在\})=1\)</span>, 只需证明
+<span class="math display">\[\mathbb P(\{\omega:\limsup_{n\to\infty}
+X_n(\omega)&lt;\liminf_{n\to\infty} X_n(\omega)\})=0.\]</span>
+常用的技巧是插入有理数: 由于 <span class="math inline">\(\{\omega:
+\liminf X_n(\omega)&lt;\limsup X_n(\omega)\}\subset \bigcup_{a,b\in
+\mathbb Q} \{\omega:\liminf X_n(\omega)&lt;a&lt;b&lt;\limsup
+X_n(\omega)\}\)</span>. 故只需证 <span class="math inline">\(\forall\;
+a,b\in \mathbb Q\)</span>, <span class="math inline">\(\mathbb
+P(\{\omega:\liminf X_n(\omega)&lt;a&lt;b&lt;\limsup
+X_n(\omega)\})=0\)</span>.</p>
+<p>这里要注意到, 上极限大于 <span class="math inline">\(a\)</span>,
+代表有大于 <span class="math inline">\(a\)</span> 的子列, 下极限小于
+<span class="math inline">\(b\)</span>, 代表有小于 <span
+class="math inline">\(b\)</span> 的子列. 合起来考虑就会发现,
+这等价于说整个序列穿越 <span class="math inline">\(a, b\)</span>
+这两条线无穷多次. 这启发我们考虑 <span
+class="math display">\[U_n(\omega):=\{X_n(\omega)序列在 m\le n 时上穿
+a,b的次数\}.\]</span></p>
+<p>设 <span class="math inline">\(U_n(\omega)\nearrow
+U(\omega)\)</span>, 后者即为整个序列上穿 <span
+class="math inline">\(a,b\)</span> 的总次数.</p>
+<p>从实际意义考虑这个过程, 这相当于低价买进, 高价卖出股票, 且股票是下鞅,
+即为好股票. 这就是说一个总体呈现上升趋势的过程, (我们希望证明:
+这种穿越的过程应该次数有限). 所以</p>
+<p><span class="math display">\[\{\omega: \liminf
+X_n(\omega)&lt;a&lt;b&lt;\limsup X_n(\omega)\}\subset \{\omega:
+U(\omega)=\infty\}\]</span></p>
+<p>把之前的想法翻译成数学语言: 定义 <span
+class="math display">\[N_0=-1,\]</span> <span
+class="math display">\[N_1=\inf\{n: X_n\le a\}, N_2=\inf\{n&gt;n_1:
+X_n\ge b\}\]</span> <span class="math display">\[\cdots\]</span> <span
+class="math display">\[N_{2k-1}=\inf\{n&gt;N_{2k-2}:X_n\le a\},
+N_{2k}=\inf\{n&gt;N_{2k-1}, X_n\ge b\}.\]</span></p>
+<p>可验证所有的 <span class="math inline">\(N_j, j=0,1,\cdots\)</span>
+都是停时. 定义 <span class="math display">\[H_m=\begin{cases}
+1, &amp; \exists k, s.t. N_{2k-1}\le m&lt;N_{2k} (位于某个上穿过程,
+即时刻 m 持有股票)\\
+0, &amp; \text{otherwise, (时刻 $m$ 不持有股票)}.
+\end{cases}.\]</span></p>
+<p><span class="math display">\[\{H_m=1\} =\bigcup_{k=1}^\infty
+\{N_{2k-1}&lt;m&lt; N_{2k}\}=\bigcup_{k=1}^\infty \{N_{2k-1}\le
+2m-1\}\cap\{N_{2k}\le m-1\}^c.\]</span></p>
+<p>最后那两个集合都属于 <span class="math inline">\(\mathcal
+F_{m-1}\)</span>. 所以 <span class="math inline">\(\{H_m=1\}\in \mathcal
+F_{m-1}\)</span>, 即 <span class="math inline">\(H_m\)</span>
+是可料的过程.</p>
+<p><span class="math inline">\(U_n=\sup\{k: N_{2k}\le n\}\)</span>
+是完成的上穿次数.</p>
+<div class="note info"><p><strong>引理:</strong> (上穿不等式) 若 <span
+class="math inline">\(X_n\)</span> 是下鞅. 那么 <span
+class="math inline">\((b-a) \E U_n\le
+\E(X_n-a)^+-\E(X_0-a)^+\)</span>.</p>
+</div>
+<p>利用这个引理. 我们得到 <span class="math display">\[\E[U_n]\le \frac
+1{b-a}(\E(X_n-a)^+-\E(X_0-a)^+)\le\frac 1{b-a}(\E X_n^+|a|)\le \frac
+1{b-a}(\sup_n\E X_n^+|a|)&lt;\infty.\]</span></p>
+<p>所以 <span class="math inline">\(\E U\le \liminf\E
+U_n&lt;\infty.\)</span> 这说明 <span
+class="math inline">\(\p(U&lt;\infty)=1\)</span>.</p>
+]]></content>
+      <categories>
+        <category>统计</category>
+      </categories>
+      <tags>
+        <tag>笔记</tag>
+        <tag>线性回归</tag>
       </tags>
   </entry>
 </search>
