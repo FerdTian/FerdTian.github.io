@@ -704,6 +704,21 @@ X_1 &amp; &amp; &amp; \\
       </tags>
   </entry>
   <entry>
+    <title>线性回归分析笔记</title>
+    <url>/2025/02/14/linear_regression/linear_regression/</url>
+    <content><![CDATA[<p>2025 Fall 线性回归分析课程笔记及课程总结.</p>
+<span id="more"></span>
+<h2 id="前言">前言</h2>
+]]></content>
+      <categories>
+        <category>统计</category>
+      </categories>
+      <tags>
+        <tag>笔记</tag>
+        <tag>线性回归</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>随机分析读书笔记</title>
     <url>/2025/02/28/stochastic_analysis/stochastic_analysis/</url>
     <content><![CDATA[<p>读 Le Gall 的 Brownian Motion, Martingales, and Stochastic Calculus
@@ -733,8 +748,8 @@ X^{2n}=\frac{(2n)!}{2^n n!},\quad \E X^{2n+1}=0\)</span>.</li>
 </ul>
 <div class="note info"><h4 id="命题">命题</h4>
 <p><span class="math inline">\(\{X_n\}_{n\ge 1}\)</span> 是一列随机变量,
-$X_nN(m_n, _n^2). 设 <span class="math inline">\(X_n\stackrel{L^2}\to
-X\)</span>, 那么</p>
+<span class="math inline">\(X_n\sim N(m_n, \sigma_n^2)\)</span>. 设
+<span class="math inline">\(X_n\stackrel{L^2}\to X\)</span>, 那么</p>
 <ol type="1">
 <li><p><span class="math inline">\(m_n, \sigma_n^2\)</span> 都收敛, 且
 <span class="math inline">\(X\sim N(m,\sigma^2)\)</span>, 其中 <span
@@ -913,33 +928,34 @@ class="math inline">\(\Gamma\)</span> 满足条件.</p>
 </div>
 <h3 id="高斯白噪声">高斯白噪声</h3>
 <div class="note primary"><h4 id="定义-高斯白噪声">定义: 高斯白噪声</h4>
-<p><span class="math inline">\((E,\Epsilon,\mu)\)</span> 是<span
+<p><span class="math inline">\((E,\mathcal E,\mu)\)</span> 是<span
 class="math inline">\(\sigma\)</span>-有限的测度空间. 强度为 <span
 class="math inline">\(\mu\)</span> 的高斯白噪声是指一个等距映射 <span
-class="math inline">\(G: L^2(E,\Epsilon, \mu) \to H\)</span>, <span
+class="math inline">\(G: L^2(E,\mathcal E, \mu) \to H\)</span>, <span
 class="math inline">\(H\subset L^2(\Omega,\F,\p)\)</span>
 是某个高斯空间.</p>
 </div>
-<p>设 <span class="math inline">\(f,g\in L^2(E,\Epsilon, \mu)\)</span>,
-那么 <span class="math inline">\(G(f), G(g)\)</span> 是中心高斯变量,
-且方差 <span class="math display">\[\E[G(f)^2]=\|G(f)\|^2_{L^2(\Omega,
-\F, \p)}=\|f\|^2_{L^2(E,\Epsilon,\mu)}=\int f^2d\mu,\]</span> <span
+<p>设 <span class="math inline">\(f,g\in L^2(E,\mathcal E,
+\mu)\)</span>, 那么 <span class="math inline">\(G(f), G(g)\)</span>
+是中心高斯变量, 且方差 <span
+class="math display">\[\E[G(f)^2]=\|G(f)\|^2_{L^2(\Omega, \F,
+\p)}=\|f\|^2_{L^2(E,\mathcal E,\mu)}=\int f^2d\mu,\]</span> <span
 class="math display">\[\E[G(f)G(g)]=\langle G(f) \rangle_H=\langle
-f,g\rangle_{L^2(E,\Epsilon,\mu)}=\int fgd\mu.\]</span></p>
+f,g\rangle_{L^2(E,\mathcal E,\mu)}=\int fgd\mu.\]</span></p>
 <p>若 <span class="math inline">\(f=\1_A\)</span>, <span
 class="math inline">\(\mu(A)&lt;\infty\)</span>. 那么 <span
 class="math inline">\(G(\1_A)\sim N(0,\mu(A))\)</span>. 以后记 <span
 class="math inline">\(G(A):=G(\1_A)\)</span>.</p>
 <div class="note info"><h4 id="命题">命题</h4>
-<p>设 <span class="math inline">\(A_1,\cdots, A_n\in \Epsilon\)</span>
+<p>设 <span class="math inline">\(A_1,\cdots, A_n\in \mathcal E\)</span>
 互不相交, <span class="math inline">\(\mu(A_i)&lt;\infty\)</span>. 那么
 (G(A_1),, G(A_n)) 是一个高斯向量. 且 <span
 class="math inline">\(G(A_1),\cdots, G(A_n)\)</span> 两两独立.</p>
 </div>
-<p>以下都认为 <span class="math inline">\(L^2(E,\Epsilon, \mu)\)</span>
-是可分的 Hilbert 空间.</p>
+<p>以下都认为 <span class="math inline">\(L^2(E,\mathcal E,
+\mu)\)</span> 是可分的 Hilbert 空间.</p>
 <div class="note info"><h4 id="命题">命题</h4>
-<p><span class="math inline">\((E,\Epsilon,\mu)\)</span> 是<span
+<p><span class="math inline">\((E,\mathcal E,\mu)\)</span> 是<span
 class="math inline">\(\sigma\)</span>-有限的测度空间.
 一定存在一个概率空间 <span class="math inline">\((\Omega, \F,
 \p)\)</span> 和一个强度为 <span class="math inline">\(\mu\)</span>
@@ -947,11 +963,11 @@ class="math inline">\(\sigma\)</span>-有限的测度空间.
 </div>
 <p><strong>证明:</strong> 设 <span
 class="math inline">\(\{e_j\}\)</span> 是 <span
-class="math display">\[L^2(E,\Epsilon,\mu)\]</span> 的 ONB. 取概率空间
+class="math display">\[L^2(E,\mathcal E,\mu)\]</span> 的 ONB. 取概率空间
 <span class="math inline">\((\Omega, \F, \p)\)</span> 和 i.i.d.
 的高斯变量 <span class="math inline">\(\{X_i\}_{i=1}^\infty\)</span>.
 定义 <span class="math display">\[G: f=\sum_i \langle f,e_i\rangle e_i\
-\ \maspto\ \ \sum_i \langle_i X_i.\]</span></p>
+\ \maspto\ \ \sum_i \langle f,e_i\rangle X_i.\]</span></p>
 <h3 id="课后题">课后题</h3>
 <div class="note success"><h4 id="习题-1.15">习题 1.15</h4>
 <p><span class="math inline">\(\{X_t\}_{t\in [0,1]}\)</span>
@@ -975,9 +991,8 @@ class="math inline">\(\int_0^1 h(t)X_t(\omega)dt\)</span> 是绝对收敛的.
 <li><p>假设 <span
 class="math inline">\(\int_0^1|h(t)|dt&lt;\infty\)</span>. 证明 <span
 class="math inline">\(Z_n=\sum_{i=1}^n X_{\frac
-in}\int_{\frac{i-1}n}^{\frac in}h(t)dt\to Z\)</span> in <span
-class="math inline">\(L^2\)</span> as <span
-class="math inline">\(n\to\infty\)</span>, 并证明 <span
+in}\int_{\frac{i-1}n}^{\frac in}h(t)dt\stackrel{L^2}\to Z\)</span> as
+<span class="math inline">\(n\to\infty\)</span>, 并证明 <span
 class="math inline">\(Z\)</span> 是高斯随机变量.</p></li>
 <li><p>设 <span class="math inline">\(K\in C^2([0,1]^2)\)</span>. 证明
 <span class="math inline">\(\forall\; t\in [0,1]\)</span>, 极限 <span
@@ -998,21 +1013,6 @@ X_s-X_t}{s-t}\]</span> 在 <span class="math inline">\(L^2\)</span>
       </categories>
       <tags>
         <tag>笔记</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>线性回归分析笔记</title>
-    <url>/2025/02/14/linear_regression/linear_regression/</url>
-    <content><![CDATA[<p>2025 Fall 线性回归分析课程笔记及课程总结.</p>
-<span id="more"></span>
-<h2 id="前言">前言</h2>
-]]></content>
-      <categories>
-        <category>统计</category>
-      </categories>
-      <tags>
-        <tag>笔记</tag>
-        <tag>线性回归</tag>
       </tags>
   </entry>
   <entry>
