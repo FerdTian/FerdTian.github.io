@@ -719,6 +719,134 @@ X_1 &amp; &amp; &amp; \\
       </tags>
   </entry>
   <entry>
+    <title>随机分析读书笔记</title>
+    <url>/2025/02/28/stochastic_analysis/stochastic_analysis/</url>
+    <content><![CDATA[<p>读 Le Gall 的 Brownian Motion, Martingales, and Stochastic Calculus
+的时候记录的一点笔记和课后题.</p>
+<span id="more"></span>
+<p><span class="math display">\[
+    \newcommand{\Z}{\mathbb Z}
+    \newcommand{\E}{\mathbb E}
+    \newcommand{\p}{\mathbb P}
+    \newcommand{\F}{\mathcal F}
+    \newcommand{\Q}{\mathbb Q}
+    \newcommand{\i}{\mathrm i}
+    \newcommand{\spann}{\operatorname{span}}
+\]</span></p>
+<h2 id="高斯变量-高斯过程">高斯变量, 高斯过程</h2>
+<h3 id="高斯分布的一些性质复习">高斯分布的一些性质复习</h3>
+<h4 id="一元正态分布">一元正态分布:</h4>
+<ul>
+<li>c.f.: <span class="math inline">\(\phi(\xi)=\E[e^{i\xi Y}]=\exp(\i
+m\xi-\frac{\sigma^2}{2}\xi^2)\)</span>.</li>
+<li>标准正态分布高阶矩: <span class="math inline">\(\E
+X^{2n}=\frac{(2n)!}{2^n n!},\quad \E X^{2n+1}=0\)</span>.</li>
+</ul>
+<div class="note info"><h4 id="命题">命题</h4>
+<pre><code>$\{X_n\}_{n\ge 1}$ 是一列随机变量,  $X_n\sim N(m_n, \sigma_n^2). 设 $X_n\stackrel{L^2}\to X$, 那么
+
+1. $m_n, \sigma_n^2$ 都收敛, 且 $X\sim N(m,\sigma^2)$, 其中 $m=\lim m_n, \sigma^2=\lim \sigma_n^2$.
+
+2. $X_n\stackrel{L^p}\to X,\quad \forall\; 1\le p&lt;\infty$.</code></pre>
+</div>
+<p><strong>证明:</strong></p>
+<ol type="1">
+<li><p>由 <span class="math inline">\(L^2\)</span> 收敛, 可知 <span
+class="math inline">\(\E|X_n-X|\to 0\)</span>, <span
+class="math inline">\(\E|X_n-X|^2\to 0\)</span>. 这说明 <span
+class="math inline">\(m_n=\E X_n\to \E X\)</span>, <span
+class="math inline">\(\sigma_n^2=\var X_n\to \var X\)</span>.</p>
+<p>令 <span class="math inline">\(m=\lim m_n\)</span>, <span
+class="math inline">\(\sigma^2=\lim \sigma_n^2\)</span>, 那么 <span
+class="math display">\[\E[e^{\i\xi X}]=\lim_{n\to\infty} \E[e^{\i \xi
+X_n}]=\lim_{n\to\infty} \exp(\i m_n\xi-\frac{\sigma_n^2}2 \xi^2)=\exp(\i
+m\xi-\frac{\sigma^2}2\xi^2).\]</span> 所以 <span
+class="math inline">\(X\sim N(m,\sigma^2)\)</span>.</p></li>
+<li><p>由 <span class="math inline">\(m_n,\sigma_n^2\)</span>
+收敛可知这两个序列有界. 所以 <span
+class="math inline">\(\sup_n\E|X_n|^q&lt;\infty\)</span>, 进而 <span
+class="math inline">\(\sup_n\E |X_n-X|^q&lt;\infty,\;\forall\; q\ge
+1\)</span>. 取 <span class="math inline">\(q=2p\)</span>, 这说明 <span
+class="math inline">\(Y_n=|X_n-X|^p\)</span> 在 <span
+class="math inline">\(L^2\)</span> 中有界, 进而一致可积. 由 <span
+class="math inline">\(Y_n\)</span> 依概率收敛到 0, 可知 <span
+class="math inline">\(Y_n\)</span> <span
+class="math inline">\(L^1\)</span> 收敛.</p></li>
+</ol>
+<details class="note warning"><summary><p>注</p>
+</summary>
+<p>复习: 若存在 <span class="math inline">\(p&gt;1\)</span>, 使 <span
+class="math inline">\(X_n\)</span> 在 <span
+class="math inline">\(L^p\)</span> 中有界, 那么 <span
+class="math inline">\(X_n\)</span> UI.</p>
+
+</details>
+<h4 id="多元正态分布-高斯向量">多元正态分布, 高斯向量:</h4>
+<p><span class="math inline">\(E\)</span> 是 <span
+class="math inline">\(d\)</span> 维欧式空间. <span
+class="math inline">\(X:\Omega \to E\)</span> 是高斯向量 (服从多元正态),
+当且仅当对任意 <span class="math inline">\(u\in E\)</span>, <span
+class="math inline">\(\langle u,X\rangle\)</span> 服从一元正态分布.</p>
+<p>取 <span class="math inline">\(E\)</span> 中的 ONB <span
+class="math inline">\(\{e_1,\cdots e_d\}\)</span>, 设 <span
+class="math inline">\(X=\sum_i X_ie_i\)</span>, 那么 <span
+class="math inline">\(X_i=\langle e_i, X\rangle\)</span>
+都是一元高斯变量. 可以定义均值 <span class="math inline">\(m_X=\sum_i
+(\E X_i) e_i=: \E X\)</span>, 协方差 (一个二次型) <span
+class="math inline">\(q_X:E\to \R\)</span>, <span
+class="math display">\[q_X(u)=\sum_{i,j}
+u_iu_j\cov(X_i,X_j).\]</span></p>
+<p>这样就有 <span class="math display">\[\E\langle u,X\rangle=\langle u,
+m_X\rangle,\]</span> <span class="math display">\[\var \langle
+u,X\rangle=q_X(u).\]</span></p>
+<p>可以定义特征函数 <span
+class="math inline">\(\phi_X(u)=\E[\exp(\i\langle
+u,X\rangle)]=\exp(\i\langle u,m_X\rangle-\frac 12q_X(u))\)</span>.</p>
+<div class="note info"><h4 id="命题">命题</h4>
+<pre><code>$X_1,\cdots, X_d$ 独立当且仅当 $q_X$ 在基 $(e_1,\cdots, e_d)$ 下是对角的, 即协方差矩阵 $(\cov(X_i, X_j))_{i,j}$ 是对角阵.</code></pre>
+</div>
+<p>存在对称的自同态 <span class="math inline">\(\gamma_X:E\to
+E\)</span>, 使得 <span class="math inline">\(q_X=\langle u, \gamma_X
+u\rangle\)</span>. <span class="math inline">\(\gamma_X\)</span>
+的表示矩阵就是协方差矩阵.</p>
+<h3 id="高斯过程">高斯过程</h3>
+<p>以下讨论的都是中心的高斯变量, 即 <span class="math inline">\(\E
+X=0\)</span>.</p>
+<div class="note primary"><h4 id="定义-高斯空间">定义: 高斯空间</h4>
+<pre><code>称 $H\subset L^2(\Omega,\F,\p)$ 是高斯空间, 如果 $H$ 是 $L^2(\Omega,\F,\p)$ 的闭子空间, 且其中只包含中心高斯变量.</code></pre>
+</div>
+<p>例如: 如果 <span class="math inline">\(X=(X_1,\cdots, X_d)\in
+\R^d\)</span> 是高斯向量, 那么 <span
+class="math inline">\(\spann\{X_1,\cdots, X_d\}\)</span> 是高斯空间.</p>
+<div class="note primary"><h4 id="定义-高斯过程">定义: 高斯过程</h4>
+<pre><code>称随机过程 $\{X_t\}$ 为高斯过程, 如果任意 $\{X_t\}$ 的有限线性组合是中心的高斯变量.</code></pre>
+</div>
+<div class="note info"><h4 id="命题">命题:</h4>
+<pre><code>如果 $\{X_t\}_{t\in T}$ 在 $L^2$ 中张成的闭子空间是高斯空间, 那么随机过程 $\{X_t\}_{t\in T}$ 是高斯过程.</code></pre>
+</div>
+<p><strong>证明:</strong> 因为中心高斯变量的 <span
+class="math inline">\(L^2\)</span> 极限仍是高斯变量.</p>
+<p>下面来研究高斯空间的独立性:</p>
+<div class="note info"><h4 id="定理">定理</h4>
+<pre><code>$H$ 是中心高斯空间, $\{H_i\}$ 是 $H$ 的一列子空间. $\{H_i\}$ 在 $L^2$ 中两两正交, 当且仅当他们生成的 $\sigma$-代数 $\sigma(H_i), i\in I$ 是互相独立的.</code></pre>
+</div>
+<div class="note warning"><h4 id="注">注</h4>
+<pre><code>$\{H_i\}$ 必须是同一个高斯空间的子空间. 以下是一个反例, 说明对于两个随便的高斯变量, 他们的不相关不意味着独立:
+
+设 $X\sim N(0,1)$, $\p(\varepsilon=1)=\p(\varepsilon=-1)=1/2$, 且 $X, \varepsilon$ 独立. 令 $X_1=X$, $X_2=\varepsilon X$. 那么 $\E[X_1X_2]=\E[\varepsilon X^2]=\E\varepsilon\E X^2=0$, $X_1, X_2$ 不相关. 但是由于 $|X_1|=|X_2|=|X|$, 所以两者不独立.
+
+**这就是以前常说的, 两个高斯变量服从二元正态, 才能保证不相关等价于独立.** 这里注意 $Y=X_1+X_2=X+\varepsilon X$ 不服从正态分布, 所以 $X_1, X_2$ 不在同一个高斯空间里面, 因此不相关不蕴含独立.</code></pre>
+</div>
+]]></content>
+      <categories>
+        <category>数学</category>
+        <category>统计</category>
+      </categories>
+      <tags>
+        <tag>笔记</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>随机过程笔记</title>
     <url>/2025/02/14/stochastic_process/stochastic_process.md/stochastic_process/</url>
     <content><![CDATA[<p>2025 Fall 高等概率论 II 课程笔记及课程总结.</p>
@@ -889,7 +1017,6 @@ class="math inline">\(\p(U&lt;\infty)=1\)</span>.</p>
       </categories>
       <tags>
         <tag>笔记</tag>
-        <tag>线性回归</tag>
       </tags>
   </entry>
 </search>
