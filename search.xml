@@ -1,6 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>线性回归分析笔记</title>
+    <url>/2025/02/14/linear_regression/linear_regression/</url>
+    <content><![CDATA[<p>2025 Fall 线性回归分析课程笔记及课程总结.</p>
+<span id="more"></span>
+<h2 id="前言">前言</h2>
+]]></content>
+      <categories>
+        <category>统计</category>
+      </categories>
+      <tags>
+        <tag>笔记</tag>
+        <tag>线性回归</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Jordan 标准型笔记</title>
     <url>/2025/02/14/jordan_canonical_form/</url>
     <content><![CDATA[<p>整理了 Jordan 标准型的一些定理和证明.</p>
@@ -704,21 +719,6 @@ X_1 &amp; &amp; &amp; \\
       </tags>
   </entry>
   <entry>
-    <title>线性回归分析笔记</title>
-    <url>/2025/02/14/linear_regression/linear_regression/</url>
-    <content><![CDATA[<p>2025 Fall 线性回归分析课程笔记及课程总结.</p>
-<span id="more"></span>
-<h2 id="前言">前言</h2>
-]]></content>
-      <categories>
-        <category>统计</category>
-      </categories>
-      <tags>
-        <tag>笔记</tag>
-        <tag>线性回归</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>随机过程笔记</title>
     <url>/2025/02/14/stochastic_process/stochastic_process.md/stochastic_process/</url>
     <content><![CDATA[<p>2025 Fall 高等概率论 II 课程笔记及课程总结.</p>
@@ -832,7 +832,7 @@ X_n(\omega)&lt;\liminf_{n\to\infty} X_n(\omega)\})=0.\]</span>
 \liminf X_n(\omega)&lt;\limsup X_n(\omega)\}\subset \bigcup_{a,b\in
 \mathbb Q} \{\omega:\liminf X_n(\omega)&lt;a&lt;b&lt;\limsup
 X_n(\omega)\},\]</span> 故只需证 <span class="math display">\[\forall\;
-a,b\in \mathbb Q$, $\mathbb P(\{\omega:\liminf
+a,b\in \mathbb Q, \mathbb P(\{\omega:\liminf
 X_n(\omega)&lt;a&lt;b&lt;\limsup X_n(\omega)\})=0.\]</span></p>
 <p>这里要注意到, 上极限大于 <span class="math inline">\(a\)</span>,
 代表有大于 <span class="math inline">\(a\)</span> 的子列, 下极限小于
