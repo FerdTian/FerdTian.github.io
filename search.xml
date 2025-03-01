@@ -704,21 +704,6 @@ X_1 &amp; &amp; &amp; \\
       </tags>
   </entry>
   <entry>
-    <title>线性回归分析笔记</title>
-    <url>/2025/02/14/linear_regression/linear_regression/</url>
-    <content><![CDATA[<p>2025 Fall 线性回归分析课程笔记及课程总结.</p>
-<span id="more"></span>
-<h2 id="前言">前言</h2>
-]]></content>
-      <categories>
-        <category>统计</category>
-      </categories>
-      <tags>
-        <tag>笔记</tag>
-        <tag>线性回归</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>随机分析读书笔记</title>
     <url>/2025/02/28/stochastic_analysis/stochastic_analysis/</url>
     <content><![CDATA[<p>读 Le Gall 的 Brownian Motion, Martingales, and Stochastic Calculus
@@ -949,8 +934,9 @@ class="math inline">\(G(A):=G(\1_A)\)</span>.</p>
 <div class="note info"><h4 id="命题">命题</h4>
 <p>设 <span class="math inline">\(A_1,\cdots, A_n\in \mathcal E\)</span>
 互不相交, <span class="math inline">\(\mu(A_i)&lt;\infty\)</span>. 那么
-(G(A_1),, G(A_n)) 是一个高斯向量. 且 <span
-class="math inline">\(G(A_1),\cdots, G(A_n)\)</span> 两两独立.</p>
+<span class="math inline">\((G(A_1),\cdots, G(A_n))\)</span>
+是一个高斯向量. 且 <span class="math inline">\(G(A_1),\cdots,
+G(A_n)\)</span> 两两独立.</p>
 </div>
 <p>以下都认为 <span class="math inline">\(L^2(E,\mathcal E,
 \mu)\)</span> 是可分的 Hilbert 空间.</p>
@@ -967,7 +953,7 @@ class="math display">\[L^2(E,\mathcal E,\mu)\]</span> 的 ONB. 取概率空间
 <span class="math inline">\((\Omega, \F, \p)\)</span> 和 i.i.d.
 的高斯变量 <span class="math inline">\(\{X_i\}_{i=1}^\infty\)</span>.
 定义 <span class="math display">\[G: f=\sum_i \langle f,e_i\rangle e_i\
-\ \maspto\ \ \sum_i \langle f,e_i\rangle X_i.\]</span></p>
+\ \mapsto\ \ \sum_i \langle f,e_i\rangle X_i.\]</span></p>
 <h3 id="课后题">课后题</h3>
 <div class="note success"><h4 id="习题-1.15">习题 1.15</h4>
 <p><span class="math inline">\(\{X_t\}_{t\in [0,1]}\)</span>
@@ -1004,6 +990,52 @@ X_s-X_t}{s-t}\]</span> 在 <span class="math inline">\(L^2\)</span>
 </div>
 <p><strong>解答:</strong></p>
 <ol type="1">
+<li>对任意 <span class="math inline">\(h\)</span>, <span
+class="math display">\[\|X_{t+h}-X_t\|_{L^2}=\E X_{t+h}^2+\E X_t^2-2\E
+X_{t+h}X_t=K(t+h,t+h)+K(t,t)-2K(t+h, t).\]</span></li>
+</ol>
+<p>如果 <span class="math inline">\(K\)</span> 连续, 显然 <span
+class="math inline">\(\|X_{t+h}-X_t\|_{L^2}\to 0\)</span> as <span
+class="math inline">\(h\to 0\)</span>. 所以 <span
+class="math inline">\(t\mapsto X_t\)</span> 连续.</p>
+<p>如果 <span class="math display">\[\|X_{t+h}-X_t\|_{L^2}\to 0\]</span>
+as <span class="math inline">\(h\to 0\)</span>, 那么 <span
+class="math display">\[\begin{align*}|K(s+u, t+v)-K(s,t)|&amp;=|\E
+X_{s+u}X_{t+v}-\E X_sX_t|\\&amp;\le \E
+|X_{s+u}-X_s||X_{t+v}|+\E|X_{t+v}-X_t||X_s|\\ &amp;\le \E
+X_{t+v}^2\|X_{s+u}-X_s\|_{L^2}+K(s,s)\|X_{t+v}-X_t\|_{L^2}\to
+0.\end{align*}\]</span></p>
+<ol type="1">
+<li><p>由 Fubini 定理, <span
+class="math display">\[\begin{align*}\int_\Omega\int_0^1|h(t)X_t(\omega)|dtd\p(\omega)&amp;=\int_0^1|h(t)|dt\int_\Omega|X_t(\Omega)|d\p(\Omega)\\
+&amp;=\int_0^1|h(t)|\E|X_t|dt\\&amp; \le \int_0^1|h(t)|\sqrt{\E
+X_t^2}dt&lt;\infty\end{align*}.\]</span> 所以由 Fubini 定理, 对 a.e. 的
+<span class="math inline">\(\omega\in\Omega\)</span>, <span
+class="math inline">\(\int_0^1 h(t)X_t(\omega)dt\)</span>
+是绝对收敛的.</p></li>
+<li><p>由于 <span class="math inline">\(t\mapsto X_t, [0,1]\to
+L^2(\Omega)\)</span> 在闭区间上连续, 所以一致连续. 对任意 <span
+class="math inline">\(\varepsilon&gt;0\)</span>, 存在 <span
+class="math inline">\(\delta&gt;0\)</span>, 当 <span
+class="math inline">\(|s-t|&lt;\delta\)</span> 时, <span
+class="math inline">\(\|X_s-X_t\|_{L^2}&lt;\varepsilon\)</span>. 所以取
+<span class="math inline">\(N\)</span> 使得 <span
+class="math inline">\(\frac{1}N&lt;\delta\)</span>, 那么对任意 <span
+class="math inline">\(\frac{i-1}n&lt;t&lt;\frac in\)</span> <span
+class="math inline">\(|t-\frac in|&lt;\delta\)</span>, <span
+class="math inline">\(\|X_{\frac
+in}-X_t\|&lt;\varepsilon\)</span>.</p></li>
+</ol>
+<p>所以 <span
+class="math inline">\(\begin{align*}\|Z_n-Z\|_{L^2}&amp;\le
+\sum_{i=1}^n\int_{\frac{i-1}n}^{\frac in}|h(t)|\|X_{\frac
+in}-X_t\|_{L^2} dt\\&amp;\le
+\varepsilon\int_0^1|h(t)|dt.\end{align*}\)</span></p>
+<p>所以 <span class="math inline">\(\|Z_n-Z\|_{L^2}\to 0\)</span>. 由于
+<span class="math inline">\(X_t\)</span> 是高斯过程, <span
+class="math inline">\(Z_n\)</span> 是高斯变量, 高斯变量的 <span
+class="math inline">\(L^2\)</span> 极限也是高斯变量.</p>
+<ol start="4" type="1">
 <li></li>
 </ol>
 ]]></content>
@@ -1186,6 +1218,21 @@ class="math inline">\(\p(U&lt;\infty)=1\)</span>.</p>
       </categories>
       <tags>
         <tag>笔记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>线性回归分析笔记</title>
+    <url>/2025/02/14/linear_regression/linear_regression/</url>
+    <content><![CDATA[<p>2025 Fall 线性回归分析课程笔记及课程总结.</p>
+<span id="more"></span>
+<h2 id="前言">前言</h2>
+]]></content>
+      <categories>
+        <category>统计</category>
+      </categories>
+      <tags>
+        <tag>笔记</tag>
+        <tag>线性回归</tag>
       </tags>
   </entry>
 </search>
