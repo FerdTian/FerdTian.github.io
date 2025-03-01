@@ -706,7 +706,7 @@ X_1 &amp; &amp; &amp; \\
   <entry>
     <title>线性回归分析笔记</title>
     <url>/2025/02/14/linear_regression/linear_regression/</url>
-    <content><![CDATA[<p>2025 Fall 线性回归分析课程笔记及课程总结.</p>
+    <content><![CDATA[<p>2025 Spring 线性回归分析课程笔记及课程总结.</p>
 <span id="more"></span>
 <h2 id="前言">前言</h2>
 ]]></content>
@@ -1019,7 +1019,7 @@ as <span class="math inline">\(h\to 0\)</span>, 那么 <span
 class="math display">\[\begin{align*}|K(s+u, t+v)-K(s,t)|&amp;=|\E
 X_{s+u}X_{t+v}-\E X_sX_t|\\&amp;\le \E
 |X_{s+u}-X_s||X_{t+v}|+\E|X_{t+v}-X_t||X_s|\\ &amp;\le \E
-X_{t+v}^2\|X_{s+u}-X_s\|_{L^2}+K(s,s)\|X_{t+v}-X_t\|_{L^2}\to
+X_{t+v}^2\|X_{s+u}-X_s\|_{L^2}+\sqrt{K(s,s)}\|X_{t+v}-X_t\|_{L^2}\to
 0.\end{align*}\]</span></p>
 <ol start="2" type="1">
 <li><p>由 Fubini 定理, <span
@@ -1052,9 +1052,134 @@ in}-X_t\|_{L^2} dt\\&amp;\le
 class="math inline">\(Z_n\)</span> 是高斯变量, 高斯变量的 <span
 class="math inline">\(L^2\)</span> 极限也是高斯变量.</p>
 <ol start="4" type="1">
-<li>根据 <span class="math inline">\(L^2\)</span> 的完备性,
-只需验证</li>
+<li>根据 <span class="math inline">\(L^2\)</span> 的完备性, 只需验证
+<span class="math inline">\(\{\frac{X_{t+h}-X_t}{h}\}_{h}\)</span>
+是柯西列. 即验证 <span
+class="math display">\[\|\frac{X_{t+h_1}-X_t}{h_1}-\frac{X_{t+h_2}-X_t}{h_2}\|_{L^2}\to
+0,\qaud h_1, h_2\to 0.\]</span></li>
 </ol>
+<p><span
+class="math display">\[\|\frac{X_{t+h_1}-X_t}{h_1}-\frac{X_{t+h_2}-X_t}{h_2}\|_{L^2}=A+B-2C,\]</span></p>
+<p>其中 <span
+class="math display">\[A=\frac1{h_1^2}(K(t+h_1,t+h_1)-2K(t+h_1,t)+K(t,t)),\]</span>
+<span
+class="math display">\[B=\frac1{h_2^2}(K(t+h_2,t+h_2)-2K(t+h_2,t)+K(t,t)),\]</span>
+<span
+class="math display">\[C=\frac1{h_1h_2}(K(t+h_1,t+h_2)-K(t+h_1,t)-K(t+h_2,t)+K(t,t)).\]</span></p>
+<p>由 <span class="math inline">\(K\in C^2\)</span>, 由 Lagrange
+中值定理, <span
+class="math display">\[A=\frac{K_y(t+h_1,t+\theta_1h_1)-K_y(t,
+t+\theta_2h_1)}{h_1}=K_{xy}(t+\theta_2h_1,t+\theta_1h_1)\to
+K_{xy}(t,t),\quad h_1\to 0.\]</span> 同理 <span
+class="math inline">\(B\to K_{xy}(t,t)\)</span>, <span
+class="math inline">\(C\to K_{xy}(t,t)\)</span>. 这就说明了 <span
+class="math inline">\(\dot X_t\)</span> 在 <span
+class="math inline">\(L^2\)</span> 中存在. 且 <span
+class="math inline">\(\frac{X_s-X_t}{s-t}\)</span> 是高斯变量,
+高斯变量的 <span class="math inline">\(L^2\)</span>
+极限也是高斯变量.</p>
+<p>最后, 由 <span class="math inline">\(L^2\)</span> 中内积的连续性,</p>
+<p><span class="math display">\[\cov(\dot X_s, \dot X_t)=\lim_{h\to
+0}\langle
+\frac{X_{s+h}-X_s}{h},\frac{X_{t+h}-X_t}{h}\rangle_{L^2}=\lim_{h\to
+0}\frac{K(s+h,t+h)-K(s+h,t)-K(s,t+h)+K(s,t)}{h^2}=\frac{\partial^2}{\partial
+s\partial t}K(s,t).\]</span></p>
+<div class="note success"><h4 id="习题-1.16">习题 1.16</h4>
+<p>(Kalman 滤波) 设 <span class="math inline">\((\varepsilon_n)_{n\ge
+0}\)</span> 和 <span class="math inline">\((\eta_n)_{n\ge 0}\)</span>
+是两列独立的高斯随机变量, 且两个序列互相独立. 对任意 <span
+class="math inline">\(n\)</span>, <span
+class="math inline">\(\varepsilon_n\sim N(0,\sigma^2), \eta_n\sim
+N(0,\delta^2)\)</span>. 令 <span class="math inline">\(X_0=0\)</span>,
+对任意 <span class="math inline">\(n\ge 0\)</span>, 定义 <span
+class="math display">\[X_{n+1}=a_nX_n+\varepsilon_{n+1},\quad
+Y_n=cX_n+\eta_n.\]</span></p>
+<p>其中 $a_n, c 是正常数. 设 <span class="math display">\[\hat
+X_{n/n}=\E[X_n\mid Y_0,Y_1,\cdots, Y_n],\]</span> <span
+class="math display">\[\hat X_{n+1/n}=\E[X_{n+1}\mid Y_0, Y_1,\cdots,
+Y_n].\]</span></p>
+<ol type="1">
+<li><p>验证 <span class="math inline">\(\hat X_{n+1/n}=a_n \hat
+X_{n/n}\)</span>, 对任意 <span class="math inline">\(n\ge
+0\)</span>.</p></li>
+<li><p>证明对任意 <span class="math inline">\(n\ge 1\)</span>, <span
+class="math display">\[\hat X_{n/n}=\hat
+X_{n/n-1}+\frac{\E[X_nZ_n]}{\E[Z_n^2]}Z_n,\]</span></p></li>
+</ol>
+<p>这里 <span class="math inline">\(Z_n=Y_n-c\hat
+X_{n/n-1}.\)</span></p>
+<ol start="3" type="1">
+<li><p>用 <span class="math inline">\(P_n:=\E[(X_n-\hat
+X_{n/n-1})^2]\)</span> 来表示出 <span class="math inline">\(\E
+X_nZ_n\)</span>, <span class="math inline">\(\E Z_n^2\)</span>.
+并证明对任意 <span class="math inline">\(n\ge 1\)</span>, <span
+class="math display">\[\hat X_{n+1/n}=a_n\left(\hat
+X_{n/n-1}+\frac{cP_n}{c^2P_n+\delta^2} Z_n\right).\]</span></p></li>
+<li><p>验证 <span class="math inline">\(P_1=\sigma^2\)</span>, 且 对任意
+<span class="math inline">\(n\ge 1\)</span>, <span
+class="math display">\[P_{n+1}=\sigma^2+a_n^2\frac{\delta^2
+P_n}{c^2P_n+\delta^2}.\]</span></p></li>
+</ol>
+</div>
+<p><strong>解答:</strong></p>
+<p>以下记 <span class="math inline">\(\F_n=\sigma(Y_0,Y_1,\cdots,
+Y_n)\)</span>.</p>
+<ol type="1">
+<li><p>注意 <span class="math inline">\(Y_n\)</span> 只和 <span
+class="math inline">\(\varepsilon_0,\cdots, \varepsilon_{n},
+\eta_n\)</span> 有关, 所以 <span
+class="math inline">\(\varepsilon_{n+1}\)</span> 和 <span
+class="math inline">\(\F_n\)</span> 独立. <span
+class="math display">\[\hat X_{n+1/n}=\E[a_nX_n+\varepsilon_{n+1}\mid
+\F_n]=a_n\hat X_{n/n}+\E[\varepsilon_{n+1}]=a_n\hat
+X_{n/n}.\]</span></p></li>
+<li><p>第二问相当于在说, <span class="math inline">\(X_n\)</span> 在
+<span class="math inline">\(\F_n\)</span> 上的投影, 等于在 <span
+class="math inline">\(\F_{n-1}\)</span> 上的投影, 补上在 <span
+class="math inline">\(\sigma(Y_n)\)</span> 上的投影. 由 <span
+class="math inline">\(X_n\in
+\spann(\varepsilon_0,\cdots,\varepsilon_n)\)</span>, <span
+class="math inline">\(Y_n=cX_n+\eta_n\)</span>, 因为 <span
+class="math inline">\((\varepsilon_n), (\eta_n)\)</span> 独立,
+也是高斯变量. 令 <span class="math inline">\(H_n=\spann(Y_0,Y_1,\cdots,
+Y_n)\)</span>, <span class="math inline">\(H_n\)</span> 是高斯空间.
+<span class="math inline">\(\hat X_{n/n}=\E[X_n\mid
+\F_n]=p_{H_n}(X_n)\)</span>, <span class="math inline">\(\hat
+X_{n/n-1}=\E[X_n\mid \F_{n-1}]=p_{H_{n-1}}(X_n)\)</span> <span
+class="math inline">\(Z_n=Y_n-cp_{H_{n-1}}(X_n)=Y_n-p_{H_{n-1}}(Y_n)\)</span>.
+所以 <span class="math inline">\(Z_n\perp H_{n-1}\)</span>, 且 <span
+class="math inline">\(H_n=H_{n-1}\oplus \spann{Z_n}\)</span>.</p>
+<p>所以可设 <span class="math display">\[\hat
+X_{n/n}=p_{H_{n-1}}(X_n)+\beta_n Z_n.\]</span></p>
+<p>两边和 <span class="math inline">\(Z_n\)</span> 做内积, 由正交性,
+<span class="math inline">\(\beta_n\E Z_n^2=\E[Z_n\E[X_n\mid
+\F_{n-1}]]=\E[X_nZ_n]\)</span>.</p></li>
+<li><p><span class="math display">\[\E[Z_n^2]=\E[(c(X_n-\hat
+X_{n/n-1})+\eta_n)^2]=c^2P_n+2c\E[\eta_n(X_n-\hat X_{n/n-1})]+\E
+\eta_n^2=c^2P_n+2c\E[\eta_n]\E[X_n-\hat
+X_{n/n-1}]+\delta^2=c^2P_n+\delta^2.\]</span> 注意 <span
+class="math inline">\(\E[X_n\hat X_{n/n-1}]=\E[\hat X_{n/n-1}\E[X_n\mid
+\F_{n-1}]]=\E[X_{n/n-1}^2]\)</span>, 所以 <span
+class="math display">\[\E[X_nZ_n]=\E[X_n(c(X_n-\hat
+X_{n/n-1})+\eta_{n})]=c\E[X_n(X_n-\hat
+X_{n/n-1})]+\E[\eta_n]\E[X_n]=c\E[(X_n-\hat X_{n/n-1})^2]=cP_n.\]</span>
+由 1,2 两问就得到了结论.</p></li>
+<li><p><span class="math display">\[P_1=\E[(X_1-\E[X_1\mid
+Y_0])^2]=\E[(\varepsilon_1-\E[\varepsilon_1\mid
+\eta_1])^2]=\E[\varepsilon_1^2]=\sigma^2.\]</span> <span
+class="math display">\[\E X_{n+1}^2=a_n^2\E X_n^2+2a_n\E X_n\E
+\varepsilon_{n+1}+\E\varepsilon_{n+1}^2=a_n^2\E X_n^2+\sigma^2\]</span>
+<span class="math display">\[\begin{align*}P_{n+1}&amp;=\E(X_{n+1}-\hat
+X_{n+1/n})^2=\E X_{n+1}^2-\E \hat X_{n+1/n}^2\\
+&amp;=\sigma^2+a_n^2\E X_n^2-a_n^2\E\left(\hat
+X_{n/n-1}+\frac{cP_n}{c^2P_n+\delta^2} Z_n\right)^2\\
+&amp;=\sigma^2+a_n^2\E X_n^2-a_n^2\E\hat X_{n/n-1}^2-a_n^2\frac{c^2
+P_n^2}{(c^2P_n+\delta^2)^2}\E Z_n^2\\
+&amp;=\simga^2+a_n^2 P_n-a_n^2\frac{c^2P_n^2}{c^2P_n+\delta^2}\\
+&amp;=\sigma^2+a_n^2\frac{\delta^2
+P_n}{c^2P_n+\delta^2}.\end{align*}\]</span></p></li>
+</ol>
+<p>想起了高统考试里面现推U-统计量那个题, 勾起了不好的回忆...</p>
 <h2 id="布朗运动">布朗运动</h2>
 <p>先定义准布朗运动:</p>
 <div class="note primary"><h4 id="定义-准布朗运动">定义: 准布朗运动</h4>
@@ -1133,7 +1258,7 @@ dB_s=G((u,v])=G([0,v])-G([0,u])=B_v-B_u.\]</span></p>
 <p>映射 <span class="math inline">\(f\mapsto \int_0^\infty
 f(s)dB_s\)</span> 被称为关于 <span class="math inline">\(B\)</span> 的
 Weiner 积分. 且 <span class="math inline">\(\int_0^\infty f(s)dB_s\sim
-N(0,\int_0^\infy f(s)^2ds)\)</span>. 但是 <span
+N(0,\int_0^\infty f(s)^2ds)\)</span>. 但是 <span
 class="math inline">\(G\)</span> 不是一个测度, <span
 class="math inline">\(\int_0^\infty f(s)dB_s\)</span> 不是一个依赖 <span
 class="math inline">\(\omega\)</span> 的积分.</p>
@@ -1144,7 +1269,7 @@ class="math inline">\(\sigma\)</span>-代数.</p>
 <div class="note primary"><h4 id="定义-样本轨道-sample-path">定义: 样本轨道 (sample path)</h4>
 <p><span class="math inline">\((X_t)_{t\in T}\)</span> 是取值在 <span
 class="math inline">\(E\)</span> 中的随机过程. 样本轨道是指,
-一系列的映射 <span class="math inline">\(\{t\maspto X_t(\omega)\mid t\in
+一系列的映射 <span class="math inline">\(\{t\mapsto X_t(\omega)\mid t\in
 T\}_{\omega\in \Omega}\)</span>.</p>
 </div>
 <p>我们把所有路径都连续的准布朗运动定义成为<strong>布朗运动</strong>.
@@ -1171,6 +1296,42 @@ N,\;\forall\;t\in T,\quad \tilde X_t(\omega)=X_t(\omega).\]</span></p>
 X_t=\tilde X_t)=1\)</span>, 不过这个表述不严密, 因为 <span
 class="math inline">\(\{\omega:\forall\;t\in T, X_t(\omega)=\tilde
 X_t(\omega)\}\)</span> 不一定可测.</p>
+<p>不可区分说明两个随机过程由几乎处处相同的样本轨道.
+不可区分比"修正"要更强.
+我们认为两个不可区分的随机过程是同一个的随机过程.</p>
+<p>如果 <span class="math inline">\(\tilde X\)</span>, <span
+class="math inline">\(X\)</span> 的样本轨道都是连续的, 那么 <span
+class="math inline">\(\tilde X\)</span> 是 <span
+class="math inline">\(X\)</span> 的修正当且仅当 <span
+class="math inline">\(\tilde X\)</span> 和 <span
+class="math inline">\(X\)</span> 不可区分.</p>
+<div class="note info"><h4 id="定理-kolmogorov-引理">定理: Kolmogorov 引理</h4>
+<p><span class="math inline">\(X=(X_t)_{t\in I}\)</span>
+是值域在完备度量空间 <span class="math inline">\((E,d)\)</span>
+中的随机过程, <span class="math inline">\(I\subset \R\)</span>
+是有界区间. 设存在 <span class="math inline">\(q,\varepsilon,
+C&gt;0\)</span>, 使得 <span class="math display">\[\E[d(X_s, X_t)^q]\le
+C|t-s|^{1+\varepsilon},\quad\forall\; s,t\in I.\]</span> 那么存在 <span
+class="math inline">\(X\)</span> 的修正 <span
+class="math inline">\(\tilde X\)</span>, 使得 <span
+class="math inline">\(\tilde X\)</span> 的样本轨道是 <span
+class="math inline">\(\alpha\)</span>-H"older 连续的, 对任意 <span
+class="math inline">\(\alpha\in (0,\varepsilon/q)\)</span>, 即, 对任意
+<span class="math inline">\(\omega\in \Omega\)</span>, <span
+class="math inline">\(\alpha\in (0,\varepsilon/q)\)</span>, 存在有限常数
+<span class="math inline">\(C=C_\alpha(\omega)\)</span>, 使得 <span
+class="math display">\[d(\tilde X_s(\omega), \tilde X_t(\omega))\le
+C_\alpha(\omega)|t-s|^\alpha.\]</span></p>
+<p>显然 <span class="math inline">\(\tilde X\)</span> 是 <span
+class="math inline">\(X\)</span> 的一个有连续轨道的修正,
+且这样的修正在不可区分的意义下是唯一的.</p>
+</div>
+<div class="note info"><h4 id="推论">推论</h4>
+<p><span class="math inline">\(B=(B_t)_{t\ge 0}\)</span> 是准布朗运动,
+那么存在 <span class="math inline">\(B\)</span> 的一个修正,
+使得其样本轨道是连续的, 进一步, 是局部 (-) - H"older 连续的, 对任意
+<span class="math inline">\(0&lt;\delta&lt;\frac 12\)</span>.</p>
+</div>
 ]]></content>
       <categories>
         <category>数学</category>
@@ -1183,7 +1344,7 @@ X_t(\omega)\}\)</span> 不一定可测.</p>
   <entry>
     <title>随机过程笔记</title>
     <url>/2025/02/14/stochastic_process/stochastic_process.md/stochastic_process/</url>
-    <content><![CDATA[<p>2025 Fall 高等概率论 II 课程笔记及课程总结.</p>
+    <content><![CDATA[<p>2025 Spring 高等概率论 II 课程笔记及课程总结.</p>
 <span id="more"></span>
 <p><span class="math display">\[
     \newcommand{\Z}{\mathbb Z}
