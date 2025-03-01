@@ -1,365 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>随机分析读书笔记</title>
-    <url>/2025/02/28/stochastic_analysis/stochastic_analysis/</url>
-    <content><![CDATA[<p>读 Le Gall 的 Brownian Motion, Martingales, and Stochastic Calculus
-的时候记录的一点笔记和课后题.</p>
-<span id="more"></span>
-<p><span class="math display">\[
-    \newcommand{\Z}{\mathbb Z}
-    \newcommand{\E}{\mathbb E}
-    \newcommand{\p}{\mathbb P}
-    \newcommand{\F}{\mathcal F}
-    \newcommand{\Q}{\mathbb Q}
-    \newcommand{\i}{\mathrm i}
-    \newcommand{\spann}{\operatorname{span}}
-    \newcommand{\1}{\Bbb 1}
-    \newcommand{\var}{\operatorname{var}}
-    \newcommand{\cov}{\operatorname{cov}}
-    \newcommand{\R}{\mathbb R}
-\]</span></p>
-<h2 id="高斯变量-高斯过程">高斯变量, 高斯过程</h2>
-<h3 id="高斯分布的一些性质复习">高斯分布的一些性质复习</h3>
-<h4 id="一元正态分布">一元正态分布:</h4>
-<ul>
-<li>c.f.: <span class="math inline">\(\phi(\xi)=\E[e^{i\xi Y}]=\exp(\i
-m\xi-\frac{\sigma^2}{2}\xi^2)\)</span>.</li>
-<li>标准正态分布高阶矩: <span class="math inline">\(\E
-X^{2n}=\frac{(2n)!}{2^n n!},\quad \E X^{2n+1}=0\)</span>.</li>
-</ul>
-<div class="note info"><h4 id="命题">命题</h4>
-<p><span class="math inline">\(\{X_n\}_{n\ge 1}\)</span> 是一列随机变量,
-<span class="math inline">\(X_n\sim N(m_n, \sigma_n^2)\)</span>. 设
-<span class="math inline">\(X_n\stackrel{L^2}\to X\)</span>, 那么</p>
-<ol type="1">
-<li><p><span class="math inline">\(m_n, \sigma_n^2\)</span> 都收敛, 且
-<span class="math inline">\(X\sim N(m,\sigma^2)\)</span>, 其中 <span
-class="math inline">\(m=\lim m_n, \sigma^2=\lim
-\sigma_n^2\)</span>.</p></li>
-<li><p><span class="math inline">\(X_n\stackrel{L^p}\to X,\quad
-\forall\; 1\le p&lt;\infty\)</span>.</p></li>
-</ol>
-</div>
-<p><strong>证明:</strong></p>
-<ol type="1">
-<li><p>由 <span class="math inline">\(L^2\)</span> 收敛, 可知 <span
-class="math inline">\(\E|X_n-X|\to 0\)</span>, <span
-class="math inline">\(\E|X_n-X|^2\to 0\)</span>. 这说明 <span
-class="math inline">\(m_n=\E X_n\to \E X\)</span>, <span
-class="math inline">\(\sigma_n^2=\var X_n\to \var X\)</span>.</p>
-<p>令 <span class="math inline">\(m=\lim m_n\)</span>, <span
-class="math inline">\(\sigma^2=\lim \sigma_n^2\)</span>, 那么 <span
-class="math display">\[\E[e^{\i\xi X}]=\lim_{n\to\infty} \E[e^{\i \xi
-X_n}]=\lim_{n\to\infty} \exp(\i m_n\xi-\frac{\sigma_n^2}2 \xi^2)=\exp(\i
-m\xi-\frac{\sigma^2}2\xi^2).\]</span> 所以 <span
-class="math inline">\(X\sim N(m,\sigma^2)\)</span>.</p></li>
-<li><p>由 <span class="math inline">\(m_n,\sigma_n^2\)</span>
-收敛可知这两个序列有界. 所以 <span
-class="math inline">\(\sup_n\E|X_n|^q&lt;\infty\)</span>, 进而 <span
-class="math inline">\(\sup_n\E |X_n-X|^q&lt;\infty,\;\forall\; q\ge
-1\)</span>. 取 <span class="math inline">\(q=2p\)</span>, 这说明 <span
-class="math inline">\(Y_n=|X_n-X|^p\)</span> 在 <span
-class="math inline">\(L^2\)</span> 中有界, 进而一致可积. 由 <span
-class="math inline">\(Y_n\)</span> 依概率收敛到 0, 可知 <span
-class="math inline">\(Y_n\)</span> <span
-class="math inline">\(L^1\)</span> 收敛.</p></li>
-</ol>
-<div class="note warning"><h4 id="注">注</h4>
-<p>复习: 若存在 <span class="math inline">\(p&gt;1\)</span>, 使 <span
-class="math inline">\(X_n\)</span> 在 <span
-class="math inline">\(L^p\)</span> 中有界, 那么 <span
-class="math inline">\(X_n\)</span> UI.</p>
-</div>
-<h4 id="多元正态分布-高斯向量">多元正态分布, 高斯向量:</h4>
-<p><span class="math inline">\(E\)</span> 是 <span
-class="math inline">\(d\)</span> 维欧式空间. <span
-class="math inline">\(X:\Omega \to E\)</span> 是高斯向量 (服从多元正态),
-当且仅当对任意 <span class="math inline">\(u\in E\)</span>, <span
-class="math inline">\(\langle u,X\rangle\)</span> 服从一元正态分布.</p>
-<p>取 <span class="math inline">\(E\)</span> 中的 ONB <span
-class="math inline">\(\{e_1,\cdots e_d\}\)</span>, 设 <span
-class="math inline">\(X=\sum_i X_ie_i\)</span>, 那么 <span
-class="math inline">\(X_i=\langle e_i, X\rangle\)</span>
-都是一元高斯变量. 可以定义均值 <span class="math inline">\(m_X=\sum_i
-(\E X_i) e_i=: \E X\)</span>, 协方差 (一个二次型) <span
-class="math inline">\(q_X:E\to \R\)</span>, <span
-class="math display">\[q_X(u)=\sum_{i,j}
-u_iu_j\cov(X_i,X_j).\]</span></p>
-<p>这样就有 <span class="math display">\[\E\langle u,X\rangle=\langle u,
-m_X\rangle,\]</span> <span class="math display">\[\var \langle
-u,X\rangle=q_X(u).\]</span></p>
-<p>可以定义特征函数 <span
-class="math inline">\(\phi_X(u)=\E[\exp(\i\langle
-u,X\rangle)]=\exp(\i\langle u,m_X\rangle-\frac 12q_X(u))\)</span>.</p>
-<div class="note info"><h4 id="命题">命题</h4>
-<p><span class="math inline">\(X_1,\cdots, X_d\)</span> 独立当且仅当
-<span class="math inline">\(q_X\)</span> 在基 <span
-class="math inline">\((e_1,\cdots, e_d)\)</span> 下是对角的,
-即协方差矩阵 <span class="math inline">\((\cov(X_i, X_j))_{i,j}\)</span>
-是对角阵.</p>
-</div>
-<p>存在对称的自同态 <span class="math inline">\(\gamma_X:E\to
-E\)</span>, 使得 <span class="math inline">\(q_X=\langle u, \gamma_X
-u\rangle\)</span>. <span class="math inline">\(\gamma_X\)</span>
-的表示矩阵就是协方差矩阵.</p>
-<h3 id="高斯过程">高斯过程</h3>
-<p>以下讨论的都是中心的高斯变量, 即 <span class="math inline">\(\E
-X=0\)</span>.</p>
-<div class="note primary"><h4 id="定义-高斯空间">定义: 高斯空间</h4>
-<p>称 <span class="math inline">\(H\subset L^2(\Omega,\F,\p)\)</span>
-是高斯空间, 如果 <span class="math inline">\(H\)</span> 是 <span
-class="math inline">\(L^2(\Omega,\F,\p)\)</span> 的闭子空间,
-且其中只包含中心高斯变量.</p>
-</div>
-<p>例如: 如果 <span class="math inline">\(X=(X_1,\cdots, X_d)\in
-\R^d\)</span> 是高斯向量, 那么 <span
-class="math inline">\(\spann\{X_1,\cdots, X_d\}\)</span> 是高斯空间.</p>
-<div class="note primary"><h4 id="定义-高斯过程">定义: 高斯过程</h4>
-<p>称随机过程 <span class="math inline">\(\{X_t\}\)</span> 为高斯过程,
-如果任意 <span class="math inline">\(\{X_t\}\)</span>
-的有限线性组合是中心的高斯变量.</p>
-</div>
-<div class="note info"><h4 id="命题">命题:</h4>
-<p>如果 <span class="math inline">\(\{X_t\}_{t\in T}\)</span> 在 <span
-class="math inline">\(L^2\)</span> 中张成的闭子空间是高斯空间,
-那么随机过程 <span class="math inline">\(\{X_t\}_{t\in T}\)</span>
-是高斯过程.</p>
-</div>
-<p><strong>证明:</strong> 因为中心高斯变量的 <span
-class="math inline">\(L^2\)</span> 极限仍是高斯变量.</p>
-<p>下面来研究高斯空间的独立性:</p>
-<div class="note info"><h4 id="定理">定理</h4>
-<p><span class="math inline">\(H\)</span> 是中心高斯空间, <span
-class="math inline">\(\{H_i\}\)</span> 是 <span
-class="math inline">\(H\)</span> 的一列子空间. <span
-class="math inline">\(\{H_i\}\)</span> 在 <span
-class="math inline">\(L^2\)</span> 中两两正交, 当且仅当他们生成的 <span
-class="math inline">\(\sigma\)</span>-代数 <span
-class="math inline">\(\sigma(H_i), i\in I\)</span> 是互相独立的.</p>
-</div>
-<div class="note warning"><h4 id="注">注</h4>
-<p><span class="math inline">\(\{H_i\}\)</span>
-必须是同一个高斯空间的子空间. 以下是一个反例,
-说明对于两个随便的高斯变量, 他们的不相关不意味着独立:</p>
-<p>设 <span class="math inline">\(X\sim N(0,1)\)</span>, <span
-class="math inline">\(\p(\varepsilon=1)=\p(\varepsilon=-1)=1/2\)</span>,
-且 <span class="math inline">\(X, \varepsilon\)</span> 独立. 令 <span
-class="math inline">\(X_1=X\)</span>, <span
-class="math inline">\(X_2=\varepsilon X\)</span>. 那么 <span
-class="math inline">\(\E[X_1X_2]=\E[\varepsilon X^2]=\E\varepsilon\E
-X^2=0\)</span>, <span class="math inline">\(X_1, X_2\)</span> 不相关.
-但是由于 <span class="math inline">\(|X_1|=|X_2|=|X|\)</span>,
-所以两者不独立.</p>
-<p><strong>这就是以前常说的, 两个高斯变量服从二元正态,
-才能保证不相关等价于独立.</strong> 这里注意 <span
-class="math inline">\(Y=X_1+X_2=X+\varepsilon X\)</span> 不服从正态分布,
-所以 <span class="math inline">\(X_1, X_2\)</span>
-不在同一个高斯空间里面, 因此不相关不蕴含独立.</p>
-</div>
-<p><strong>证明:</strong> 书上 P8.</p>
-<p>我们知道在 <span class="math inline">\(L^2\)</span> 空间中,
-条件期望可以理解成向闭子空间的投影.</p>
-<div class="note info"><h4 id="推论">推论</h4>
-<p>设 <span class="math inline">\(H\)</span> 是中心高斯空间, <span
-class="math inline">\(K\subset H\)</span> 是闭子空间. 设 <span
-class="math inline">\(p_K\)</span> 是到 <span
-class="math inline">\(K\)</span> 的投影算子. <span
-class="math inline">\(X\in H\)</span>.</p>
-<ol type="1">
-<li><p><span class="math inline">\(\E[X\mid
-\sigma(K)]=p_K(X).\)</span></p></li>
-<li><p>设 <span
-class="math inline">\(\sigma^2=\E[(X-p_K(X))^2]\)</span>, 对任意 Borel
-集 <span class="math inline">\(A\in \mathcal B(\R)\)</span>, 条件概率
-<span class="math inline">\(\p(X\in A\mid \sigma(K))\)</span> (注意:
-这是一个随机变量) 由以下关系给出: <span class="math display">\[\p(X\in
-A\mid \sigma(K))(\omega) =Q(\omega,A),\]</span> 其中 <span
-class="math display">\[Q(\omega,
-A)=\frac1{\sqrt{2\pi\sigma^2}}\int_A\exp\left(-\frac{(y-p_K(X)(\omega))^2}{2\sigma^2}\right).\]</span></p></li>
-</ol>
-<p>特别地, 如果 <span class="math inline">\(\sigma^2=0\)</span>, 约定
-<span class="math inline">\(Q(\omega, A)=\1_A(p_K(X))\)</span>.</p>
-</div>
-<p>定义高斯过程的协方差函数 <span
-class="math inline">\(\Gamma(s,t)=\cov(X_s, X_t)=\E X_sX_t\)</span>.
-协方差函数用来描述高斯过程的有限维边缘分布. 事实上,
-我们事先指定好一个协方差函数, 一定存在一个对应的高斯过程.</p>
-<div class="note info"><h4 id="定理">定理</h4>
-<p>设 <span class="math inline">\(\Gamma: T\times T: \R\)</span>
-(一般考虑 <span class="math inline">\(T=\R_+\)</span>) 满足:</p>
-<ol type="1">
-<li>对称性: <span
-class="math inline">\(\Gamma(s,t)=\Gamma(t,s)\)</span>;</li>
-<li>"正定性"(positive type): <span class="math inline">\(c:T\to
-\R\)</span> 是有限支集的函数, 那么 <span
-class="math inline">\(\displaystyle \sum_{T\times T}
-c(s)c(t)\Gamma(s,t)\ge 0\)</span>.</li>
-</ol>
-<p>那么存在一个概率空间 <span class="math inline">\((\Omega,
-\F,\p)\)</span> 和其上的中心高斯过程, 使得其协方差函数为 <span
-class="math inline">\(\Gamma\)</span>.</p>
-</div>
-<div class="note success"><h4 id="例子">例子:</h4>
-<p><span class="math inline">\(T=\R\)</span>, <span
-class="math inline">\(\mu\)</span> 是 <span
-class="math inline">\(\R\)</span> 上的有限, 对称测度, <span
-class="math inline">\(\Gamma(s,t)=\int_{\R}
-e^{\i\xi(t-s)}\mu(d\xi)\)</span>. 由 Fubini 定理可以验证 <span
-class="math inline">\(\Gamma\)</span> 满足条件.</p>
-</div>
-<h3 id="高斯白噪声">高斯白噪声</h3>
-<div class="note primary"><h4 id="定义-高斯白噪声">定义: 高斯白噪声</h4>
-<p><span class="math inline">\((E,\mathcal E,\mu)\)</span> 是<span
-class="math inline">\(\sigma\)</span>-有限的测度空间. 强度为 <span
-class="math inline">\(\mu\)</span> 的高斯白噪声是指一个等距映射 <span
-class="math inline">\(G: L^2(E,\mathcal E, \mu) \to H\)</span>, <span
-class="math inline">\(H\subset L^2(\Omega,\F,\p)\)</span>
-是某个高斯空间.</p>
-</div>
-<p>设 <span class="math inline">\(f,g\in L^2(E,\mathcal E,
-\mu)\)</span>, 那么 <span class="math inline">\(G(f), G(g)\)</span>
-是中心高斯变量, 且方差 <span
-class="math display">\[\E[G(f)^2]=\|G(f)\|^2_{L^2(\Omega, \F,
-\p)}=\|f\|^2_{L^2(E,\mathcal E,\mu)}=\int f^2d\mu,\]</span> <span
-class="math display">\[\E[G(f)G(g)]=\langle G(f) \rangle_H=\langle
-f,g\rangle_{L^2(E,\mathcal E,\mu)}=\int fgd\mu.\]</span></p>
-<p>若 <span class="math inline">\(f=\1_A\)</span>, <span
-class="math inline">\(\mu(A)&lt;\infty\)</span>. 那么 <span
-class="math inline">\(G(\1_A)\sim N(0,\mu(A))\)</span>. 以后记 <span
-class="math inline">\(G(A):=G(\1_A)\)</span>.</p>
-<div class="note info"><h4 id="命题">命题</h4>
-<p>设 <span class="math inline">\(A_1,\cdots, A_n\in \mathcal E\)</span>
-互不相交, <span class="math inline">\(\mu(A_i)&lt;\infty\)</span>. 那么
-<span class="math inline">\((G(A_1),\cdots, G(A_n))\)</span>
-是一个高斯向量. 且 <span class="math inline">\(G(A_1),\cdots,
-G(A_n)\)</span> 两两独立.</p>
-</div>
-<p>以下都认为 <span class="math inline">\(L^2(E,\mathcal E,
-\mu)\)</span> 是可分的 Hilbert 空间.</p>
-<div class="note info"><h4 id="命题">命题</h4>
-<p><span class="math inline">\((E,\mathcal E,\mu)\)</span> 是<span
-class="math inline">\(\sigma\)</span>-有限的测度空间.
-一定存在一个概率空间 <span class="math inline">\((\Omega, \F,
-\p)\)</span> 和一个强度为 <span class="math inline">\(\mu\)</span>
-的高斯白噪声.</p>
-</div>
-<p><strong>证明:</strong> 设 <span
-class="math inline">\(\{e_j\}\)</span> 是 <span
-class="math display">\[L^2(E,\mathcal E,\mu)\]</span> 的 ONB. 取概率空间
-<span class="math inline">\((\Omega, \F, \p)\)</span> 和 i.i.d.
-的高斯变量 <span class="math inline">\(\{X_i\}_{i=1}^\infty\)</span>.
-定义 <span class="math display">\[G: f=\sum_i \langle f,e_i\rangle e_i\
-\ \mapsto\ \ \sum_i \langle f,e_i\rangle X_i.\]</span></p>
-<h3 id="课后题">课后题</h3>
-<div class="note success"><h4 id="习题-1.15">习题 1.15</h4>
-<p><span class="math inline">\(\{X_t\}_{t\in [0,1]}\)</span>
-是中心高斯过程. 设 <span class="math inline">\((t,\omega)\mapsto
-X_t(\omega), [0,1]\times \Omega \to \R\)</span> 是可测的. <span
-class="math inline">\(K\)</span> 是 <span
-class="math inline">\(X\)</span> 的协方差函数.</p>
-<ol type="1">
-<li>证明 <span class="math inline">\(t\mapsto X_t, [0,1]\to
-L^2(\Omega)\)</span> 是连续函数, 当且仅当 <span class="math inline">\(K:
-[0,1]^2\to \R\)</span> 是连续函数.</li>
-</ol>
-<p>以下假设 <span class="math inline">\(K\)</span> 是连续的.</p>
-<ol start="2" type="1">
-<li><p>设 <span class="math inline">\(h:[0,1]\to \R\)</span> 是可测函数,
-满足 <span
-class="math inline">\(\int_0^1|h(t)|\sqrt{K(t,t)}dt&lt;\infty\)</span>.
-证明对 a.e. 的 <span class="math inline">\(\omega\)</span>, <span
-class="math inline">\(\int_0^1 h(t)X_t(\omega)dt\)</span> 是绝对收敛的.
-记 <span class="math inline">\(Z=\int_0^1 h(t)X_tdt\)</span>.</p></li>
-<li><p>假设 <span
-class="math inline">\(\int_0^1|h(t)|dt&lt;\infty\)</span>. 证明 <span
-class="math inline">\(Z_n=\sum_{i=1}^n X_{\frac
-in}\int_{\frac{i-1}n}^{\frac in}h(t)dt\stackrel{L^2}\to Z\)</span> as
-<span class="math inline">\(n\to\infty\)</span>, 并证明 <span
-class="math inline">\(Z\)</span> 是高斯随机变量.</p></li>
-<li><p>设 <span class="math inline">\(K\in C^2([0,1]^2)\)</span>. 证明
-<span class="math inline">\(\forall\; t\in [0,1]\)</span>, 极限 <span
-class="math display">\[\dot X_t:=\lim_{s\to t}\frac{
-X_s-X_t}{s-t}\]</span> 在 <span class="math inline">\(L^2\)</span>
-中存在. 验证 <span class="math inline">\((\dot X_t)_{t\in
-[0,1]}\)</span> 是中心高斯过程, 并求其协方差函数.</p></li>
-</ol>
-</div>
-<p><strong>解答:</strong></p>
-<ol type="1">
-<li>对任意 <span class="math inline">\(h\)</span>, <span
-class="math display">\[\|X_{t+h}-X_t\|_{L^2}=\E X_{t+h}^2+\E X_t^2-2\E
-X_{t+h}X_t=K(t+h,t+h)+K(t,t)-2K(t+h, t).\]</span></li>
-</ol>
-<p>如果 <span class="math inline">\(K\)</span> 连续, 显然 <span
-class="math inline">\(\|X_{t+h}-X_t\|_{L^2}\to 0\)</span> as <span
-class="math inline">\(h\to 0\)</span>. 所以 <span
-class="math inline">\(t\mapsto X_t\)</span> 连续.</p>
-<p>如果 <span class="math display">\[\|X_{t+h}-X_t\|_{L^2}\to 0\]</span>
-as <span class="math inline">\(h\to 0\)</span>, 那么 <span
-class="math display">\[\begin{align*}|K(s+u, t+v)-K(s,t)|&amp;=|\E
-X_{s+u}X_{t+v}-\E X_sX_t|\\&amp;\le \E
-|X_{s+u}-X_s||X_{t+v}|+\E|X_{t+v}-X_t||X_s|\\ &amp;\le \E
-X_{t+v}^2\|X_{s+u}-X_s\|_{L^2}+K(s,s)\|X_{t+v}-X_t\|_{L^2}\to
-0.\end{align*}\]</span></p>
-<ol start="2" type="1">
-<li><p>由 Fubini 定理, <span
-class="math display">\[\begin{align*}\int_\Omega\int_0^1|h(t)X_t(\omega)|dtd\p(\omega)&amp;=\int_0^1|h(t)|dt\int_\Omega|X_t(\Omega)|d\p(\Omega)\\
-&amp;=\int_0^1|h(t)|\E|X_t|dt\\&amp; \le \int_0^1|h(t)|\sqrt{\E
-X_t^2}dt&lt;\infty\end{align*}.\]</span> 所以由 Fubini 定理, 对 a.e. 的
-<span class="math inline">\(\omega\in\Omega\)</span>, <span
-class="math inline">\(\int_0^1 h(t)X_t(\omega)dt\)</span>
-是绝对收敛的.</p></li>
-<li><p>由于 <span class="math inline">\(t\mapsto X_t, [0,1]\to
-L^2(\Omega)\)</span> 在闭区间上连续, 所以一致连续. 对任意 <span
-class="math inline">\(\varepsilon&gt;0\)</span>, 存在 <span
-class="math inline">\(\delta&gt;0\)</span>, 当 <span
-class="math inline">\(|s-t|&lt;\delta\)</span> 时, <span
-class="math inline">\(\|X_s-X_t\|_{L^2}&lt;\varepsilon\)</span>. 所以取
-<span class="math inline">\(N\)</span> 使得 <span
-class="math inline">\(\frac{1}N&lt;\delta\)</span>, 那么对任意 <span
-class="math inline">\(\frac{i-1}n&lt;t&lt;\frac in\)</span> <span
-class="math inline">\(|t-\frac in|&lt;\delta\)</span>, <span
-class="math inline">\(\|X_{\frac
-in}-X_t\|&lt;\varepsilon\)</span>.</p></li>
-</ol>
-<p>所以 <span
-class="math display">\[\begin{align*}\|Z_n-Z\|_{L^2}&amp;\le
-\sum_{i=1}^n\int_{\frac{i-1}n}^{\frac in}|h(t)|\|X_{\frac
-in}-X_t\|_{L^2} dt\\&amp;\le
-\varepsilon\int_0^1|h(t)|dt.\end{align*}\]</span></p>
-<p>所以 <span class="math inline">\(\|Z_n-Z\|_{L^2}\to 0\)</span>. 由于
-<span class="math inline">\(X_t\)</span> 是高斯过程, <span
-class="math inline">\(Z_n\)</span> 是高斯变量, 高斯变量的 <span
-class="math inline">\(L^2\)</span> 极限也是高斯变量.</p>
-<ol start="4" type="1">
-<li></li>
-</ol>
-]]></content>
-      <categories>
-        <category>数学</category>
-        <category>统计</category>
-      </categories>
-      <tags>
-        <tag>笔记</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>线性回归分析笔记</title>
-    <url>/2025/02/14/linear_regression/linear_regression/</url>
-    <content><![CDATA[<p>2025 Fall 线性回归分析课程笔记及课程总结.</p>
-<span id="more"></span>
-<h2 id="前言">前言</h2>
-]]></content>
-      <categories>
-        <category>统计</category>
-      </categories>
-      <tags>
-        <tag>笔记</tag>
-        <tag>线性回归</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Jordan 标准型笔记</title>
     <url>/2025/02/14/jordan_canonical_form/</url>
     <content><![CDATA[<p>整理了 Jordan 标准型的一些定理和证明.</p>
@@ -1060,6 +701,483 @@ X_1 &amp; &amp; &amp; \\
       <tags>
         <tag>笔记</tag>
         <tag>线性代数</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>线性回归分析笔记</title>
+    <url>/2025/02/14/linear_regression/linear_regression/</url>
+    <content><![CDATA[<p>2025 Fall 线性回归分析课程笔记及课程总结.</p>
+<span id="more"></span>
+<h2 id="前言">前言</h2>
+]]></content>
+      <categories>
+        <category>统计</category>
+      </categories>
+      <tags>
+        <tag>笔记</tag>
+        <tag>线性回归</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>随机分析读书笔记</title>
+    <url>/2025/02/28/stochastic_analysis/stochastic_analysis/</url>
+    <content><![CDATA[<p>读 Le Gall 的 Brownian Motion, Martingales, and Stochastic Calculus
+的时候记录的一点笔记和课后题.</p>
+<span id="more"></span>
+<p><span class="math display">\[
+    \newcommand{\Z}{\mathbb Z}
+    \newcommand{\E}{\mathbb E}
+    \newcommand{\p}{\mathbb P}
+    \newcommand{\F}{\mathcal F}
+    \newcommand{\Q}{\mathbb Q}
+    \newcommand{\i}{\mathrm i}
+    \newcommand{\spann}{\operatorname{span}}
+    \newcommand{\1}{\Bbb 1}
+    \newcommand{\var}{\operatorname{var}}
+    \newcommand{\cov}{\operatorname{cov}}
+    \newcommand{\R}{\mathbb R}
+    \newcommand{\B}{\mathcal B}
+\]</span></p>
+<h2 id="高斯变量-高斯过程">高斯变量, 高斯过程</h2>
+<h3 id="高斯分布的一些性质复习">高斯分布的一些性质复习</h3>
+<h4 id="一元正态分布">一元正态分布:</h4>
+<ul>
+<li>c.f.: <span class="math inline">\(\phi(\xi)=\E[e^{i\xi Y}]=\exp(\i
+m\xi-\frac{\sigma^2}{2}\xi^2)\)</span>.</li>
+<li>标准正态分布高阶矩: <span class="math inline">\(\E
+X^{2n}=\frac{(2n)!}{2^n n!},\quad \E X^{2n+1}=0\)</span>.</li>
+</ul>
+<div class="note info"><h4 id="命题">命题</h4>
+<p><span class="math inline">\(\{X_n\}_{n\ge 1}\)</span> 是一列随机变量,
+<span class="math inline">\(X_n\sim N(m_n, \sigma_n^2)\)</span>. 设
+<span class="math inline">\(X_n\stackrel{L^2}\to X\)</span>, 那么</p>
+<ol type="1">
+<li><p><span class="math inline">\(m_n, \sigma_n^2\)</span> 都收敛, 且
+<span class="math inline">\(X\sim N(m,\sigma^2)\)</span>, 其中 <span
+class="math inline">\(m=\lim m_n, \sigma^2=\lim
+\sigma_n^2\)</span>.</p></li>
+<li><p><span class="math inline">\(X_n\stackrel{L^p}\to X,\quad
+\forall\; 1\le p&lt;\infty\)</span>.</p></li>
+</ol>
+</div>
+<p><strong>证明:</strong></p>
+<ol type="1">
+<li><p>由 <span class="math inline">\(L^2\)</span> 收敛, 可知 <span
+class="math inline">\(\E|X_n-X|\to 0\)</span>, <span
+class="math inline">\(\E|X_n-X|^2\to 0\)</span>. 这说明 <span
+class="math inline">\(m_n=\E X_n\to \E X\)</span>, <span
+class="math inline">\(\sigma_n^2=\var X_n\to \var X\)</span>.</p>
+<p>令 <span class="math inline">\(m=\lim m_n\)</span>, <span
+class="math inline">\(\sigma^2=\lim \sigma_n^2\)</span>, 那么 <span
+class="math display">\[\E[e^{\i\xi X}]=\lim_{n\to\infty} \E[e^{\i \xi
+X_n}]=\lim_{n\to\infty} \exp(\i m_n\xi-\frac{\sigma_n^2}2 \xi^2)=\exp(\i
+m\xi-\frac{\sigma^2}2\xi^2).\]</span> 所以 <span
+class="math inline">\(X\sim N(m,\sigma^2)\)</span>.</p></li>
+<li><p>由 <span class="math inline">\(m_n,\sigma_n^2\)</span>
+收敛可知这两个序列有界. 所以 <span
+class="math inline">\(\sup_n\E|X_n|^q&lt;\infty\)</span>, 进而 <span
+class="math inline">\(\sup_n\E |X_n-X|^q&lt;\infty,\;\forall\; q\ge
+1\)</span>. 取 <span class="math inline">\(q=2p\)</span>, 这说明 <span
+class="math inline">\(Y_n=|X_n-X|^p\)</span> 在 <span
+class="math inline">\(L^2\)</span> 中有界, 进而一致可积. 由 <span
+class="math inline">\(Y_n\)</span> 依概率收敛到 0, 可知 <span
+class="math inline">\(Y_n\)</span> <span
+class="math inline">\(L^1\)</span> 收敛.</p></li>
+</ol>
+<div class="note warning"><h4 id="注">注</h4>
+<p>复习: 若存在 <span class="math inline">\(p&gt;1\)</span>, 使 <span
+class="math inline">\(X_n\)</span> 在 <span
+class="math inline">\(L^p\)</span> 中有界, 那么 <span
+class="math inline">\(X_n\)</span> UI.</p>
+</div>
+<h4 id="多元正态分布-高斯向量">多元正态分布, 高斯向量:</h4>
+<p><span class="math inline">\(E\)</span> 是 <span
+class="math inline">\(d\)</span> 维欧式空间. <span
+class="math inline">\(X:\Omega \to E\)</span> 是高斯向量 (服从多元正态),
+当且仅当对任意 <span class="math inline">\(u\in E\)</span>, <span
+class="math inline">\(\langle u,X\rangle\)</span> 服从一元正态分布.</p>
+<p>取 <span class="math inline">\(E\)</span> 中的 ONB <span
+class="math inline">\(\{e_1,\cdots e_d\}\)</span>, 设 <span
+class="math inline">\(X=\sum_i X_ie_i\)</span>, 那么 <span
+class="math inline">\(X_i=\langle e_i, X\rangle\)</span>
+都是一元高斯变量. 可以定义均值 <span class="math inline">\(m_X=\sum_i
+(\E X_i) e_i=: \E X\)</span>, 协方差 (一个二次型) <span
+class="math inline">\(q_X:E\to \R\)</span>, <span
+class="math display">\[q_X(u)=\sum_{i,j}
+u_iu_j\cov(X_i,X_j).\]</span></p>
+<p>这样就有 <span class="math display">\[\E\langle u,X\rangle=\langle u,
+m_X\rangle,\]</span> <span class="math display">\[\var \langle
+u,X\rangle=q_X(u).\]</span></p>
+<p>可以定义特征函数 <span
+class="math inline">\(\phi_X(u)=\E[\exp(\i\langle
+u,X\rangle)]=\exp(\i\langle u,m_X\rangle-\frac 12q_X(u))\)</span>.</p>
+<div class="note info"><h4 id="命题">命题</h4>
+<p><span class="math inline">\(X_1,\cdots, X_d\)</span> 独立当且仅当
+<span class="math inline">\(q_X\)</span> 在基 <span
+class="math inline">\((e_1,\cdots, e_d)\)</span> 下是对角的,
+即协方差矩阵 <span class="math inline">\((\cov(X_i, X_j))_{i,j}\)</span>
+是对角阵.</p>
+</div>
+<p>存在对称的自同态 <span class="math inline">\(\gamma_X:E\to
+E\)</span>, 使得 <span class="math inline">\(q_X=\langle u, \gamma_X
+u\rangle\)</span>. <span class="math inline">\(\gamma_X\)</span>
+的表示矩阵就是协方差矩阵.</p>
+<h3 id="高斯过程">高斯过程</h3>
+<p>以下讨论的都是中心的高斯变量, 即 <span class="math inline">\(\E
+X=0\)</span>.</p>
+<div class="note primary"><h4 id="定义-高斯空间">定义: 高斯空间</h4>
+<p>称 <span class="math inline">\(H\subset L^2(\Omega,\F,\p)\)</span>
+是高斯空间, 如果 <span class="math inline">\(H\)</span> 是 <span
+class="math inline">\(L^2(\Omega,\F,\p)\)</span> 的闭子空间,
+且其中只包含中心高斯变量.</p>
+</div>
+<p>例如: 如果 <span class="math inline">\(X=(X_1,\cdots, X_d)\in
+\R^d\)</span> 是高斯向量, 那么 <span
+class="math inline">\(\spann\{X_1,\cdots, X_d\}\)</span> 是高斯空间.</p>
+<div class="note primary"><h4 id="定义-高斯过程">定义: 高斯过程</h4>
+<p>称随机过程 <span class="math inline">\(\{X_t\}\)</span> 为高斯过程,
+如果任意 <span class="math inline">\(\{X_t\}\)</span>
+的有限线性组合是中心的高斯变量.</p>
+</div>
+<div class="note info"><h4 id="命题">命题:</h4>
+<p>如果 <span class="math inline">\(\{X_t\}_{t\in T}\)</span> 在 <span
+class="math inline">\(L^2\)</span> 中张成的闭子空间是高斯空间,
+那么随机过程 <span class="math inline">\(\{X_t\}_{t\in T}\)</span>
+是高斯过程.</p>
+</div>
+<p><strong>证明:</strong> 因为中心高斯变量的 <span
+class="math inline">\(L^2\)</span> 极限仍是高斯变量.</p>
+<p>下面来研究高斯空间的独立性:</p>
+<div class="note info"><h4 id="定理">定理</h4>
+<p><span class="math inline">\(H\)</span> 是中心高斯空间, <span
+class="math inline">\(\{H_i\}\)</span> 是 <span
+class="math inline">\(H\)</span> 的一列子空间. <span
+class="math inline">\(\{H_i\}\)</span> 在 <span
+class="math inline">\(L^2\)</span> 中两两正交, 当且仅当他们生成的 <span
+class="math inline">\(\sigma\)</span>-代数 <span
+class="math inline">\(\sigma(H_i), i\in I\)</span> 是互相独立的.</p>
+</div>
+<div class="note warning"><h4 id="注">注</h4>
+<p><span class="math inline">\(\{H_i\}\)</span>
+必须是同一个高斯空间的子空间. 以下是一个反例,
+说明对于两个随便的高斯变量, 他们的不相关不意味着独立:</p>
+<p>设 <span class="math inline">\(X\sim N(0,1)\)</span>, <span
+class="math inline">\(\p(\varepsilon=1)=\p(\varepsilon=-1)=1/2\)</span>,
+且 <span class="math inline">\(X, \varepsilon\)</span> 独立. 令 <span
+class="math inline">\(X_1=X\)</span>, <span
+class="math inline">\(X_2=\varepsilon X\)</span>. 那么 <span
+class="math inline">\(\E[X_1X_2]=\E[\varepsilon X^2]=\E\varepsilon\E
+X^2=0\)</span>, <span class="math inline">\(X_1, X_2\)</span> 不相关.
+但是由于 <span class="math inline">\(|X_1|=|X_2|=|X|\)</span>,
+所以两者不独立.</p>
+<p><strong>这就是以前常说的, 两个高斯变量服从二元正态,
+才能保证不相关等价于独立.</strong> 这里注意 <span
+class="math inline">\(Y=X_1+X_2=X+\varepsilon X\)</span> 不服从正态分布,
+所以 <span class="math inline">\(X_1, X_2\)</span>
+不在同一个高斯空间里面, 因此不相关不蕴含独立.</p>
+</div>
+<p><strong>证明:</strong> 书上 P8.</p>
+<p>我们知道在 <span class="math inline">\(L^2\)</span> 空间中,
+条件期望可以理解成向闭子空间的投影.</p>
+<div class="note info"><h4 id="推论">推论</h4>
+<p>设 <span class="math inline">\(H\)</span> 是中心高斯空间, <span
+class="math inline">\(K\subset H\)</span> 是闭子空间. 设 <span
+class="math inline">\(p_K\)</span> 是到 <span
+class="math inline">\(K\)</span> 的投影算子. <span
+class="math inline">\(X\in H\)</span>.</p>
+<ol type="1">
+<li><p><span class="math inline">\(\E[X\mid
+\sigma(K)]=p_K(X).\)</span></p></li>
+<li><p>设 <span
+class="math inline">\(\sigma^2=\E[(X-p_K(X))^2]\)</span>, 对任意 Borel
+集 <span class="math inline">\(A\in \mathcal B(\R)\)</span>, 条件概率
+<span class="math inline">\(\p(X\in A\mid \sigma(K))\)</span> (注意:
+这是一个随机变量) 由以下关系给出: <span class="math display">\[\p(X\in
+A\mid \sigma(K))(\omega) =Q(\omega,A),\]</span> 其中 <span
+class="math display">\[Q(\omega,
+A)=\frac1{\sqrt{2\pi\sigma^2}}\int_A\exp\left(-\frac{(y-p_K(X)(\omega))^2}{2\sigma^2}\right).\]</span></p></li>
+</ol>
+<p>特别地, 如果 <span class="math inline">\(\sigma^2=0\)</span>, 约定
+<span class="math inline">\(Q(\omega, A)=\1_A(p_K(X))\)</span>.</p>
+</div>
+<p>定义高斯过程的协方差函数 <span
+class="math inline">\(\Gamma(s,t)=\cov(X_s, X_t)=\E X_sX_t\)</span>.
+协方差函数用来描述高斯过程的有限维边缘分布. 事实上,
+我们事先指定好一个协方差函数, 一定存在一个对应的高斯过程.</p>
+<div class="note info"><h4 id="定理">定理</h4>
+<p>设 <span class="math inline">\(\Gamma: T\times T: \R\)</span>
+(一般考虑 <span class="math inline">\(T=\R_+\)</span>) 满足:</p>
+<ol type="1">
+<li>对称性: <span
+class="math inline">\(\Gamma(s,t)=\Gamma(t,s)\)</span>;</li>
+<li>"正定性"(positive type): <span class="math inline">\(c:T\to
+\R\)</span> 是有限支集的函数, 那么 <span
+class="math inline">\(\displaystyle \sum_{T\times T}
+c(s)c(t)\Gamma(s,t)\ge 0\)</span>.</li>
+</ol>
+<p>那么存在一个概率空间 <span class="math inline">\((\Omega,
+\F,\p)\)</span> 和其上的中心高斯过程, 使得其协方差函数为 <span
+class="math inline">\(\Gamma\)</span>.</p>
+</div>
+<div class="note success"><h4 id="例子">例子:</h4>
+<p><span class="math inline">\(T=\R\)</span>, <span
+class="math inline">\(\mu\)</span> 是 <span
+class="math inline">\(\R\)</span> 上的有限, 对称测度, <span
+class="math inline">\(\Gamma(s,t)=\int_{\R}
+e^{\i\xi(t-s)}\mu(d\xi)\)</span>. 由 Fubini 定理可以验证 <span
+class="math inline">\(\Gamma\)</span> 满足条件.</p>
+</div>
+<h3 id="高斯白噪声">高斯白噪声</h3>
+<div class="note primary"><h4 id="定义-高斯白噪声">定义: 高斯白噪声</h4>
+<p><span class="math inline">\((E,\mathcal E,\mu)\)</span> 是<span
+class="math inline">\(\sigma\)</span>-有限的测度空间. 强度为 <span
+class="math inline">\(\mu\)</span> 的高斯白噪声是指一个等距映射 <span
+class="math inline">\(G: L^2(E,\mathcal E, \mu) \to H\)</span>, <span
+class="math inline">\(H\subset L^2(\Omega,\F,\p)\)</span>
+是某个高斯空间.</p>
+</div>
+<p>设 <span class="math inline">\(f,g\in L^2(E,\mathcal E,
+\mu)\)</span>, 那么 <span class="math inline">\(G(f), G(g)\)</span>
+是中心高斯变量, 且方差 <span
+class="math display">\[\E[G(f)^2]=\|G(f)\|^2_{L^2(\Omega, \F,
+\p)}=\|f\|^2_{L^2(E,\mathcal E,\mu)}=\int f^2d\mu,\]</span> <span
+class="math display">\[\E[G(f)G(g)]=\langle G(f) \rangle_H=\langle
+f,g\rangle_{L^2(E,\mathcal E,\mu)}=\int fgd\mu.\]</span></p>
+<p>若 <span class="math inline">\(f=\1_A\)</span>, <span
+class="math inline">\(\mu(A)&lt;\infty\)</span>. 那么 <span
+class="math inline">\(G(\1_A)\sim N(0,\mu(A))\)</span>. 以后记 <span
+class="math inline">\(G(A):=G(\1_A)\)</span>.</p>
+<div class="note info"><h4 id="命题">命题</h4>
+<p>设 <span class="math inline">\(A_1,\cdots, A_n\in \mathcal E\)</span>
+互不相交, <span class="math inline">\(\mu(A_i)&lt;\infty\)</span>. 那么
+<span class="math inline">\((G(A_1),\cdots, G(A_n))\)</span>
+是一个高斯向量. 且 <span class="math inline">\(G(A_1),\cdots,
+G(A_n)\)</span> 两两独立.</p>
+</div>
+<p>以下都认为 <span class="math inline">\(L^2(E,\mathcal E,
+\mu)\)</span> 是可分的 Hilbert 空间.</p>
+<div class="note info"><h4 id="命题">命题</h4>
+<p><span class="math inline">\((E,\mathcal E,\mu)\)</span> 是<span
+class="math inline">\(\sigma\)</span>-有限的测度空间.
+一定存在一个概率空间 <span class="math inline">\((\Omega, \F,
+\p)\)</span> 和一个强度为 <span class="math inline">\(\mu\)</span>
+的高斯白噪声.</p>
+</div>
+<p><strong>证明:</strong> 设 <span
+class="math inline">\(\{e_j\}\)</span> 是 <span
+class="math display">\[L^2(E,\mathcal E,\mu)\]</span> 的 ONB. 取概率空间
+<span class="math inline">\((\Omega, \F, \p)\)</span> 和 i.i.d.
+的高斯变量 <span class="math inline">\(\{X_i\}_{i=1}^\infty\)</span>.
+定义 <span class="math display">\[G: f=\sum_i \langle f,e_i\rangle e_i\
+\ \mapsto\ \ \sum_i \langle f,e_i\rangle X_i.\]</span></p>
+<h3 id="课后题">课后题</h3>
+<div class="note success"><h4 id="习题-1.15">习题 1.15</h4>
+<p><span class="math inline">\(\{X_t\}_{t\in [0,1]}\)</span>
+是中心高斯过程. 设 <span class="math inline">\((t,\omega)\mapsto
+X_t(\omega), [0,1]\times \Omega \to \R\)</span> 是可测的. <span
+class="math inline">\(K\)</span> 是 <span
+class="math inline">\(X\)</span> 的协方差函数.</p>
+<ol type="1">
+<li>证明 <span class="math inline">\(t\mapsto X_t, [0,1]\to
+L^2(\Omega)\)</span> 是连续函数, 当且仅当 <span class="math inline">\(K:
+[0,1]^2\to \R\)</span> 是连续函数.</li>
+</ol>
+<p>以下假设 <span class="math inline">\(K\)</span> 是连续的.</p>
+<ol start="2" type="1">
+<li><p>设 <span class="math inline">\(h:[0,1]\to \R\)</span> 是可测函数,
+满足 <span
+class="math inline">\(\int_0^1|h(t)|\sqrt{K(t,t)}dt&lt;\infty\)</span>.
+证明对 a.e. 的 <span class="math inline">\(\omega\)</span>, <span
+class="math inline">\(\int_0^1 h(t)X_t(\omega)dt\)</span> 是绝对收敛的.
+记 <span class="math inline">\(Z=\int_0^1 h(t)X_tdt\)</span>.</p></li>
+<li><p>假设 <span
+class="math inline">\(\int_0^1|h(t)|dt&lt;\infty\)</span>. 证明 <span
+class="math inline">\(Z_n=\sum_{i=1}^n X_{\frac
+in}\int_{\frac{i-1}n}^{\frac in}h(t)dt\stackrel{L^2}\to Z\)</span> as
+<span class="math inline">\(n\to\infty\)</span>, 并证明 <span
+class="math inline">\(Z\)</span> 是高斯随机变量.</p></li>
+<li><p>设 <span class="math inline">\(K\in C^2([0,1]^2)\)</span>. 证明
+<span class="math inline">\(\forall\; t\in [0,1]\)</span>, 极限 <span
+class="math display">\[\dot X_t:=\lim_{s\to t}\frac{
+X_s-X_t}{s-t}\]</span> 在 <span class="math inline">\(L^2\)</span>
+中存在. 验证 <span class="math inline">\((\dot X_t)_{t\in
+[0,1]}\)</span> 是中心高斯过程, 并求其协方差函数.</p></li>
+</ol>
+</div>
+<p><strong>解答:</strong></p>
+<ol type="1">
+<li>对任意 <span class="math inline">\(h\)</span>, <span
+class="math display">\[\|X_{t+h}-X_t\|_{L^2}=\E X_{t+h}^2+\E X_t^2-2\E
+X_{t+h}X_t=K(t+h,t+h)+K(t,t)-2K(t+h, t).\]</span></li>
+</ol>
+<p>如果 <span class="math inline">\(K\)</span> 连续, 显然 <span
+class="math inline">\(\|X_{t+h}-X_t\|_{L^2}\to 0\)</span> as <span
+class="math inline">\(h\to 0\)</span>. 所以 <span
+class="math inline">\(t\mapsto X_t\)</span> 连续.</p>
+<p>如果 <span class="math display">\[\|X_{t+h}-X_t\|_{L^2}\to 0\]</span>
+as <span class="math inline">\(h\to 0\)</span>, 那么 <span
+class="math display">\[\begin{align*}|K(s+u, t+v)-K(s,t)|&amp;=|\E
+X_{s+u}X_{t+v}-\E X_sX_t|\\&amp;\le \E
+|X_{s+u}-X_s||X_{t+v}|+\E|X_{t+v}-X_t||X_s|\\ &amp;\le \E
+X_{t+v}^2\|X_{s+u}-X_s\|_{L^2}+K(s,s)\|X_{t+v}-X_t\|_{L^2}\to
+0.\end{align*}\]</span></p>
+<ol start="2" type="1">
+<li><p>由 Fubini 定理, <span
+class="math display">\[\begin{align*}\int_\Omega\int_0^1|h(t)X_t(\omega)|dtd\p(\omega)&amp;=\int_0^1|h(t)|dt\int_\Omega|X_t(\Omega)|d\p(\omega)\\
+&amp;=\int_0^1|h(t)|\E|X_t|dt\\&amp; \le \int_0^1|h(t)|\sqrt{\E
+X_t^2}dt&lt;\infty\end{align*}.\]</span> 所以由 Fubini 定理, 对 a.e. 的
+<span class="math inline">\(\omega\in\Omega\)</span>, <span
+class="math inline">\(\int_0^1 h(t)X_t(\omega)dt\)</span>
+是绝对收敛的.</p></li>
+<li><p>由于 <span class="math inline">\(t\mapsto X_t, [0,1]\to
+L^2(\Omega)\)</span> 在闭区间上连续, 所以一致连续. 对任意 <span
+class="math inline">\(\varepsilon&gt;0\)</span>, 存在 <span
+class="math inline">\(\delta&gt;0\)</span>, 当 <span
+class="math inline">\(|s-t|&lt;\delta\)</span> 时, <span
+class="math inline">\(\|X_s-X_t\|_{L^2}&lt;\varepsilon\)</span>. 所以取
+<span class="math inline">\(N\)</span> 使得 <span
+class="math inline">\(\frac{1}N&lt;\delta\)</span>, 那么对任意 <span
+class="math inline">\(\frac{i-1}n&lt;t&lt;\frac in\)</span> <span
+class="math inline">\(|t-\frac in|&lt;\delta\)</span>, <span
+class="math inline">\(\|X_{\frac
+in}-X_t\|&lt;\varepsilon\)</span>.</p></li>
+</ol>
+<p>所以 <span
+class="math display">\[\begin{align*}\|Z_n-Z\|_{L^2}&amp;\le
+\sum_{i=1}^n\int_{\frac{i-1}n}^{\frac in}|h(t)|\|X_{\frac
+in}-X_t\|_{L^2} dt\\&amp;\le
+\varepsilon\int_0^1|h(t)|dt.\end{align*}\]</span></p>
+<p>所以 <span class="math inline">\(\|Z_n-Z\|_{L^2}\to 0\)</span>. 由于
+<span class="math inline">\(X_t\)</span> 是高斯过程, <span
+class="math inline">\(Z_n\)</span> 是高斯变量, 高斯变量的 <span
+class="math inline">\(L^2\)</span> 极限也是高斯变量.</p>
+<ol start="4" type="1">
+<li>根据 <span class="math inline">\(L^2\)</span> 的完备性,
+只需验证</li>
+</ol>
+<h2 id="布朗运动">布朗运动</h2>
+<p>先定义准布朗运动:</p>
+<div class="note primary"><h4 id="定义-准布朗运动">定义: 准布朗运动</h4>
+<p><span class="math inline">\(G\)</span> 是 <span
+class="math inline">\(\R_+\)</span> 上的高斯白噪声, 强度为 Lebesgue
+测度. 则随机过程 <span class="math inline">\(B_t=G(\1_{[0,1]})\)</span>
+被称为准布朗运动.</p>
+</div>
+<p>准布朗运动是中心高斯过程, 协方差函数 <span
+class="math inline">\(K(s,t)=s\wedge t\)</span>.
+进一步还有以下的性质:</p>
+<div class="note info"><h4 id="命题">命题</h4>
+<p><span class="math inline">\((X_t)_{t\ge 0}\)</span> 是随机过程.
+以下等价:</p>
+<ol type="1">
+<li><p><span class="math inline">\((X_t)\)</span> 是准布朗运动.</p></li>
+<li><p><span class="math inline">\((X_t)\)</span> 是中心高斯过程,
+且协方差 <span class="math inline">\(K(s,t)=s\wedge t\)</span>.</p></li>
+<li><p><span class="math inline">\(X_0=0\)</span> a.s., 且对任意 <span
+class="math inline">\(0\le s&lt;t\)</span>, <span
+class="math inline">\(X_t-X_s\sim N(0,t-s)\)</span> 且和 <span
+class="math inline">\(\sigma(X_r, r\le s)\)</span> 独立.</p></li>
+<li><p><span class="math inline">\(X_0=0\)</span> a.s., 对任意 <span
+class="math inline">\(0\le t_0&lt;t_1&lt;\cdots&lt;t_p\)</span>, <span
+class="math inline">\(\{X_{t_i}-X_{t_i-1}\}_{1\le i\le p}\)</span> 独立,
+且 <span class="math inline">\(X_{t_i}-X_{t_{i-1}}\sim
+N(0,t_i-t_{i-1})\)</span>.</p></li>
+</ol>
+</div>
+<p>根据以上的命题, 我们可以写出来准布朗运动中任意有限维的边缘分布:</p>
+<div class="note info"><h4 id="推论">推论</h4>
+<p>(B_t) 是准布朗运动, 对任意 <span class="math inline">\(0\le
+t_0&lt;t_1&lt;\cdots&lt;t_n\)</span>, <span
+class="math inline">\((B_{t_1},B_{t_2},\cdots, B_{t_n})\)</span>
+的密度函数为 <span class="math display">\[p(x_1,\cdots, x_n)=\frac
+1{(2\pi)^{n/2}\sqrt{t_1(t_2-t_1)\cdots(t_n-t_{n-1})}}\exp\left(-\sum_{i=1}^n\frac{(x_i-x_{i-1})^2}{2(t_i-t_{i-1})}\right),\]</span></p>
+<p>其中约定 <span class="math inline">\(x_0=0\)</span>.</p>
+</div>
+<p>准布朗运动其他的一些性质:</p>
+<div class="note info"><h4 id="命题">命题</h4>
+<p><span class="math inline">\(B\)</span> 是准布朗运动, 那么</p>
+<ol type="1">
+<li><p>(对称性) <span class="math inline">\(-B\)</span>
+也是准布朗运动;</p></li>
+<li><p>(伸缩不变性) 对任意 <span
+class="math inline">\(\lambda&gt;0\)</span>, <span
+class="math inline">\(B_t^\lambda:=\frac 1\lambda
+B_{\lambda^2t}\)</span> 也是准布朗运动;</p></li>
+<li><p>(Markov 性) 对任意 <span class="math inline">\(s\ge 0\)</span>,
+<span class="math inline">\(B_t^{(s)}=B_{s+t}-B_s\)</span>
+也是准布朗运动, 且和 <span class="math inline">\(\sigma(B_r,r\le
+s)\)</span> 独立.</p></li>
+</ol>
+</div>
+<p>设 <span class="math inline">\(B\)</span> 是准布朗运动,
+在开始的时候我们用高斯白噪声 <span class="math inline">\(G\)</span>
+定义了准布朗运动, 其实给定了准布朗运动, 我们可以求出来它对应的高斯白噪声
+<span class="math inline">\(G\)</span>. 我们由此定义 <span
+class="math inline">\(B\)</span> 的 Weiner 积分:</p>
+<p>对任意 <span class="math inline">\(f\in L^2(\R_+, \B(R_+),
+dt)\)</span>, 写 <span class="math display">\[G(f)=\int_0^\infty
+f(s)dB_s,\]</span></p>
+<p>类似的, <span class="math inline">\(G(f\1_{[0,t]})=\int_0^t
+f(s)dB_s\)</span>, <span class="math inline">\(G(f\1_{[s,t]})=\int_s^t
+f(r) dB_r.\)</span></p>
+<p><span class="math inline">\(f\)</span> 是阶梯函数的时候, <span
+class="math inline">\(G\)</span> 可以写出表达式:</p>
+<p><span class="math inline">\(G(\1_[0,t])=B_t\)</span>, 且对任意不交的
+<span class="math inline">\(A=\bigcup_i A_i\)</span>, <span
+class="math inline">\(G(A)=\sum_iG(A_i)\)</span>, 由此 <span
+class="math inline">\(G(\sum_i \1_{[t_{i-1}, t_i]})=\sum_i G([t_{i-1},
+t_i])\)</span>.</p>
+<p>这说明了 对 <span class="math inline">\(u&lt;v\)</span>, <span
+class="math display">\[\int_u^v
+dB_s=G((u,v])=G([0,v])-G([0,u])=B_v-B_u.\]</span></p>
+<p>映射 <span class="math inline">\(f\mapsto \int_0^\infty
+f(s)dB_s\)</span> 被称为关于 <span class="math inline">\(B\)</span> 的
+Weiner 积分. 且 <span class="math inline">\(\int_0^\infty f(s)dB_s\sim
+N(0,\int_0^\infy f(s)^2ds)\)</span>. 但是 <span
+class="math inline">\(G\)</span> 不是一个测度, <span
+class="math inline">\(\int_0^\infty f(s)dB_s\)</span> 不是一个依赖 <span
+class="math inline">\(\omega\)</span> 的积分.</p>
+<p>下面要做的就是推广之前的定义.</p>
+<h3 id="布朗运动的样本轨道">布朗运动的样本轨道</h3>
+<p><span class="math inline">\(E\)</span> 是度量空间, 配有 Borel <span
+class="math inline">\(\sigma\)</span>-代数.</p>
+<div class="note primary"><h4 id="定义-样本轨道-sample-path">定义: 样本轨道 (sample path)</h4>
+<p><span class="math inline">\((X_t)_{t\in T}\)</span> 是取值在 <span
+class="math inline">\(E\)</span> 中的随机过程. 样本轨道是指,
+一系列的映射 <span class="math inline">\(\{t\maspto X_t(\omega)\mid t\in
+T\}_{\omega\in \Omega}\)</span>.</p>
+</div>
+<p>我们把所有路径都连续的准布朗运动定义成为<strong>布朗运动</strong>.
+下面要说明的是, 任何的准布朗运动都能通过一点小的修改变成布朗运动.</p>
+<div class="note primary"><h4 id="定义">定义</h4>
+<p>称 <span class="math inline">\((\tilde X_t)_{t\in T}\)</span>
+是随机过程 <span class="math inline">\((X_t)_{t\in T}\)</span> 的修改,
+两者指标集相同, 且值域相同. 如果对任意 <span class="math inline">\(t\in
+T\)</span>, <span class="math inline">\(\p(\{\tilde \omega:
+X_t(\omega)=X_t(\omega)\})=1\)</span>.</p>
+</div>
+<p>显然 <span class="math inline">\(\tilde X\)</span> 和 <span
+class="math inline">\(X\)</span> 的任何有限维边缘分布相同, 所以如果
+<span class="math inline">\(X\)</span> 是准布朗运动, 那么 <span
+class="math inline">\(\tilde X\)</span> 也是准布朗运动.</p>
+<div class="note primary"><h4 id="定义">定义</h4>
+<p>称 <span class="math inline">\(\tilde X\)</span> 和 <span
+class="math inline">\(X\)</span> 是不可区分的, 如果存在零测集 <span
+class="math inline">\(N\subset \Omega\)</span>, 使得 <span
+class="math display">\[\forall\;\omega\in \Omega\backslash
+N,\;\forall\;t\in T,\quad \tilde X_t(\omega)=X_t(\omega).\]</span></p>
+</div>
+<p>直观可以理解成 <span class="math inline">\(\p(\forall\;t\in T,
+X_t=\tilde X_t)=1\)</span>, 不过这个表述不严密, 因为 <span
+class="math inline">\(\{\omega:\forall\;t\in T, X_t(\omega)=\tilde
+X_t(\omega)\}\)</span> 不一定可测.</p>
+]]></content>
+      <categories>
+        <category>数学</category>
+        <category>统计</category>
+      </categories>
+      <tags>
+        <tag>笔记</tag>
       </tags>
   </entry>
   <entry>
