@@ -1,6 +1,415 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>随机微分方程速通</title>
+    <url>/2025/03/05/sde/sde/</url>
+    <content><![CDATA[<p>看的是 Evans 的 Introduction to Stochastic Differential Equations
+这本书.</p>
+<span id="more"></span>
+<p><span class="math display">\[
+    \newcommand{\Z}{\mathbb Z}
+    \newcommand{\E}{\mathbb E}
+    \newcommand{\p}{\mathbb P}
+    \newcommand{\F}{\mathcal F}
+    \newcommand{\Q}{\mathbb Q}
+    \newcommand{\i}{\mathrm i}
+    \newcommand{\spann}{\operatorname{span}}
+    \newcommand{\1}{\Bbb 1}
+    \newcommand{\var}{\operatorname{var}}
+    \newcommand{\cov}{\operatorname{cov}}
+    \newcommand{\R}{\mathbb R}
+    \newcommand{\B}{\mathcal B}
+    \newcommand{\bm}{\mathbf}
+    \newcommand{\as}{\;\mathrm{a.s.}}
+\]</span></p>
+<h2 id="随机微分方程简介">随机微分方程简介</h2>
+<p>一个常见的 ODE 是这么定义的: <span
+class="math display">\[\begin{cases}\dot{\bm x}(t)=\bm b(\bm x(t)),
+&amp; t&gt;0\\ \bm x(0)=x_0 \end{cases}.\]</span></p>
+<p>这里 <span class="math inline">\(\bm b:\R^n\to \R^n\)</span>
+是一个光滑向量场. ODE 的解 <span class="math inline">\(\bm
+x:[0,\infty)\to \R^n\)</span> 是关于 <span
+class="math inline">\(t\)</span> 的函数, 被称为 ODE 的轨迹. <span
+class="math inline">\(\bm x(t)\)</span> 被称为 <span
+class="math inline">\(t\)</span> 时刻系统的状态. 给定一个初始状态 <span
+class="math inline">\(x_0\)</span>, ODE 的解是唯一的.</p>
+<p>但是在实际应用中, 观测到的轨迹可能伴随着随机的扰动,
+将这种随机的噪声考虑进模型中:</p>
+<p><span class="math display">\[\begin{cases}\dot{\bm X}(t)=\bm b(\bm
+X(t))+\bm B(\bm X(t))\bm \xi(t), &amp; t&gt;0\\ \bm X(0)=x_0
+\end{cases}.\]</span></p>
+<p>这里 <span class="math inline">\(\bm B: \R^n\to \R^{n\times
+m}\)</span>, <span class="math inline">\(\xi\)</span> 是白噪声.</p>
+<p>先考虑 <span class="math inline">\(m=n\)</span>, <span
+class="math inline">\(\bm b=0\)</span>, <span
+class="math inline">\(x_0=0\)</span>, <span class="math inline">\(\bm
+B=I\)</span> 的情形, 即解方程 <span class="math inline">\(\bm X(t)=\xi
+(t)\)</span>. 方程的解被称为布朗运动 <span class="math inline">\(\dot
+W=\xi\)</span>, 然后白噪声就是布朗运动的关于时间的导数.</p>
+<p>回到一般的方程, 形式化地两边 "同乘" <span
+class="math inline">\(dt\)</span>, 那就得到了</p>
+<p><span class="math display">\[\begin{cases}d\bm X(t)=\bm b(\bm
+X(t))dt+\bm B(\bm X(t))d\bm W(t), &amp; t&gt;0\\ \bm X(0)=x_0
+\end{cases}.\]</span></p>
+<p>或者写成更严谨的积分形式: <span
+class="math display">\[X(t)=x_0+\int_0^t \bm b(\bm X(s)) ds+\int_0^t\bm
+B(\bm X(s))d\bm W,\quad t&gt;0.\]</span></p>
+<p>我们要做的事情就是, 首先构造出布朗运动, 然后定义什么是随机积分,
+最后证明上述方程有界.</p>
+<h2 id="链式法则-ito-公式">链式法则, Ito 公式</h2>
+<p>设 <span class="math inline">\(X(t)\)</span> 是方程 <span
+class="math inline">\(dX=b(X)dt+dW\)</span> 的解. 现在考虑 <span
+class="math inline">\(Y(t)=u(X(t))\)</span> 所满足的微分方程.
+朴素的想法是直接两边微分得到 <span
+class="math display">\[dY=u&#39;dX=u&#39;bdX+u&#39;dW.\]</span></p>
+<p>这其实是错误的. 后面会证明, 直观上有 <span
+class="math inline">\(dW\approx (dt)^{1/2}\)</span>.
+所以上述的线性近似里面有一些由 <span class="math inline">\(dW\)</span>
+产生的一阶近似被扔掉了. 更合理的处理是: <span
+class="math display">\[\begin{align*}
+    dY&amp;=u&#39;dX+\frac 12u&#39;&#39;(dX)^2+\cdots\\
+        &amp;= u&#39;(bdt+dW)+\frac 12u&#39;&#39;(bdt+dW)^2+\cdots\\
+        &amp;= (u&#39;b+\frac 12 u&#39;&#39;)dt+u&#39;dW+\{高于
+(dt)^{3/2} 的项\}
+\end{align*}\]</span></p>
+<p>所以近似的得到 <span
+class="math display">\[du(X)=(u&#39;b+\textcolor{red}{\frac12
+u&#39;&#39;})dt+u&#39;dW.\]</span></p>
+<p>这就是所谓的 Ito 链式法则, 或者叫 Ito 公式.
+书上还介绍了布朗运动这个名称的由来以及相关的历史, 并提供了充分的直观和
+Motivation.</p>
+<h2 id="布朗运动-白噪声">布朗运动, 白噪声</h2>
+<h3 id="布朗运动的定义和性质">布朗运动的定义和性质</h3>
+<div class="note primary"><h4 id="定义-布朗运动">定义: 布朗运动</h4>
+<p>一个实值随机过程 <span class="math inline">\(W(\cdot)\)</span>
+被称为布朗运动, 如果</p>
+<ol type="1">
+<li><p><span class="math inline">\(W(0)=0\)</span>;</p></li>
+<li><p><span class="math inline">\(W(t)-W(s)\sim N(0,t-s),\quad
+\forall\; t\ge s\ge 0\)</span>;</p></li>
+<li><p>(独立增量) 对任意 <span
+class="math inline">\(0&lt;t_1&lt;\cdots&lt;t_n&lt;\)</span>, <span
+class="math inline">\(W(t_1), W(t_2)-W(t_1),\cdots,
+W(t_n)-W(t_{n-1})\)</span> 独立.</p></li>
+</ol>
+</div>
+<p>下面计算布朗运动的有限维边缘分布:</p>
+<p>首先, <span class="math inline">\(W(t_1)\sim N(0,t_1)\)</span>, 所以
+<span class="math display">\[\p(a_1\le W(t_1)\le
+b_1)=\int_{a_1}^{b_1}\frac{1}{\sqrt{2\pi
+t_1}}e^{-\frac{x_1^2}{2t_1}}dx_1.\]</span></p>
+<p>然后由于 <span class="math inline">\(W(t_2)-W(t_1)\sim
+N(0,t_2-t_1)\)</span>, 所以给定 <span
+class="math inline">\(W(t_1)=x_1\)</span> 的条件下, <span
+class="math inline">\(W(t_2)\sim N(x_1,t_2-t_1)\)</span>, 所以 <span
+class="math display">\[\p(a_1\le W(t_1)\le b_1,a_2\le W(t_2)\le
+b_2)=\int_{a_1}^{b_1}\int_{a_2}^{b_2}g(x_1,t_1\mid 0)g(x_2,t_2-t_1\mid
+x_1)dx_1dx_2,\]</span></p>
+<p>where <span class="math display">\[g(x,t\mid y)=\frac1{\sqrt 2\pi
+t}\exp(-\frac{(x-y)^2}{2t}).\]</span></p>
+<p>以此类推, <span class="math display">\[\p(a_1\le W(t_1)\le
+b_1,\cdots, a_n\le W(t_n)\le
+b_n)=\int_{a_1}^{b_1}\cdots\int_{a_n}^{b_n}g(x_1,t_1\mid
+0)g(x_2,t_2-t_1\mid x_1)\cdots g(x_n, t_n-t_{n-1}\mid x_{n-1})dx_n\cdots
+dx_1.\]</span></p>
+<p>还可以推广至如下版本:</p>
+<div class="note info"><h4 id="定理">定理</h4>
+<p>对任意 <span
+class="math inline">\(0=t_0&lt;t_1&lt;\cdots&lt;t_n\)</span>, <span
+class="math inline">\(\forall\; f:\R^n\to \R\)</span>, 有 <span
+class="math display">\[\E[f(W(t_1),\cdots,
+W(t_n))]=\int_{\R^n}f(x_1,\cdots, x_n)g(x_1,t_1\mid 0)g(x_2,t_2-t_1\mid
+x_1)\cdots g(x_n,t_n-t_{n-1}\mid x_{n-1})dx_n\cdots dx_1.\]</span></p>
+<p>取 <span class="math inline">\(f=\1_{[a_1,b_1]}\cdots
+\1_{[a_n,b_n]}\)</span> 就得到了之前的公式.</p>
+</div>
+<p><strong>证明:</strong> 设 <span
+class="math inline">\(X_i=W(t_i)\)</span>, 令 <span
+class="math inline">\(Y_i=X_i-X_{i-1}\)</span>, <span
+class="math inline">\(Y_i\sim N(0,t_i-t_{i-1})\)</span> 且互相独立, 令
+<span class="math display">\[h(y_1,\cdots y_n)=f(y_1,y_1+y_2,\cdots,
+y_1+\cdots+y_n).\]</span> 那么 <span
+class="math display">\[\begin{align*}\E[f(W(t_1),\cdots,
+W(t_n))]&amp;=\E h(Y_1,\cdots, Y_n)\\
+&amp;=\int_{\R^n}h(y_1,\cdots,y_n)g(y_1,t_1\mid 0)\cdots
+g(t_n,t_n-t_{n-1}\mid 0)dy_n\cdots dy_1\\
+&amp;=\int_{\R^n}f(x_1,\cdots, x_n)g(x_1,t_1\mid 0)\cdots g(x_n,
+t_n-t_{n-1}\mid x_{n-1}) dx_n\cdots dx_1.\end{align*}\]</span></p>
+<p>最后一行用了换元公式, Jacobi 行列式是1.</p>
+<h3 id="白噪声的性质">白噪声的性质</h3>
+<p><span class="math inline">\(W(t)\)</span> 是布朗运动, 那么有 <span
+class="math inline">\(W(t)\sim N(0,t)\)</span>, 进而 <span
+class="math display">\[\E W(t)=0,\quad \E W^2(t)=t.\]</span></p>
+<p>协方差函数 <span class="math inline">\(\E[W(t)W(s)]=t\wedge
+s.\)</span></p>
+<p>不严谨地来说, 有 <span class="math inline">\(\dot
+W(t)=\xi(t)\)</span>, <span
+class="math inline">\(\E[\xi(t)\xi(s)]=\delta_0(s-t)\)</span>. 对 a.e.
+<span class="math inline">\(\omega\in \Omega\)</span>, <span
+class="math inline">\(t\mapsto W(t,\omega)\)</span> 是无处可微的,
+所以前面的导数定义不合适.</p>
+<p>书上还介绍了 "白噪声" 名词的由来, 以及<span
+class="math inline">\(\E[\xi(t)\xi(s)]=\delta_0(s-t)\)</span>
+的一个说明. 见 P44.</p>
+<h3 id="构造一个布朗运动">构造一个布朗运动</h3>
+<p>想法是利用 <span class="math inline">\(L^2(0,1)\)</span>
+中的基进行构造. 设 <span class="math inline">\(\{\phi_n\}\)</span> 是
+<span class="math inline">\(L^2(0,1)\)</span> 的一组 ONB, 考虑令 <span
+class="math display">\[\xi(t)=\sum_{n=0}^\infty A_n\phi_n(t),\quad 0\le
+t\le 1.\]</span></p>
+<p>有 <span
+class="math inline">\(A_n=\int_0^1\xi(t)\psi_n(t)dt\)</span>. <span
+class="math inline">\(A_n\)</span> 是随机变量, 我们假设他们是独立的,
+且都是中心高斯变量.</p>
+<p>我们可以验证这样的假设是合理的, 因为 <span
+class="math display">\[\begin{align*}0=\E A_n\E A_m&amp;=\E
+A_nA_m=\int_0^1\int_0^1\E[\xi(t)\xi(s)]\psi_n(t)\psi_m(s)dtds\\
+&amp;=\int_0^1\int_0^1\delta_0(s-t)\psi_n(t)\psi_m(s)dtds=\int_0^1\psi_n(s)\psi_m(s)ds\end{align*}.\]</span></p>
+<p>所以 <span class="math inline">\(\E A_n^2=1\)</span>, <span
+class="math inline">\(\E A_nA_m=0\)</span> for <span
+class="math inline">\(n\ne m\)</span>. 然后我们把布朗运动定义成 <span
+class="math display">\[W(t)=\int_0^t \xi(s)ds=\sum_{n=0}^\infty
+A_n\int_0^t\psi_n(s)ds.\]</span></p>
+<p>下面要做的事情就是找一组好的正交基, 然后把之前的论述严密化,
+比如要合理论证级数的收敛与否. 来介绍 Levy 的构造</p>
+<div class="note primary"><h4 id="定义-haar-函数">定义: Haar 函数</h4>
+<p><span class="math inline">\(h_0(t):=1,\; 0\le t\le 1\)</span>, <span
+class="math inline">\(h_1(t)=\begin{cases}1&amp;0\le t\le \frac 12\\
+-1&amp; \frac 12&lt;t\le 1\end{cases}\)</span>,</p>
+<p>设 <span class="math inline">\(2^n\le k&lt; 2^{n+1}\)</span>, 定义
+<span
+class="math display">\[h_k(t)=\begin{cases}2^{n/2},&amp;\frac{k-2^n}{2^n}\le
+t\le \frac{k-2^n+1/2}{2^n}\\
+-2^{n/2},&amp;\frac{k-2^n+1/2}{2^n}&lt;t \le \frac{k-2^n+1}{2^n}\\
+0,&amp; otherwise
+\end{cases}\]</span> 我们可以证明 <span
+class="math inline">\(\{h_n\}\)</span> 是 <span
+class="math inline">\(L^2(0,1)\)</span> 的一组 ONB.</p>
+</div>
+<p><img src="haar.png" /></p>
+<p>然后再定义 Schauder 函数 <span
+class="math inline">\(s_k(t)=\int_0^th_k(s)ds\)</span>. 其图像如下:</p>
+<p><img src="schauder.png" /></p>
+<p>显然 <span class="math inline">\(\displaystyle \max_{0\le t\le
+1}|s_k(t)|=2^{-n/2-1},\quad 2^n\le k&lt;2^{n+1}\)</span>.</p>
+<p>我们可以证明 <span class="math display">\[\sum_{k=0}^\infty
+s_k(s)s_k(t)=t\wedge s,\quad 0\le t,s\le 1.\]</span></p>
+<p>由此, 我们定义 <span class="math inline">\(W(t):=\sum_{k=0}^\infty
+A_ks_k(t),\; 0\le t\le 1\)</span>, <span
+class="math inline">\(\{A_k\}\)</span> i.i.d. <span
+class="math inline">\(\sim N(0,1)\)</span>.
+剩下的就是验证这个级数收敛.</p>
+<p><strong>证明: TODO.</strong></p>
+<p>我们把结论总结如下:</p>
+<div class="note info"><h4 id="定理-布朗运动的构造">定理: 布朗运动的构造</h4>
+<p><span class="math inline">\(\{A_k\}\)</span> i.i.d. <span
+class="math inline">\(\sim N(0,1)\)</span>. 级数 <span
+class="math display">\[W(t,\omega)=\sum_{k=0}^\infty
+A_k(\omega)s_k(t)\quad (0\le t\le 1)\]</span></p>
+<p>对 a.e.<span class="math inline">\(\omega\in\Omega\)</span> 在 <span
+class="math inline">\(t\in [0,1]\)</span> 上一致收敛. 并且</p>
+<ol type="1">
+<li><p><span class="math inline">\(W(t), 0\le t\le 1\)</span>
+是布朗运动;</p></li>
+<li><p>对 a.e. <span class="math inline">\(\omega\in\Omega\)</span>,
+样本轨道 <span class="math inline">\(t\mapsto W(t,\omega)\)</span>
+连续.</p></li>
+</ol>
+</div>
+<h3 id="样本轨道的性质">样本轨道的性质</h3>
+<div class="note info"><h4 id="定理">定理:</h4>
+<p>对 a.e. <span class="math inline">\(\omega\)</span>, 对任意 <span
+class="math inline">\(T&gt;0\)</span>. 样本轨道 <span
+class="math inline">\(t\mapsto \bm W(t,\omega)\)</span> 在 <span
+class="math inline">\([0,T]\)</span> 上一致 Holder 连续, 对任意指标
+<span class="math inline">\(0&lt;\gamma&lt;1/2\)</span>.</p>
+<p>即存在常数 <span class="math inline">\(K\)</span>, <span
+class="math display">\[|\bm X(t,\omega)-\bm X(s,\omega)|\le
+K|t-s|^\gamma,\quad \forall\; 0\le s,t\le T.\]</span></p>
+</div>
+<h3 id="markov-性质">Markov 性质</h3>
+<p>由 s 时刻之前生成的 <span class="math inline">\(\sigma\)</span>-field
+<span class="math inline">\(\F(s)=\sigma(X(r)\mid 0\le r\le
+s)\)</span>被称为到 <span class="math inline">\(s\)</span>
+时刻的历史.</p>
+<div class="note primary"><h4 id="定义-markov-过程">定义: Markov 过程</h4>
+<p>取值在 <span class="math inline">\(\R^n\)</span> 中的随机过程 <span
+class="math inline">\(\bm X(s)\)</span> 被称为 Markov 过程, 如果对任意
+Borel 集 <span class="math inline">\(B\in \B(\R^n)\)</span>, <span
+class="math display">\[\p(\bm X(t)\in B\mid \F(s))=\p(X(t)\in B\mid
+X(s))\as\quad \forall\; 0\le s\le t.\]</span></p>
+</div>
+<p>这就是说根据 <span class="math inline">\(X(s)\)</span> 去预测 <span
+class="math inline">\(X(t)\)</span> 的效果和用全部 <span
+class="math inline">\(s\)</span> 之前的信息去预测是一样的. 或者说,
+Markov 过程只记得 <span class="math inline">\(X(s)\)</span> 的结果,
+但是忘了怎么过来的.</p>
+<div class="note info"><h4 id="定理-布朗运动是-markov-过程">定理: 布朗运动是 Markov 过程</h4>
+<p><span class="math inline">\(n\)</span> 维的布朗运动 <span
+class="math inline">\(\bm W\)</span> 是 Markov 过程, 并且 <span
+class="math display">\[\p(\bm (t)\in B\mid \bm
+W(s))=\frac1{(2\pi(t-s))^{n/2}}\int_B \exp(-\frac{|x-\bm
+W(s)|^2}{2(t-s)})ds\as\quad \forall\; 0\le s&lt;t,\;\forall\; B\in
+\B(\R^n).\]</span></p>
+</div>
+<h2 id="随机积分">随机积分</h2>
+<p>首先定义 <span class="math inline">\(\int_0^T gdW\)</span> 这种积分
+(Paley-Wiener-Zygmund stochastic integral), 其中 <span
+class="math inline">\(g\)</span> 是一个固定的函数, 不是随机变量, <span
+class="math inline">\(W\)</span> 是布朗运动.</p>
+<ol type="1">
+<li><p>对 <span class="math inline">\(C^1\)</span> 函数定义积分.</p>
+<p>设 <span class="math inline">\(g:[0,T]\to \R\)</span> 连续可微, <span
+class="math inline">\(g(0)=g(T)=0\)</span>. 定义 <span
+class="math display">\[\int_0^T gdW:=-\int_0^T g&#39;Wdt.\]</span></p>
+<p>积分的结果是一个随机变量. 直接的计算可以验证 <span
+class="math display">\[\E[\int_0^T gdW]=0,\quad \E[(\int_0^T
+gdW)^2]=\int_0^T g^2dt.\]</span></p></li>
+<li><p>利用稠密性定义在 <span class="math inline">\(L^2(0,T)\)</span>
+上定义积分.</p>
+<p>设 <span class="math inline">\(g\in L^2(0,T)\)</span>. 取 <span
+class="math inline">\(\{g_n\}\subset C^1(0,T)\)</span>, 满足 <span
+class="math inline">\(g_n(0)=g_n(T)=0\)</span>, 使得 <span
+class="math inline">\(\int_0^T (g_n-g)^2dt\)</span>.
+(这是因为紧支光滑函数在 <span class="math inline">\(L^2(0,T)\)</span>
+中稠密). 根据之前方差的结论, 我们有 <span
+class="math display">\[\E[(\int_0^T g_mdW-\int_0^T
+g_ndW)^2]=\int_0^T(g_m-g_n)^2dt=\|g_m-g_n\|_{L^2(0,T)}.\]</span></p>
+<p>这说明 <span class="math inline">\(\{\int_0^T g_ndW\}\)</span> 是
+<span class="math inline">\(L^2(0,T)\)</span> 里的 Cauchy 列.
+根据完备性, 我们把积分定义成上述序列的 <span
+class="math inline">\(L^2\)</span> 极限: <span
+class="math display">\[\int_0^TgdW:=\lim_{n\to\infty}\int_0^T
+g_ndW.\]</span></p>
+<p>同样可以验证 <span class="math display">\[\E[\int_0^T gdW]=0,\quad
+\E[(\int_0^T gdW)^2]=\int_0^T g^2dt.\]</span></p></li>
+</ol>
+<p>然后定义被积函数是布朗运动的积分, 比如 <span
+class="math inline">\(\int_0^T WdW\)</span>. 思路是用 Riemann
+和来逼近.</p>
+<p>对区间 <span class="math inline">\([0,T]\)</span>, 取划分 <span
+class="math display">\[P:=\{0=t_0&lt;t_1&lt;\cdots&lt;t_m=T\}.\]</span></p>
+<p>定义 <span class="math display">\[|P|=\max_{0\le k\le m-1}
+|t_{k+1}-t_k|.\]</span></p>
+<p>取分点: <span class="math display">\[\tau_k:=(1-\lambda) t_k+\lambda
+t_{k+1}\in [t_k,t_{k+1}],\quad k=0,\cdots, m-1.\]</span>
+注意这里和普通的 Riemann 积分定义不一样,
+所有小区间上的分点我们选择相同的定比分点, 即 <span
+class="math inline">\(\lambda\)</span>
+是所有小区间上统一的一个固定常数.</p>
+<p>我们定义 <span class="math inline">\(\int_0^T WdW\)</span> 的 Riemann
+和为 <span
+class="math display">\[R(P,\lambda):=\sum_{k=0}^{m-1}W(\tau_k)(W(t_{k+1})-W(t_k)).\]</span></p>
+<p>我们希望找到 <span class="math inline">\(|P|\to 0\)</span> 时 Riemann
+和的 <span class="math inline">\(L^2\)</span> 极限.</p>
+<div class="note info"><h4 id="引理-二次变分">引理: 二次变分</h4>
+<p>区间 <span class="math inline">\([a,b]\subset [0,\infty)\)</span>,
+定义 <span class="math inline">\([a,b]\)</span> 的划分 <span
+class="math display">\[P^n=\{a=t_0^n&lt;t_1^n&lt;\cdots&lt;t_{m_n}^n=b\}.\]</span></p>
+<p>设 <span class="math inline">\(|P^n|\to 0\)</span> as <span
+class="math inline">\(n\to\infty\)</span>. 那么有 <span
+class="math display">\[Q_n=\sum_{k=0}^{m_n-1}(W(t_{k+1}^n)-W(t_k^n))^2\stackrel{L^2}\to
+b-a\quad n\to\infty.\]</span></p>
+</div>
+<p><strong>证明:</strong> <span
+class="math display">\[\begin{align*}\E[(Q_n-(b-a))^2]&amp;=\E\left\{\sum_{k=0}^{m_n-1}((W(t_{k+1}^n)-W(t_k^n))^2-(t_{k+1}^n-t_k^n))\right\}^2\\
+&amp;=\sum_{k=0}^{m_n-1}\sum_{j=0}^{m_n-1}\E((W(t_{k+1}^n)-W(t_k^n))^2-(t_{k+1}^n-t_k^n))((W(t_{j+1}^n)-W(t_j^n))^2-(t_{j+1}^n-t_j^n)).\end{align*}\]</span></p>
+<p>对 <span class="math inline">\(k\ne j\)</span> 的项, 根据独立增量,
+<span class="math inline">\(W(t_{k+1})-W(t_k)\)</span> 和 <span
+class="math inline">\(W(t_{j+1})-W(t_j)\)</span> 独立, 且由 <span
+class="math inline">\(W(t)-W(s)\sim N(0,t-s)\)</span>, <span
+class="math display">\[\E((W(t_{k+1}^n)-W(t_k^n))^2-(t_{k+1}^n-t_k^n))((W(t_{j+1}^n)-W(t_j^n))^2-(t_{j+1}^n-t_j^n))=\E((W(t_{k+1}^n)-W(t_k^n))^2-(t_{k+1}^n-t_k^n))\E((W(t_{j+1}^n)-W(t_j^n))^2-(t_{j+1}^n-t_j^n))=0.\]</span></p>
+<p>所以只剩下 <span class="math inline">\(k=j\)</span> 的项, 即 <span
+class="math display">\[\begin{align*}\E[Q_n-(b-a)^2]&amp;=\sum_{k=0}^{m_n-1}\E((W(t_{k+1}^n)-W(t_k^n))^2-(t_{k+1}^n-t_k^n))^2\\
+&amp;=\sum_{k=0}^{m_n-1}\E((\frac{W(t_{k+1}^n)-W(t_k^n)}{t_{k+1}^n-t_k^n})^2-1)^2(t_{k+1}^n-t_k^n)^2\\
+&amp;:=\sum_{k=0}^{m_n-1}\E((Y_k^n)^2-1)^2(t_{k+1}^n-t_k^n)^2.\end{align*}\]</span></p>
+<p>这里 <span
+class="math inline">\(Y_k^n=\frac{W(t_{k+1})-W(t_k^n)}{\sqrt{t_{k+1}^n-t_k^n}}\sim
+N(0,1)\)</span>. 设 <span class="math inline">\(\E[(Y_k^2-1)^2]\le
+C\)</span>. <span class="math display">\[\E[Q_n-(b-a)^2]\le
+C\sum_{k=0}^{m_n-1}(t_{k+1}^n-t_k^n)^2\le C|P^n|(b-a)\to 0\quad
+n\to\infty.\]</span></p>
+<p>从这里可以看出 <span class="math inline">\(dW\approx
+(dt)^{1/2}\)</span>.</p>
+<p>通过 Riesz 定理取子列, 不妨设 <span
+class="math display">\[\sum_{k=0}^{m_n-1}(W(t_{k+1}^n)-W(t_k^n))^2\stackrel{\as}\to
+b-a.\]</span></p>
+<p>由对任意 <span class="math inline">\(0&lt;\gamma&lt;\frac
+12\)</span>, 样本轨道是 <span class="math inline">\(\gamma-\)</span>
+Holder 连续的, <span
+class="math display">\[\sum_{k=0}^{m_n-1}(W(t_{k+1}^n)-W(t_k^n))^2\le
+K\sum_{k=0}^{m_n-1}|W(t_{k+1}^n)-W(t_k^n)||t_{k+1}^n-t_k^n|^\gamma\le
+K|P^n|^\gamma\sum_{k=0}^{m_n-1}|W(t_{k+1}^n)-W(t_k^n)|\]</span></p>
+<p>取上极限, 得到 <span class="math display">\[b-a\le
+K\limsup_{n\to\infty}K|P^n|^\gamma\sum_{k=0}^{m_n-1}|W(t_{k+1}^n)-W(t_k^n)|.\]</span></p>
+<p>由 <span class="math inline">\(|P^n|\to 0\)</span>, 可知 <span
+class="math display">\[\sup_{P}\sum_{k=0}^{m_n-1}|W(t_{k+1}^n)-W(t_k^n)|=\infty
+\as\]</span></p>
+<p>这就是说布朗运动的样本轨道以概率 1 是无界变差的.</p>
+<div class="note info"><h4 id="定理">定理</h4>
+<p><span class="math inline">\(P^n\)</span> 是 <span
+class="math inline">\([0,T]\)</span> 的划分, <span
+class="math inline">\(0\le \lambda\le 1\)</span>, <span
+class="math inline">\(|P^n|\to 0\)</span>. 定义分点 <span
+class="math inline">\(\tau_k^n=(1-\lambda)t_k^n+\lambda
+t_{k+1}^n\)</span>. <span
+class="math display">\[R_n:=\sum_{k=0}^{m-1}W(\tau_k^n)(W(t_{k+1}^n)-W(t_k^n)).\]</span></p>
+<p>那么 <span
+class="math display">\[R_n\stackrel{L^2}\to\frac{W(T)^2}2+(\lambda-\frac
+12)T.\]</span></p>
+</div>
+<p><strong>证明:</strong> 基本的精神还是利用独立增量的性质.</p>
+<p>Ito 积分的定义是取 <span class="math inline">\(\lambda=0\)</span>.
+所以有 <span
+class="math inline">\(\int_0^TWdW=\frac{W^2(T)}2-\frac{T}2\)</span>.</p>
+<h3 id="ito-积分">Ito 积分</h3>
+<p>设 <span class="math inline">\(W\)</span> 是定义在 <span
+class="math inline">\((\Omega,\F,\p)\)</span> 上的一维布朗运动. 我们定义
+<span class="math inline">\(\mathcal W(t):=\sigma\{W(s), 0\le s\le
+t\}\)</span> 为布朗运动到时间 <span class="math inline">\(t\)</span>
+为止的 <strong>历史</strong>. <span class="math inline">\(\mathcal
+W^+(t)=\sigma\{W(s)-W(t), s\ge t\}\)</span> 为 布朗运动在 <span
+class="math inline">\(t\)</span> 时刻后的 <strong>未来</strong>.</p>
+<p>一列 <span class="math inline">\(\sigma\)</span>-代数 <span
+class="math inline">\(\F(\cdot)\subset \F\)</span> 被称为是
+nonanticipating 的, 如果</p>
+<ol type="1">
+<li><p><span class="math inline">\(\F(s)\subset \F(t),\; \forall\; 0\le
+s\le t\)</span>.</p></li>
+<li><p><span class="math inline">\(\mathcal W(t)\subset \F(t)\;\forall\;
+t\ge 0\)</span>.</p></li>
+<li><p><span class="math inline">\(\F(t)\)</span> 和 <span
+class="math inline">\(W^+(t)\)</span> 独立, 对任意 <span
+class="math inline">\(t\ge 0\)</span>.</p></li>
+</ol>
+<p><span class="math inline">\(\F(\cdot)\)</span> 也被称为一列滤过.</p>
+<p><span class="math inline">\(\F(t)\)</span> 包含了到 <span
+class="math inline">\(t\)</span> 时刻可用的全部信息.</p>
+]]></content>
+      <categories>
+        <category>数学</category>
+        <category>统计</category>
+      </categories>
+      <tags>
+        <tag>笔记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>线性回归分析笔记</title>
+    <url>/2025/02/14/linear_regression/linear_regression/</url>
+    <content><![CDATA[<p>2025 Spring 线性回归分析课程笔记及课程总结.</p>
+<span id="more"></span>
+<h2 id="前言">前言</h2>
+]]></content>
+      <categories>
+        <category>统计</category>
+      </categories>
+      <tags>
+        <tag>笔记</tag>
+        <tag>线性回归</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Jordan 标准型笔记</title>
     <url>/2025/02/14/jordan_canonical_form/</url>
     <content><![CDATA[<p>整理了 Jordan 标准型的一些定理和证明.</p>
@@ -701,400 +1110,6 @@ X_1 &amp; &amp; &amp; \\
       <tags>
         <tag>笔记</tag>
         <tag>线性代数</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>随机微分方程速通</title>
-    <url>/2025/03/05/sde/sde/</url>
-    <content><![CDATA[<p>看的是 Evans 的 Introduction to Stochastic Differential Equations
-这本书.</p>
-<span id="more"></span>
-<p><span class="math display">\[
-    \newcommand{\Z}{\mathbb Z}
-    \newcommand{\E}{\mathbb E}
-    \newcommand{\p}{\mathbb P}
-    \newcommand{\F}{\mathcal F}
-    \newcommand{\Q}{\mathbb Q}
-    \newcommand{\i}{\mathrm i}
-    \newcommand{\spann}{\operatorname{span}}
-    \newcommand{\1}{\Bbb 1}
-    \newcommand{\var}{\operatorname{var}}
-    \newcommand{\cov}{\operatorname{cov}}
-    \newcommand{\R}{\mathbb R}
-    \newcommand{\B}{\mathcal B}
-    \newcommand{\bm}{\mathbf}
-    \newcommand{\as}{\;\mathrm{a.s.}}
-\]</span></p>
-<h2 id="随机微分方程简介">随机微分方程简介</h2>
-<p>一个常见的 ODE 是这么定义的: <span
-class="math display">\[\begin{cases}\dot{\bm x}(t)=\bm b(\bm x(t)),
-&amp; t&gt;0\\ \bm x(0)=x_0 \end{cases}.\]</span></p>
-<p>这里 <span class="math inline">\(\bm b:\R^n\to \R^n\)</span>
-是一个光滑向量场. ODE 的解 <span class="math inline">\(\bm
-x:[0,\infty)\to \R^n\)</span> 是关于 <span
-class="math inline">\(t\)</span> 的函数, 被称为 ODE 的轨迹. <span
-class="math inline">\(\bm x(t)\)</span> 被称为 <span
-class="math inline">\(t\)</span> 时刻系统的状态. 给定一个初始状态 <span
-class="math inline">\(x_0\)</span>, ODE 的解是唯一的.</p>
-<p>但是在实际应用中, 观测到的轨迹可能伴随着随机的扰动,
-将这种随机的噪声考虑进模型中:</p>
-<p><span class="math display">\[\begin{cases}\dot{\bm X}(t)=\bm b(\bm
-X(t))+\bm B(\bm X(t))\bm \xi(t), &amp; t&gt;0\\ \bm X(0)=x_0
-\end{cases}.\]</span></p>
-<p>这里 <span class="math inline">\(\bm B: \R^n\to \R^{n\times
-m}\)</span>, <span class="math inline">\(\xi\)</span> 是白噪声.</p>
-<p>先考虑 <span class="math inline">\(m=n\)</span>, <span
-class="math inline">\(\bm b=0\)</span>, <span
-class="math inline">\(x_0=0\)</span>, <span class="math inline">\(\bm
-B=I\)</span> 的情形, 即解方程 <span class="math inline">\(\bm X(t)=\xi
-(t)\)</span>. 方程的解被称为布朗运动 <span class="math inline">\(\dot
-W=\xi\)</span>, 然后白噪声就是布朗运动的关于时间的导数.</p>
-<p>回到一般的方程, 形式化地两边 "同乘" <span
-class="math inline">\(dt\)</span>, 那就得到了</p>
-<p><span class="math display">\[\begin{cases}d\bm X(t)=\bm b(\bm
-X(t))dt+\bm B(\bm X(t))d\bm W(t), &amp; t&gt;0\\ \bm X(0)=x_0
-\end{cases}.\]</span></p>
-<p>或者写成更严谨的积分形式: <span
-class="math display">\[X(t)=x_0+\int_0^t \bm b(\bm X(s)) ds+\int_0^t\bm
-B(\bm X(s))d\bm W,\quad t&gt;0.\]</span></p>
-<p>我们要做的事情就是, 首先构造出布朗运动, 然后定义什么是随机积分,
-最后证明上述方程有界.</p>
-<h2 id="链式法则-ito-公式">链式法则, Ito 公式</h2>
-<p>设 <span class="math inline">\(X(t)\)</span> 是方程 <span
-class="math inline">\(dX=b(X)dt+dW\)</span> 的解. 现在考虑 <span
-class="math inline">\(Y(t)=u(X(t))\)</span> 所满足的微分方程.
-朴素的想法是直接两边微分得到 <span
-class="math display">\[dY=u&#39;dX=u&#39;bdX+u&#39;dW.\]</span></p>
-<p>这其实是错误的. 后面会证明, 直观上有 <span
-class="math inline">\(dW\approx (dt)^{1/2}\)</span>.
-所以上述的线性近似里面有一些由 <span class="math inline">\(dW\)</span>
-产生的一阶近似被扔掉了. 更合理的处理是: <span
-class="math display">\[\begin{align*}
-    dY&amp;=u&#39;dX+\frac 12u&#39;&#39;(dX)^2+\cdots\\
-        &amp;= u&#39;(bdt+dW)+\frac 12u&#39;&#39;(bdt+dW)^2+\cdots\\
-        &amp;= (u&#39;b+\frac 12 u&#39;&#39;)dt+u&#39;dW+\{高于
-(dt)^{3/2} 的项\}
-\end{align*}\]</span></p>
-<p>所以近似的得到 <span
-class="math display">\[du(X)=(u&#39;b+\textcolor{red}{\frac12
-u&#39;&#39;})dt+u&#39;dW.\]</span></p>
-<p>这就是所谓的 Ito 链式法则, 或者叫 Ito 公式.
-书上还介绍了布朗运动这个名称的由来以及相关的历史, 并提供了充分的直观和
-Motivation.</p>
-<h2 id="布朗运动-白噪声">布朗运动, 白噪声</h2>
-<h3 id="布朗运动的定义和性质">布朗运动的定义和性质</h3>
-<div class="note primary"><h4 id="定义-布朗运动">定义: 布朗运动</h4>
-<p>一个实值随机过程 <span class="math inline">\(W(\cdot)\)</span>
-被称为布朗运动, 如果</p>
-<ol type="1">
-<li><p><span class="math inline">\(W(0)=0\)</span>;</p></li>
-<li><p><span class="math inline">\(W(t)-W(s)\sim N(0,t-s),\quad
-\forall\; t\ge s\ge 0\)</span>;</p></li>
-<li><p>(独立增量) 对任意 <span
-class="math inline">\(0&lt;t_1&lt;\cdots&lt;t_n&lt;\)</span>, <span
-class="math inline">\(W(t_1), W(t_2)-W(t_1),\cdots,
-W(t_n)-W(t_{n-1})\)</span> 独立.</p></li>
-</ol>
-</div>
-<p>下面计算布朗运动的有限维边缘分布:</p>
-<p>首先, <span class="math inline">\(W(t_1)\sim N(0,t_1)\)</span>, 所以
-<span class="math display">\[\p(a_1\le W(t_1)\le
-b_1)=\int_{a_1}^{b_1}\frac{1}{\sqrt{2\pi
-t_1}}e^{-\frac{x_1^2}{2t_1}}dx_1.\]</span></p>
-<p>然后由于 <span class="math inline">\(W(t_2)-W(t_1)\sim
-N(0,t_2-t_1)\)</span>, 所以给定 <span
-class="math inline">\(W(t_1)=x_1\)</span> 的条件下, <span
-class="math inline">\(W(t_2)\sim N(x_1,t_2-t_1)\)</span>, 所以 <span
-class="math display">\[\p(a_1\le W(t_1)\le b_1,a_2\le W(t_2)\le
-b_2)=\int_{a_1}^{b_1}\int_{a_2}^{b_2}g(x_1,t_1\mid 0)g(x_2,t_2-t_1\mid
-x_1)dx_1dx_2,\]</span></p>
-<p>where <span class="math display">\[g(x,t\mid y)=\frac1{\sqrt 2\pi
-t}\exp(-\frac{(x-y)^2}{2t}).\]</span></p>
-<p>以此类推, <span class="math display">\[\p(a_1\le W(t_1)\le
-b_1,\cdots, a_n\le W(t_n)\le
-b_n)=\int_{a_1}^{b_1}\cdots\int_{a_n}^{b_n}g(x_1,t_1\mid
-0)g(x_2,t_2-t_1\mid x_1)\cdots g(x_n, t_n-t_{n-1}\mid x_{n-1})dx_n\cdots
-dx_1.\]</span></p>
-<p>还可以推广至如下版本:</p>
-<div class="note info"><h4 id="定理">定理</h4>
-<p>对任意 <span
-class="math inline">\(0=t_0&lt;t_1&lt;\cdots&lt;t_n\)</span>, <span
-class="math inline">\(\forall\; f:\R^n\to \R\)</span>, 有 <span
-class="math display">\[\E[f(W(t_1),\cdots,
-W(t_n))]=\int_{\R^n}f(x_1,\cdots, x_n)g(x_1,t_1\mid 0)g(x_2,t_2-t_1\mid
-x_1)\cdots g(x_n,t_n-t_{n-1}\mid x_{n-1})dx_n\cdots dx_1.\]</span></p>
-<p>取 <span class="math inline">\(f=\1_{[a_1,b_1]}\cdots
-\1_{[a_n,b_n]}\)</span> 就得到了之前的公式.</p>
-</div>
-<p><strong>证明:</strong> 设 <span
-class="math inline">\(X_i=W(t_i)\)</span>, 令 <span
-class="math inline">\(Y_i=X_i-X_{i-1}\)</span>, <span
-class="math inline">\(Y_i\sim N(0,t_i-t_{i-1})\)</span> 且互相独立, 令
-<span class="math display">\[h(y_1,\cdots y_n)=f(y_1,y_1+y_2,\cdots,
-y_1+\cdots+y_n).\]</span> 那么 <span
-class="math display">\[\begin{align*}\E[f(W(t_1),\cdots,
-W(t_n))]&amp;=\E h(Y_1,\cdots, Y_n)\\
-&amp;=\int_{\R^n}h(y_1,\cdots,y_n)g(y_1,t_1\mid 0)\cdots
-g(t_n,t_n-t_{n-1}\mid 0)dy_n\cdots dy_1\\
-&amp;=\int_{\R^n}f(x_1,\cdots, x_n)g(x_1,t_1\mid 0)\cdots g(x_n,
-t_n-t_{n-1}\mid x_{n-1}) dx_n\cdots dx_1.\end{align*}\]</span></p>
-<p>最后一行用了换元公式, Jacobi 行列式是1.</p>
-<h3 id="白噪声的性质">白噪声的性质</h3>
-<p><span class="math inline">\(W(t)\)</span> 是布朗运动, 那么有 <span
-class="math inline">\(W(t)\sim N(0,t)\)</span>, 进而 <span
-class="math display">\[\E W(t)=0,\quad \E W^2(t)=t.\]</span></p>
-<p>协方差函数 <span class="math inline">\(\E[W(t)W(s)]=t\wedge
-s.\)</span></p>
-<p>不严谨地来说, 有 <span class="math inline">\(\dot
-W(t)=\xi(t)\)</span>, <span
-class="math inline">\(\E[\xi(t)\xi(s)]=\delta_0(s-t)\)</span>. 对 a.e.
-<span class="math inline">\(\omega\in \Omega\)</span>, <span
-class="math inline">\(t\mapsto W(t,\omega)\)</span> 是无处可微的,
-所以前面的导数定义不合适.</p>
-<p>书上还介绍了 "白噪声" 名词的由来, 以及<span
-class="math inline">\(\E[\xi(t)\xi(s)]=\delta_0(s-t)\)</span>
-的一个说明. 见 P44.</p>
-<h3 id="构造一个布朗运动">构造一个布朗运动</h3>
-<p>想法是利用 <span class="math inline">\(L^2(0,1)\)</span>
-中的基进行构造. 设 <span class="math inline">\(\{\phi_n\}\)</span> 是
-<span class="math inline">\(L^2(0,1)\)</span> 的一组 ONB, 考虑令 <span
-class="math display">\[\xi(t)=\sum_{n=0}^\infty A_n\phi_n(t),\quad 0\le
-t\le 1.\]</span></p>
-<p>有 <span
-class="math inline">\(A_n=\int_0^1\xi(t)\psi_n(t)dt\)</span>. <span
-class="math inline">\(A_n\)</span> 是随机变量, 我们假设他们是独立的,
-且都是中心高斯变量.</p>
-<p>我们可以验证这样的假设是合理的, 因为 <span
-class="math display">\[\begin{align*}0=\E A_n\E A_m&amp;=\E
-A_nA_m=\int_0^1\int_0^1\E[\xi(t)\xi(s)]\psi_n(t)\psi_m(s)dtds\\
-&amp;=\int_0^1\int_0^1\delta_0(s-t)\psi_n(t)\psi_m(s)dtds=\int_0^1\psi_n(s)\psi_m(s)ds\end{align*}.\]</span></p>
-<p>所以 <span class="math inline">\(\E A_n^2=1\)</span>, <span
-class="math inline">\(\E A_nA_m=0\)</span> for <span
-class="math inline">\(n\ne m\)</span>. 然后我们把布朗运动定义成 <span
-class="math display">\[W(t)=\int_0^t \xi(s)ds=\sum_{n=0}^\infty
-A_n\int_0^t\psi_n(s)ds.\]</span></p>
-<p>下面要做的事情就是找一组好的正交基, 然后把之前的论述严密化,
-比如要合理论证级数的收敛与否. 来介绍 Levy 的构造</p>
-<div class="note primary"><h4 id="定义-haar-函数">定义: Haar 函数</h4>
-<p><span class="math inline">\(h_0(t):=1,\; 0\le t\le 1\)</span>, <span
-class="math inline">\(h_1(t)=\begin{cases}1&amp;0\le t\le \frac 12\\
--1&amp; \frac 12&lt;t\le 1\end{cases}\)</span>,</p>
-<p>设 <span class="math inline">\(2^n\le k&lt; 2^{n+1}\)</span>, 定义
-<span
-class="math display">\[h_k(t)=\begin{cases}2^{n/2},&amp;\frac{k-2^n}{2^n}\le
-t\le \frac{k-2^n+1/2}{2^n}\\
--2^{n/2},&amp;\frac{k-2^n+1/2}{2^n}&lt;t \le \frac{k-2^n+1}{2^n}\\
-0,&amp; otherwise
-\end{cases}\]</span> 我们可以证明 <span
-class="math inline">\(\{h_n\}\)</span> 是 <span
-class="math inline">\(L^2(0,1)\)</span> 的一组 ONB.</p>
-</div>
-<p><img src="haar.png" /></p>
-<p>然后再定义 Schauder 函数 <span
-class="math inline">\(s_k(t)=\int_0^th_k(s)ds\)</span>. 其图像如下:</p>
-<p><img src="schauder.png" /></p>
-<p>显然 <span class="math inline">\(\displaystyle \max_{0\le t\le
-1}|s_k(t)|=2^{-n/2-1},\quad 2^n\le k&lt;2^{n+1}\)</span>.</p>
-<p>我们可以证明 <span class="math display">\[\sum_{k=0}^\infty
-s_k(s)s_k(t)=t\wedge s,\quad 0\le t,s\le 1.\]</span></p>
-<p>由此, 我们定义 <span class="math inline">\(W(t):=\sum_{k=0}^\infty
-A_ks_k(t),\; 0\le t\le 1\)</span>, <span
-class="math inline">\(\{A_k\}\)</span> i.i.d. <span
-class="math inline">\(\sim N(0,1)\)</span>.
-剩下的就是验证这个级数收敛.</p>
-<p><strong>证明: TODO.</strong></p>
-<p>我们把结论总结如下:</p>
-<div class="note info"><h4 id="定理-布朗运动的构造">定理: 布朗运动的构造</h4>
-<p><span class="math inline">\(\{A_k\}\)</span> i.i.d. <span
-class="math inline">\(\sim N(0,1)\)</span>. 级数 <span
-class="math display">\[W(t,\omega)=\sum_{k=0}^\infty
-A_k(\omega)s_k(t)\quad (0\le t\le 1)\]</span></p>
-<p>对 a.e.<span class="math inline">\(\omega\in\Omega\)</span> 在 <span
-class="math inline">\(t\in [0,1]\)</span> 上一致收敛. 并且</p>
-<ol type="1">
-<li><p><span class="math inline">\(W(t), 0\le t\le 1\)</span>
-是布朗运动;</p></li>
-<li><p>对 a.e. <span class="math inline">\(\omega\in\Omega\)</span>,
-样本轨道 <span class="math inline">\(t\mapsto W(t,\omega)\)</span>
-连续.</p></li>
-</ol>
-</div>
-<h3 id="样本轨道的性质">样本轨道的性质</h3>
-<div class="note info"><h4 id="定理">定理:</h4>
-<p>对 a.e. <span class="math inline">\(\omega\)</span>, 对任意 <span
-class="math inline">\(T&gt;0\)</span>. 样本轨道 <span
-class="math inline">\(t\mapsto \bm W(t,\omega)\)</span> 在 <span
-class="math inline">\([0,T]\)</span> 上一致 Holder 连续, 对任意指标
-<span class="math inline">\(0&lt;\gamma&lt;1/2\)</span>.</p>
-<p>即存在常数 <span class="math inline">\(K\)</span>, <span
-class="math display">\[|\bm X(t,\omega)-\bm X(s,\omega)|\le
-K|t-s|^\gamma,\quad \forall\; 0\le s,t\le T.\]</span></p>
-</div>
-<h3 id="markov-性质">Markov 性质</h3>
-<p>由 s 时刻之前生成的 <span class="math inline">\(\sigma\)</span>-field
-<span class="math inline">\(\F(s)=\sigma(X(r)\mid 0\le r\le
-s)\)</span>被称为到 <span class="math inline">\(s\)</span>
-时刻的历史.</p>
-<div class="note primary"><h4 id="定义-markov-过程">定义: Markov 过程</h4>
-<p>取值在 <span class="math inline">\(\R^n\)</span> 中的随机过程 <span
-class="math inline">\(\bm X(s)\)</span> 被称为 Markov 过程, 如果对任意
-Borel 集 <span class="math inline">\(B\in \B(\R^n)\)</span>, <span
-class="math display">\[\p(\bm X(t)\in B\mid \F(s))=\p(X(t)\in B\mid
-X(s))\as\quad \forall\; 0\le s\le t.\]</span></p>
-</div>
-<p>这就是说根据 <span class="math inline">\(X(s)\)</span> 去预测 <span
-class="math inline">\(X(t)\)</span> 的效果和用全部 <span
-class="math inline">\(s\)</span> 之前的信息去预测是一样的. 或者说,
-Markov 过程只记得 <span class="math inline">\(X(s)\)</span> 的结果,
-但是忘了怎么过来的.</p>
-<div class="note info"><h4 id="定理-布朗运动是-markov-过程">定理: 布朗运动是 Markov 过程</h4>
-<p><span class="math inline">\(n\)</span> 维的布朗运动 <span
-class="math inline">\(\bm W\)</span> 是 Markov 过程, 并且 <span
-class="math display">\[\p(\bm (t)\in B\mid \bm
-W(s))=\frac1{(2\pi(t-s))^{n/2}}\int_B \exp(-\frac{|x-\bm
-W(s)|^2}{2(t-s)})ds\as\quad \forall\; 0\le s&lt;t,\;\forall\; B\in
-\B(\R^n).\]</span></p>
-</div>
-<h2 id="随机积分">随机积分</h2>
-<p>首先定义 <span class="math inline">\(\int_0^T gdW\)</span> 这种积分
-(Paley-Wiener-Zygmund stochastic integral), 其中 <span
-class="math inline">\(g\)</span> 是一个固定的函数, 不是随机变量, <span
-class="math inline">\(W\)</span> 是布朗运动.</p>
-<ol type="1">
-<li><p>对 <span class="math inline">\(C^1\)</span> 函数定义积分.</p>
-<p>设 <span class="math inline">\(g:[0,T]\to \R\)</span> 连续可微, <span
-class="math inline">\(g(0)=g(T)=0\)</span>. 定义 <span
-class="math display">\[\int_0^T gdW:=-\int_0^T g&#39;Wdt.\]</span></p>
-<p>积分的结果是一个随机变量. 直接的计算可以验证 <span
-class="math display">\[\E[\int_0^T gdW]=0,\quad \E[(\int_0^T
-gdW)^2]=\int_0^T g^2dt.\]</span></p></li>
-<li><p>利用稠密性定义在 <span class="math inline">\(L^2(0,T)\)</span>
-上定义积分.</p>
-<p>设 <span class="math inline">\(g\in L^2(0,T)\)</span>. 取 <span
-class="math inline">\(\{g_n\}\subset C^1(0,T)\)</span>, 满足 <span
-class="math inline">\(g_n(0)=g_n(T)=0\)</span>, 使得 <span
-class="math inline">\(\int_0^T (g_n-g)^2dt\)</span>.
-(这是因为紧支光滑函数在 <span class="math inline">\(L^2(0,T)\)</span>
-中稠密). 根据之前方差的结论, 我们有 <span
-class="math display">\[\E[(\int_0^T g_mdW-\int_0^T
-g_ndW)^2]=\int_0^T(g_m-g_n)^2dt=\|g_m-g_n\|_{L^2(0,T)}.\]</span></p>
-<p>这说明 <span class="math inline">\(\{\int_0^T g_ndW\}\)</span> 是
-<span class="math inline">\(L^2(0,T)\)</span> 里的 Cauchy 列.
-根据完备性, 我们把积分定义成上述序列的 <span
-class="math inline">\(L^2\)</span> 极限: <span
-class="math display">\[\int_0^TgdW:=\lim_{n\to\infty}\int_0^T
-g_ndW.\]</span></p>
-<p>同样可以验证 <span class="math display">\[\E[\int_0^T gdW]=0,\quad
-\E[(\int_0^T gdW)^2]=\int_0^T g^2dt.\]</span></p></li>
-</ol>
-<p>然后定义被积函数是布朗运动的积分, 比如 <span
-class="math inline">\(\int_0^T WdW\)</span>. 思路是用 Riemann
-和来逼近.</p>
-<p>对区间 <span class="math inline">\([0,T]\)</span>, 取划分 <span
-class="math display">\[P:=\{0=t_0&lt;t_1&lt;\cdots&lt;t_m=T\}.\]</span></p>
-<p>定义 <span class="math display">\[|P|=\max_{0\le k\le m-1}
-|t_{k+1}-t_k|.\]</span></p>
-<p>取分点: <span class="math display">\[\tau_k:=(1-\lambda) t_k+\lambda
-t_{k+1}\in [t_k,t_{k+1}],\quad k=0,\cdots, m-1.\]</span>
-注意这里和普通的 Riemann 积分定义不一样,
-所有小区间上的分点我们选择相同的定比分点, 即 <span
-class="math inline">\(\lambda\)</span>
-是所有小区间上统一的一个固定常数.</p>
-<p>我们定义 <span class="math inline">\(\int_0^T WdW\)</span> 的 Riemann
-和为 <span
-class="math display">\[R(P,\lambda):=\sum_{k=0}^{m-1}W(\tau_k)(W(t_{k+1})-W(t_k)).\]</span></p>
-<p>我们希望找到 <span class="math inline">\(|P|\to 0\)</span> 时 Riemann
-和的 <span class="math inline">\(L^2\)</span> 极限.</p>
-<div class="note info"><h4 id="引理-二次变分">引理: 二次变分</h4>
-<p>区间 <span class="math inline">\([a,b]\subset [0,\infty)\)</span>,
-定义 <span class="math inline">\([a,b]\)</span> 的划分 <span
-class="math display">\[P^n=\{a=t_0^n&lt;t_1^n&lt;\cdots&lt;t_{m_n}^n=b\}.\]</span></p>
-<p>设 <span class="math inline">\(|P^n|\to 0\)</span> as <span
-class="math inline">\(n\to\infty\)</span>. 那么有 <span
-class="math display">\[Q_n=\sum_{k=0}^{m_n-1}(W(t_{k+1}^n)-W(t_k^n))^2\stackrel{L^2}\to
-b-a\quad n\to\infty.\]</span></p>
-</div>
-<p><strong>证明:</strong> <span
-class="math display">\[\begin{align*}\E[(Q_n-(b-a))^2]&amp;=\E\left\{\sum_{k=0}^{m_n-1}((W(t_{k+1}^n)-W(t_k^n))^2-(t_{k+1}^n-t_k^n))\right\}^2\\
-&amp;=\sum_{k=0}^{m_n-1}\sum_{j=0}^{m_n-1}\E((W(t_{k+1}^n)-W(t_k^n))^2-(t_{k+1}^n-t_k^n))((W(t_{j+1}^n)-W(t_j^n))^2-(t_{j+1}^n-t_j^n)).\end{align*}\]</span></p>
-<p>对 <span class="math inline">\(k\ne j\)</span> 的项, 根据独立增量,
-<span class="math inline">\(W(t_{k+1})-W(t_k)\)</span> 和 <span
-class="math inline">\(W(t_{j+1})-W(t_j)\)</span> 独立, 且由 <span
-class="math inline">\(W(t)-W(s)\sim N(0,t-s)\)</span>, <span
-class="math display">\[\E((W(t_{k+1}^n)-W(t_k^n))^2-(t_{k+1}^n-t_k^n))((W(t_{j+1}^n)-W(t_j^n))^2-(t_{j+1}^n-t_j^n))=\E((W(t_{k+1}^n)-W(t_k^n))^2-(t_{k+1}^n-t_k^n))\E((W(t_{j+1}^n)-W(t_j^n))^2-(t_{j+1}^n-t_j^n))=0.\]</span></p>
-<p>所以只剩下 <span class="math inline">\(k=j\)</span> 的项, 即 <span
-class="math display">\[\begin{align*}\E[Q_n-(b-a)^2]&amp;=\sum_{k=0}^{m_n-1}\E((W(t_{k+1}^n)-W(t_k^n))^2-(t_{k+1}^n-t_k^n))^2\\
-&amp;=\sum_{k=0}^{m_n-1}\E((\frac{W(t_{k+1}^n)-W(t_k^n)}{t_{k+1}^n-t_k^n})^2-1)^2(t_{k+1}^n-t_k^n)^2\\
-&amp;:=\sum_{k=0}^{m_n-1}\E(Y_k^n^2-1)^2(t_{k+1}^n-t_k^n)^2.\end{align*}\]</span></p>
-<p>这里 <span
-class="math inline">\(Y_k^n=\frac{W(t_{k+1})-W(t_k^n)}{\sqrt{t_{k+1}^n-t_k^n}}\sim
-N(0,1)\)</span>. 设 <span class="math inline">\(\E[(Y_k^2-1)^2]\le
-C\)</span>. <span class="math display">\[\E[Q_n-(b-a)^2]\le
-C\sum_{k=0}^{m_n-1}(t_{k+1}^n-t_k^n)^2\le C|P^n|(b-a)\to 0\quad
-n\to\infty.\]</span></p>
-<p>从这里可以看出 <span class="math inline">\(dW\approx
-(dt)^{1/2}\)</span>.</p>
-<p>通过 Riesz 定理取子列, 不妨设 <span
-class="math display">\[\sum_{k=0}^{m_n-1}(W(t_{k+1}^n)-W(t_k^n))^2\stackrel{\as}\to
-b-a.\]</span></p>
-<p>由对任意 <span class="math inline">\(0&lt;\gamma&lt;\frac
-12\)</span>, 样本轨道是 <span class="math inline">\(\gamma-\)</span>
-Holder 连续的, <span
-class="math display">\[\sum_{k=0}^{m_n-1}(W(t_{k+1}^n)-W(t_k^n))^2\le
-K\sum_{k=0}^{m_n-1}|W(t_{k+1}^n)-W(t_k^n)||t_{k+1}^n-t_k^n|^\gamma\le
-K|P^n|^\gamma\sum_{k=0}^{m_n-1}|W(t_{k+1}^n)-W(t_k^n)|\]</span></p>
-<p>取上极限, 得到 <span class="math display">\[b-a\le
-K\limsup_{n\to\infty}K|P^n|^\gamma\sum_{k=0}^{m_n-1}|W(t_{k+1}^n)-W(t_k^n)|.\]</span></p>
-<p>由 <span class="math inline">\(|P^n|\to 0\)</span>, 可知 <span
-class="math display">\[\sup_{P}\sum_{k=0}^{m_n-1}|W(t_{k+1}^n)-W(t_k^n)|=\infty
-\as\]</span></p>
-<p>这就是说布朗运动的样本轨道以概率 1 是无界变差的.</p>
-<div class="note info"><h4 id="定理">定理</h4>
-<p><span class="math inline">\(P^n\)</span> 是 <span
-class="math inline">\([0,T]\)</span> 的划分, <span
-class="math inline">\(0\le \lambda\le 1\)</span>, <span
-class="math inline">\(|P^n|\to 0\)</span>. 定义分点 <span
-class="math inline">\(\tau_k^n=(1-\lambda)t_k^n+\lambda
-t_{k+1}^n\)</span>. <span
-class="math display">\[R_n:=\sum_{k=0}^{m-1}W(\tau_k^n)(W(t_{k+1}^n)-W(t_k^n)).\]</span></p>
-<p>那么 <span
-class="math display">\[R_n\stackrel{L^2}\to\frac{W(T)^2}2+(\lambda-\frac
-12)T.\]</span></p>
-</div>
-<p><strong>证明:</strong> 基本的精神还是利用独立增量的性质.</p>
-<p>Ito 积分的定义是取 <span class="math inline">\(\lambda=0\)</span>.
-所以有 <span
-class="math inline">\(\int_0^TWdW=\frac{W^2(T)}2-\frac{T}2\)</span>.</p>
-<h3 id="ito-积分">Ito 积分</h3>
-<p>设 <span class="math inline">\(W\)</span> 是定义在 <span
-class="math inline">\((\Omega,\F,\p)\)</span> 上的一维布朗运动. 我们定义
-<span class="math inline">\(\mathcal W(t):=\sigma(W(s)\mid 0\le s\le
-t)\)</span> 为布朗运动到时间 <span class="math inline">\(t\)</span>
-为止的 <strong>历史</strong>. <span class="math inline">\(\mathcal
-W(t)^+=\sigma(W(s)-W(t)\mid s\ge t)\)</span> 为 布朗运动在 <span
-class="math inline">\(t\)</span> 时刻后的 <strong>未来</strong>.</p>
-]]></content>
-      <categories>
-        <category>数学</category>
-        <category>统计</category>
-      </categories>
-      <tags>
-        <tag>笔记</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>线性回归分析笔记</title>
-    <url>/2025/02/14/linear_regression/linear_regression/</url>
-    <content><![CDATA[<p>2025 Spring 线性回归分析课程笔记及课程总结.</p>
-<span id="more"></span>
-<h2 id="前言">前言</h2>
-]]></content>
-      <categories>
-        <category>统计</category>
-      </categories>
-      <tags>
-        <tag>笔记</tag>
-        <tag>线性回归</tag>
       </tags>
   </entry>
   <entry>
