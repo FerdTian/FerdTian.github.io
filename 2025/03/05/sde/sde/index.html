@@ -29,7 +29,7 @@
 <meta property="og:image" content="http://example.com/2025/03/05/sde/sde/haar.png">
 <meta property="og:image" content="http://example.com/2025/03/05/sde/sde/schauder.png">
 <meta property="article:published_time" content="2025-03-05T05:00:00.000Z">
-<meta property="article:modified_time" content="2025-03-04T16:57:51.764Z">
+<meta property="article:modified_time" content="2025-03-05T15:51:29.089Z">
 <meta property="article:author" content="Ferdinand">
 <meta property="article:tag" content="笔记">
 <meta name="twitter:card" content="summary">
@@ -195,10 +195,10 @@
           <a href="/2025/02/28/stochastic_analysis/stochastic_analysis/" title="2025&#x2F;02&#x2F;28&#x2F;stochastic_analysis&#x2F;stochastic_analysis&#x2F;">随机分析读书笔记</a>
         </li>
         <li class="links-of-recent-posts-item">
-          <a href="/2025/02/14/linear_regression/linear_regression/" title="2025&#x2F;02&#x2F;14&#x2F;linear_regression&#x2F;linear_regression&#x2F;">线性回归分析笔记</a>
+          <a href="/2025/02/14/jordan_canonical_form/" title="2025&#x2F;02&#x2F;14&#x2F;jordan_canonical_form&#x2F;">Jordan 标准型笔记</a>
         </li>
         <li class="links-of-recent-posts-item">
-          <a href="/2025/02/14/jordan_canonical_form/" title="2025&#x2F;02&#x2F;14&#x2F;jordan_canonical_form&#x2F;">Jordan 标准型笔记</a>
+          <a href="/2025/02/14/linear_regression/linear_regression/" title="2025&#x2F;02&#x2F;14&#x2F;linear_regression&#x2F;linear_regression&#x2F;">线性回归分析笔记</a>
         </li>
         <li class="links-of-recent-posts-item">
           <a href="/2025/02/14/stochastic_process/stochastic_process.md/stochastic_process/" title="2025&#x2F;02&#x2F;14&#x2F;stochastic_process&#x2F;stochastic_process.md&#x2F;stochastic_process&#x2F;">随机过程笔记</a>
@@ -256,7 +256,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2025-03-05 13:00:00 / 修改时间：00:57:51" itemprop="dateCreated datePublished" datetime="2025-03-05T13:00:00+08:00">2025-03-05</time>
+      <time title="创建时间：2025-03-05 13:00:00 / 修改时间：23:51:29" itemprop="dateCreated datePublished" datetime="2025-03-05T13:00:00+08:00">2025-03-05</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -305,6 +305,7 @@
     \newcommand{\R}{\mathbb R}
     \newcommand{\B}{\mathcal B}
     \newcommand{\bm}{\mathbf}
+    \newcommand{\as}{\;\mathrm{a.s.}}
 \]</span></p>
 <h2 id="随机微分方程简介">随机微分方程简介</h2>
 <p>一个常见的 ODE 是这么定义的: <span
@@ -512,13 +513,148 @@ class="math display">\[|\bm X(t,\omega)-\bm X(s,\omega)|\le
 K|t-s|^\gamma,\quad \forall\; 0\le s,t\le T.\]</span></p>
 </div>
 <h3 id="markov-性质">Markov 性质</h3>
+<p>由 s 时刻之前生成的 <span class="math inline">\(\sigma\)</span>-field
+<span class="math inline">\(\F(s)=\sigma(X(r)\mid 0\le r\le
+s)\)</span>被称为到 <span class="math inline">\(s\)</span>
+时刻的历史.</p>
+<div class="note primary"><h4 id="定义-markov-过程">定义: Markov 过程</h4>
+<p>取值在 <span class="math inline">\(\R^n\)</span> 中的随机过程 <span
+class="math inline">\(\bm X(s)\)</span> 被称为 Markov 过程, 如果对任意
+Borel 集 <span class="math inline">\(B\in \B(\R^n)\)</span>, <span
+class="math display">\[\p(\bm X(t)\in B\mid \F(s))=\p(X(t)\in B\mid
+X(s))\as\quad \forall\; 0\le s\le t.\]</span></p>
+</div>
+<p>这就是说根据 <span class="math inline">\(X(s)\)</span> 去预测 <span
+class="math inline">\(X(t)\)</span> 的效果和用全部 <span
+class="math inline">\(s\)</span> 之前的信息去预测是一样的. 或者说,
+Markov 过程只记得 <span class="math inline">\(X(s)\)</span> 的结果,
+但是忘了怎么过来的.</p>
+<div class="note info"><h4 id="定理-布朗运动是-markov-过程">定理: 布朗运动是 Markov 过程</h4>
+<p><span class="math inline">\(n\)</span> 维的布朗运动 <span
+class="math inline">\(\bm W\)</span> 是 Markov 过程, 并且 <span
+class="math display">\[\p(\bm (t)\in B\mid \bm
+W(s))=\frac1{(2\pi(t-s))^{n/2}}\int_B \exp(-\frac{|x-\bm
+W(s)|^2}{2(t-s)})ds\as\quad \forall\; 0\le s&lt;t,\;\forall\; B\in
+\B(\R^n).\]</span></p>
+</div>
 <h2 id="随机积分">随机积分</h2>
-<p>首先定义 <span class="math inline">\(\int_0^T gdW\)</span> 这种积分,
-其中 <span class="math inline">\(g\)</span> 是一个固定的函数,
-不是随机变量, <span class="math inline">\(W\)</span> 是布朗运动.</p>
+<p>首先定义 <span class="math inline">\(\int_0^T gdW\)</span> 这种积分
+(Paley-Wiener-Zygmund stochastic integral), 其中 <span
+class="math inline">\(g\)</span> 是一个固定的函数, 不是随机变量, <span
+class="math inline">\(W\)</span> 是布朗运动.</p>
+<ol type="1">
+<li><p>对 <span class="math inline">\(C^1\)</span> 函数定义积分.</p>
+<p>设 <span class="math inline">\(g:[0,T]\to \R\)</span> 连续可微, <span
+class="math inline">\(g(0)=g(T)=0\)</span>. 定义 <span
+class="math display">\[\int_0^T gdW:=-\int_0^T g&#39;Wdt.\]</span></p>
+<p>积分的结果是一个随机变量. 直接的计算可以验证 <span
+class="math display">\[\E[\int_0^T gdW]=0,\quad \E[(\int_0^T
+gdW)^2]=\int_0^T g^2dt.\]</span></p></li>
+<li><p>利用稠密性定义在 <span class="math inline">\(L^2(0,T)\)</span>
+上定义积分.</p>
+<p>设 <span class="math inline">\(g\in L^2(0,T)\)</span>. 取 <span
+class="math inline">\(\{g_n\}\subset C^1(0,T)\)</span>, 满足 <span
+class="math inline">\(g_n(0)=g_n(T)=0\)</span>, 使得 <span
+class="math inline">\(\int_0^T (g_n-g)^2dt\)</span>.
+(这是因为紧支光滑函数在 <span class="math inline">\(L^2(0,T)\)</span>
+中稠密). 根据之前方差的结论, 我们有 <span
+class="math display">\[\E[(\int_0^T g_mdW-\int_0^T
+g_ndW)^2]=\int_0^T(g_m-g_n)^2dt=\|g_m-g_n\|_{L^2(0,T)}.\]</span></p>
+<p>这说明 <span class="math inline">\(\{\int_0^T g_ndW\}\)</span> 是
+<span class="math inline">\(L^2(0,T)\)</span> 里的 Cauchy 列.
+根据完备性, 我们把积分定义成上述序列的 <span
+class="math inline">\(L^2\)</span> 极限: <span
+class="math display">\[\int_0^TgdW:=\lim_{n\to\infty}\int_0^T
+g_ndW.\]</span></p>
+<p>同样可以验证 <span class="math display">\[\E[\int_0^T gdW]=0,\quad
+\E[(\int_0^T gdW)^2]=\int_0^T g^2dt.\]</span></p></li>
+</ol>
 <p>然后定义被积函数是布朗运动的积分, 比如 <span
 class="math inline">\(\int_0^T WdW\)</span>. 思路是用 Riemann
 和来逼近.</p>
+<p>对区间 <span class="math inline">\([0,T]\)</span>, 取划分 <span
+class="math display">\[P:=\{0=t_0&lt;t_1&lt;\cdots&lt;t_m=T\}.\]</span></p>
+<p>定义 <span class="math display">\[|P|=\max_{0\le k\le m-1}
+|t_{k+1}-t_k|.\]</span></p>
+<p>取分点: <span class="math display">\[\tau_k:=(1-\lambda) t_k+\lambda
+t_{k+1}\in [t_k,t_{k+1}],\quad k=0,\cdots, m-1.\]</span>
+注意这里和普通的 Riemann 积分定义不一样,
+所有小区间上的分点我们选择相同的定比分点, 即 <span
+class="math inline">\(\lambda\)</span>
+是所有小区间上统一的一个固定常数.</p>
+<p>我们定义 <span class="math inline">\(\int_0^T WdW\)</span> 的 Riemann
+和为 <span
+class="math display">\[R(P,\lambda):=\sum_{k=0}^{m-1}W(\tau_k)(W(t_{k+1})-W(t_k)).\]</span></p>
+<p>我们希望找到 <span class="math inline">\(|P|\to 0\)</span> 时 Riemann
+和的 <span class="math inline">\(L^2\)</span> 极限.</p>
+<div class="note info"><h4 id="引理-二次变分">引理: 二次变分</h4>
+<p>区间 <span class="math inline">\([a,b]\subset [0,\infty)\)</span>,
+定义 <span class="math inline">\([a,b]\)</span> 的划分 <span
+class="math display">\[P^n=\{a=t_0^n&lt;t_1^n&lt;\cdots&lt;t_{m_n}^n=b\}.\]</span></p>
+<p>设 <span class="math inline">\(|P^n|\to 0\)</span> as <span
+class="math inline">\(n\to\infty\)</span>. 那么有 <span
+class="math display">\[Q_n=\sum_{k=0}^{m_n-1}(W(t_{k+1}^n)-W(t_k^n))^2\stackrel{L^2}\to
+b-a\quad n\to\infty.\]</span></p>
+</div>
+<p><strong>证明:</strong> <span
+class="math display">\[\begin{align*}\E[(Q_n-(b-a))^2]&amp;=\E\left\{\sum_{k=0}^{m_n-1}((W(t_{k+1}^n)-W(t_k^n))^2-(t_{k+1}^n-t_k^n))\right\}^2\\
+&amp;=\sum_{k=0}^{m_n-1}\sum_{j=0}^{m_n-1}\E((W(t_{k+1}^n)-W(t_k^n))^2-(t_{k+1}^n-t_k^n))((W(t_{j+1}^n)-W(t_j^n))^2-(t_{j+1}^n-t_j^n)).\end{align*}\]</span></p>
+<p>对 <span class="math inline">\(k\ne j\)</span> 的项, 根据独立增量,
+<span class="math inline">\(W(t_{k+1})-W(t_k)\)</span> 和 <span
+class="math inline">\(W(t_{j+1})-W(t_j)\)</span> 独立, 且由 <span
+class="math inline">\(W(t)-W(s)\sim N(0,t-s)\)</span>, <span
+class="math display">\[\E((W(t_{k+1}^n)-W(t_k^n))^2-(t_{k+1}^n-t_k^n))((W(t_{j+1}^n)-W(t_j^n))^2-(t_{j+1}^n-t_j^n))=\E((W(t_{k+1}^n)-W(t_k^n))^2-(t_{k+1}^n-t_k^n))\E((W(t_{j+1}^n)-W(t_j^n))^2-(t_{j+1}^n-t_j^n))=0.\]</span></p>
+<p>所以只剩下 <span class="math inline">\(k=j\)</span> 的项, 即 <span
+class="math display">\[\begin{align*}\E[Q_n-(b-a)^2]&amp;=\sum_{k=0}^{m_n-1}\E((W(t_{k+1}^n)-W(t_k^n))^2-(t_{k+1}^n-t_k^n))^2\\
+&amp;=\sum_{k=0}^{m_n-1}\E((\frac{W(t_{k+1}^n)-W(t_k^n)}{t_{k+1}^n-t_k^n})^2-1)^2(t_{k+1}^n-t_k^n)^2\\
+&amp;:=\sum_{k=0}^{m_n-1}\E(Y_k^n^2-1)^2(t_{k+1}^n-t_k^n)^2.\end{align*}\]</span></p>
+<p>这里 <span
+class="math inline">\(Y_k^n=\frac{W(t_{k+1})-W(t_k^n)}{\sqrt{t_{k+1}^n-t_k^n}}\sim
+N(0,1)\)</span>. 设 <span class="math inline">\(\E[(Y_k^2-1)^2]\le
+C\)</span>. <span class="math display">\[\E[Q_n-(b-a)^2]\le
+C\sum_{k=0}^{m_n-1}(t_{k+1}^n-t_k^n)^2\le C|P^n|(b-a)\to 0\quad
+n\to\infty.\]</span></p>
+<p>从这里可以看出 <span class="math inline">\(dW\approx
+(dt)^{1/2}\)</span>.</p>
+<p>通过 Riesz 定理取子列, 不妨设 <span
+class="math display">\[\sum_{k=0}^{m_n-1}(W(t_{k+1}^n)-W(t_k^n))^2\stackrel{\as}\to
+b-a.\]</span></p>
+<p>由对任意 <span class="math inline">\(0&lt;\gamma&lt;\frac
+12\)</span>, 样本轨道是 <span class="math inline">\(\gamma-\)</span>
+Holder 连续的, <span
+class="math display">\[\sum_{k=0}^{m_n-1}(W(t_{k+1}^n)-W(t_k^n))^2\le
+K\sum_{k=0}^{m_n-1}|W(t_{k+1}^n)-W(t_k^n)||t_{k+1}^n-t_k^n|^\gamma\le
+K|P^n|^\gamma\sum_{k=0}^{m_n-1}|W(t_{k+1}^n)-W(t_k^n)|\]</span></p>
+<p>取上极限, 得到 <span class="math display">\[b-a\le
+K\limsup_{n\to\infty}K|P^n|^\gamma\sum_{k=0}^{m_n-1}|W(t_{k+1}^n)-W(t_k^n)|.\]</span></p>
+<p>由 <span class="math inline">\(|P^n|\to 0\)</span>, 可知 <span
+class="math display">\[\sup_{P}\sum_{k=0}^{m_n-1}|W(t_{k+1}^n)-W(t_k^n)|=\infty
+\as\]</span></p>
+<p>这就是说布朗运动的样本轨道以概率 1 是无界变差的.</p>
+<div class="note info"><h4 id="定理">定理</h4>
+<p><span class="math inline">\(P^n\)</span> 是 <span
+class="math inline">\([0,T]\)</span> 的划分, <span
+class="math inline">\(0\le \lambda\le 1\)</span>, <span
+class="math inline">\(|P^n|\to 0\)</span>. 定义分点 <span
+class="math inline">\(\tau_k^n=(1-\lambda)t_k^n+\lambda
+t_{k+1}^n\)</span>. <span
+class="math display">\[R_n:=\sum_{k=0}^{m-1}W(\tau_k^n)(W(t_{k+1}^n)-W(t_k^n)).\]</span></p>
+<p>那么 <span
+class="math display">\[R_n\stackrel{L^2}\to\frac{W(T)^2}2+(\lambda-\frac
+12)T.\]</span></p>
+</div>
+<p><strong>证明:</strong> 基本的精神还是利用独立增量的性质.</p>
+<p>Ito 积分的定义是取 <span class="math inline">\(\lambda=0\)</span>.
+所以有 <span
+class="math inline">\(\int_0^TWdW=\frac{W^2(T)}2-\frac{T}2\)</span>.</p>
+<h3 id="ito-积分">Ito 积分</h3>
+<p>设 <span class="math inline">\(W\)</span> 是定义在 <span
+class="math inline">\((\Omega,\F,\p)\)</span> 上的一维布朗运动. 我们定义
+<span class="math inline">\(\mathcal W(t):=\sigma(W(s)\mid 0\le s\le
+t)\)</span> 为布朗运动到时间 <span class="math inline">\(t\)</span>
+为止的 <strong>历史</strong>. <span class="math inline">\(\mathcal
+W(t)^+=\sigma(W(s)-W(t)\mid s\ge t)\)</span> 为 布朗运动在 <span
+class="math inline">\(t\)</span> 时刻后的 <strong>未来</strong>.</p>
 
     </div>
 
