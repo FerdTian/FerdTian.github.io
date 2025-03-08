@@ -19,28 +19,28 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.22.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":true,"style":"mac"},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":true,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="2025 Spring 线性回归分析课程笔记及课程总结.">
+    <meta name="description" content="小明每次买一包小浣熊干脆面, 能得到一张随机款式的三国卡, 那么他首次集齐全套三国卡需要买大概多少包干脆面?">
 <meta property="og:type" content="article">
-<meta property="og:title" content="线性回归分析笔记">
-<meta property="og:url" content="http://example.com/2025/02/14/linear_regression/linear_regression/index.html">
+<meta property="og:title" content="概率论拾遗: Coupon Collector 问题">
+<meta property="og:url" content="http://example.com/2025/03/08/coupon_collector/index.html">
 <meta property="og:site_name" content="夏日晓月">
-<meta property="og:description" content="2025 Spring 线性回归分析课程笔记及课程总结.">
+<meta property="og:description" content="小明每次买一包小浣熊干脆面, 能得到一张随机款式的三国卡, 那么他首次集齐全套三国卡需要买大概多少包干脆面?">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2025-02-14T05:00:00.000Z">
-<meta property="article:modified_time" content="2025-03-01T15:51:18.891Z">
+<meta property="article:published_time" content="2025-03-08T15:28:00.000Z">
+<meta property="article:modified_time" content="2025-03-08T15:54:56.379Z">
 <meta property="article:author" content="Ferdinand">
 <meta property="article:tag" content="笔记">
-<meta property="article:tag" content="线性回归">
+<meta property="article:tag" content="概率论">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="http://example.com/2025/02/14/linear_regression/linear_regression/">
+<link rel="canonical" href="http://example.com/2025/03/08/coupon_collector/">
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2025/02/14/linear_regression/linear_regression/","path":"2025/02/14/linear_regression/linear_regression/","title":"线性回归分析笔记"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2025/03/08/coupon_collector/","path":"2025/03/08/coupon_collector/","title":"概率论拾遗: Coupon Collector 问题"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>线性回归分析笔记 | 夏日晓月</title>
+<title>概率论拾遗: Coupon Collector 问题 | 夏日晓月</title>
   
 
 
@@ -127,7 +127,7 @@
   
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+    <div class="sidebar-inner sidebar-overview-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
@@ -140,7 +140,6 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-text">前言</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -224,7 +223,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2025/02/14/linear_regression/linear_regression/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2025/03/08/coupon_collector/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -237,12 +236,12 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="线性回归分析笔记 | 夏日晓月">
+      <meta itemprop="name" content="概率论拾遗: Coupon Collector 问题 | 夏日晓月">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          线性回归分析笔记
+          概率论拾遗: Coupon Collector 问题
         </h1>
 
         <div class="post-meta-container">
@@ -252,15 +251,9 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
+      
 
-      <time title="创建时间：2025-02-14 13:00:00" itemprop="dateCreated datePublished" datetime="2025-02-14T13:00:00+08:00">2025-02-14</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2025-03-01 23:51:18" itemprop="dateModified" datetime="2025-03-01T23:51:18+08:00">2025-03-01</time>
+      <time title="创建时间：2025-03-08 23:28:00 / 修改时间：23:54:56" itemprop="dateCreated datePublished" datetime="2025-03-08T23:28:00+08:00">2025-03-08</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -268,7 +261,11 @@
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E7%BB%9F%E8%AE%A1/" itemprop="url" rel="index"><span itemprop="name">统计</span></a>
+          <a href="/categories/%E6%95%B0%E5%AD%A6/" itemprop="url" rel="index"><span itemprop="name">数学</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%95%B0%E5%AD%A6/%E7%BB%9F%E8%AE%A1/" itemprop="url" rel="index"><span itemprop="name">统计</span></a>
         </span>
     </span>
 
@@ -288,9 +285,41 @@
     
     
     
-    <div class="post-body" itemprop="articleBody"><p>2025 Spring 线性回归分析课程笔记及课程总结.</p>
+    <div class="post-body" itemprop="articleBody"><p>小明每次买一包小浣熊干脆面, 能得到一张随机款式的三国卡,
+那么他首次集齐全套三国卡需要买大概多少包干脆面?</p>
 <span id="more"></span>
-<h2 id="前言">前言</h2>
+<p>建立模型: 设有 <span class="math inline">\(N\)</span> 种款式的卡券,
+<span class="math inline">\(X_n\)</span> i.i.d. 于 <span
+class="math inline">\(\{1,2,\cdots, N\}\)</span> 上的均匀分布. <span
+class="math inline">\(T_N=\inf\{n: \#\{X_1,\cdots, X_n\}=N\}\)</span>
+是首次集齐 <span class="math inline">\(N\)</span> 中款式的时间.
+那么我们可以证明, <span class="math inline">\(\frac{T_N}{N\log
+N}\stackrel{L^2}\to 1.\)</span></p>
+<p>对任意 <span class="math inline">\(1\le k\le N\)</span>, 记 <span
+class="math inline">\(\tau_K=\inf\{n: \#\{X_1,\cdots,
+X_n\}=k\}\)</span>, 即首次集齐 <span class="math inline">\(k\)</span>
+种款式的时间. <span class="math inline">\(\tau_1=1\)</span>, 令 <span
+class="math inline">\(Y_k=\tau_k-\tau_{k-1}\)</span>, <span
+class="math inline">\(Y_k\)</span> 服从几何分布, 有 <span
+class="math display">\[\p(Y_k\ge
+m)=\left(\frac{k-1}N\right)^{m-1}.\]</span></p>
+<p>并且 <span class="math inline">\(\{Y_k\}\)</span> 是互相独立的
+(下一款什么时候集齐跟上一次没有关系), <span
+class="math inline">\(T_N=\sum_{k=1}^N Y_k\)</span>.</p>
+<p><span class="math display">\[\E T_N=\sum_{k=1}^N \E Y_k=\sum_{k=1}^N
+\frac N{N-k+1}=N\sum_{k=1}^N \frac 1k\sim N\log N\]</span></p>
+<p><span class="math display">\[\var T_N=\sum_{k=1}^N \var
+Y_k=\sum_{k=1}^N N\frac{k-1}{(N-k+1)^2}\le N^2\sum_{k=1}^N
+\frac1{k^2}\le CN^2.\]</span></p>
+<p><span class="math display">\[\E T_N-N\log N=N(\sum_{k=1}^N \frac
+1k-\log N)=o(N\log N)\]</span></p>
+<p>所以 <span class="math display">\[\begin{align*}
+\E[(\frac{T_N}{N\log N}-1)^2]&amp;=\frac{\E(T_N-N\log N)^2}{(N\log
+N)^2}\\
+    &amp;=\frac{\E(T_N-\E T_N)^2+(\E T_N-N\log N)^2}{(N\log N)^2}\\
+    &amp;=\frac{\var T_N+(\E T_N-N\log N)^2}{(N\log N)^2}\\
+    &amp;\le \frac{CN^2+o((N\log N)^2)}{(N\log N)^2}\to 0.
+\end{align*}\]</span></p>
 
     </div>
 
@@ -316,7 +345,7 @@
   </li>
   <li class="post-copyright-link">
       <strong>本文链接：</strong>
-      <a href="http://example.com/2025/02/14/linear_regression/linear_regression/" title="线性回归分析笔记">http://example.com/2025/02/14/linear_regression/linear_regression/</a>
+      <a href="http://example.com/2025/03/08/coupon_collector/" title="概率论拾遗: Coupon Collector 问题">http://example.com/2025/03/08/coupon_collector/</a>
   </li>
   <li class="post-copyright-license">
       <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed-zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -326,21 +355,18 @@
 
           <div class="post-tags">
               <a href="/tags/%E7%AC%94%E8%AE%B0/" rel="tag"><i class="fa fa-tag"></i> 笔记</a>
-              <a href="/tags/%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92/" rel="tag"><i class="fa fa-tag"></i> 线性回归</a>
+              <a href="/tags/%E6%A6%82%E7%8E%87%E8%AE%BA/" rel="tag"><i class="fa fa-tag"></i> 概率论</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2025/02/14/stochastic_process/stochastic_process.md/stochastic_process/" rel="prev" title="随机过程笔记">
-                  <i class="fa fa-angle-left"></i> 随机过程笔记
+                <a href="/2025/03/05/sde/sde/" rel="prev" title="随机微分方程速通">
+                  <i class="fa fa-angle-left"></i> 随机微分方程速通
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2025/02/14/jordan_canonical_form/" rel="next" title="Jordan 标准型笔记">
-                  Jordan 标准型笔记 <i class="fa fa-angle-right"></i>
-                </a>
             </div>
           </div>
     </footer>
