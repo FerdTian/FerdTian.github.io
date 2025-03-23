@@ -1,6 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>线性回归分析笔记</title>
+    <url>/2025/02/14/linear_regression/linear_regression/</url>
+    <content><![CDATA[<p>2025 Spring 线性回归分析课程笔记及课程总结.</p>
+<span id="more"></span>
+<h2 id="前言">前言</h2>
+]]></content>
+      <categories>
+        <category>统计</category>
+      </categories>
+      <tags>
+        <tag>笔记</tag>
+        <tag>线性回归</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>概率论拾遗: Coupon Collector 问题</title>
     <url>/2025/03/08/coupon_collector/</url>
     <content><![CDATA[<p>小明每次买一包小浣熊干脆面, 能得到一张随机款式的三国卡,
@@ -757,21 +772,6 @@ X_1 &amp; &amp; &amp; \\
       </tags>
   </entry>
   <entry>
-    <title>线性回归分析笔记</title>
-    <url>/2025/02/14/linear_regression/linear_regression/</url>
-    <content><![CDATA[<p>2025 Spring 线性回归分析课程笔记及课程总结.</p>
-<span id="more"></span>
-<h2 id="前言">前言</h2>
-]]></content>
-      <categories>
-        <category>统计</category>
-      </categories>
-      <tags>
-        <tag>笔记</tag>
-        <tag>线性回归</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>随机微分方程速通</title>
     <url>/2025/03/05/sde/sde/</url>
     <content><![CDATA[<p>看的是 Evans 的 Introduction to Stochastic Differential Equations
@@ -1159,6 +1159,149 @@ class="math inline">\(t\)</span> 时刻可用的全部信息.</p>
 ]]></content>
       <categories>
         <category>数学</category>
+        <category>统计</category>
+      </categories>
+      <tags>
+        <tag>笔记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>随机过程笔记</title>
+    <url>/2025/02/14/stochastic_process/stochastic_process.md/stochastic_process/</url>
+    <content><![CDATA[<p>2025 Spring 高等概率论 II 课程笔记及课程总结.</p>
+<span id="more"></span>
+
+<p>$$<br>    \newcommand{\Z}{\mathbb Z}<br>    \newcommand{\E}{\mathbb E}<br>    \newcommand{\p}{\mathbb P}<br>    \newcommand{\F}{\mathcal F}<br>    \newcommand{\Q}{\mathbb Q}<br>    \newcommand{\as}{;\mathrm{a.s.}}<br>$$</p>
+<h2 id="鞅"><a href="#鞅" class="headerlink" title="鞅"></a>鞅</h2><p>利用独立的随机变量构造鞅:</p>
+<p>设 ${\eta_n}$ 相互独立, $\forall n\ge 1$, $\E |\eta_n|&lt;\infty$, $\F_n&#x3D;\sigma(\eta_1,\cdots,\eta_n)$.</p>
+<ol>
+<li><p>设 $\xi_n &#x3D;\sum_{k&#x3D;1}^n (\eta_n-\E \eta_n)$. ${\eta_n}$ 关于 ${\F_n}$ 是鞅.</p>
+</li>
+<li><p>若对任意 $n\ge 1, \E\eta_n^2&lt;\infty$. 设 $\zeta_n&#x3D;\xi_n^2-\sum_{k&#x3D;1}^n\var \eta_n$. 则 ${\eta_n}$ 是关于 ${\F_n}$ 的鞅.</p>
+</li>
+<li><p>若对某个实数 $s$, $\E e^{s\eta_n}&lt;\infty, n\ge 1$. 设 $\phi_n&#x3D;\prod_{k&#x3D;1}^n \frac{e^{s\eta_k}}{\E e^{s\eta_k}}$, 则 ${\phi_n}$ 是关于 ${\F_n}$ 的鞅.</p>
+</li>
+</ol>
+<p>鞅变换:</p>
+<p>设 ${X_n}$ 关于 $(\F_n)$ 是鞅. ${H_n}$ 关于 ${\F_n}$ 可料. 定义<br>$$(H\cdot X)<em>n&#x3D;H_0X_0+\sum</em>{k&#x3D;1}^n H_k(X_k-X_{k-1}).$$</p>
+<h2 id="停时"><a href="#停时" class="headerlink" title="停时"></a>停时</h2><div class="note primary"><p><strong>定义:</strong> 设 $T$ 是随机变量. 取值于 ${1,2,\cdots}\cup{\infty}$. 若 $\forall;n\ge 0$, 有 ${T\le n}\in \F_n$, 则称 $T$ 是停时.</p>
+</div>
+
+<div class="note warning"><p><strong>注:</strong> $T$ 是停时等价于 ${T\le n}\in \F_n$ 等价于 ${T&#x3D;n}\in \F_n$.</p>
+<p>停时的定义可以理解为: $n$ 时刻卖出股票, 只需要根据 $n$ 前的信息就能做出决策, 而不需要看之后的信息.</p>
+</div>
+
+<div class="note success"><p><strong>例子:</strong> (集合的首达时 (hitting time) 是停时) 设 $A$ 是 Borel 集, $T&#x3D;\inf{n:X_n\in A}$ 是停时.</p>
+<p>因为: ${T&#x3D;n}&#x3D;{x_0\notin A, x_1\notin A,\cdots, x_{n-1}\notin A, x_n\in A}\in \F_n$.</p>
+</div>
+
+<div class="note success"><p><strong>例子:</strong> 设 $X_i\ge 0$, $S_n&#x3D;\sum_{i&#x3D;1}^n X_i$, $S_0&#x3D;0$. $N_t:&#x3D;\sup{n:S_n\le t}$ 不是停时.</p>
+<p>因为: ${N_t&#x3D;n}&#x3D;{S_n\le t, S_{n+1}&gt;t,\cdots}\notin \F_n$. 即 $N_t$ 表示最后一次小于等于 $t$ 的时刻, 无法根据之前的信息做出决策.</p>
+<p>但是 $N_t+1$ 是停时, $N_t+1$ 表示首次大于 $t$ 的时刻, 是集合的首达时.</p>
+<p>$${N_t+1&#x3D;n}&#x3D;{N_t&#x3D;n-1}&#x3D;{S_{n-1}\le t, S_n&gt;t, S_{n+1}&gt;t,\cdots}&#x3D;{S_{n-1}\le t, S_n&gt;t}\in \F_n.$$</p>
+</div>
+
+<div class="note info"><p>  命题: </p>
+<ol>
+<li><p>非负整数(常数) 是停时.</p>
+</li>
+<li><p>$T_1, T_2$ 是停时, 那么 $T_1\wedge T_2$, $T_1\vee T_2$ 也是停时.</p>
+</li>
+<li><p>若 $T_n\nearrow T$, 或者 $T_n\searrow T$, 且 $T_n$ 都是停时, 那么 $T$ 也是停时.</p>
+</li>
+<li><p>$T$ 是停时, 那么 $T+n_0$ 是停时, 对任意 $n_0\in \Z_{\ge 0}$.</p>
+</li>
+</ol>
+</div>
+
+<div class="note primary"><p><strong>定义:</strong> 设 $T$ 是停时, $\F_T:&#x3D;{A:A\cap{T&#x3D;n}\in \F_n,\forall n\ge 0}$.</p>
+<p> 这是根据 $n$ 时刻的信息可测的那些集合. 可以验证 $\F_T$ 是 $\sigma$-field, 且 $T\in \F_T$.</p>
+</div>
+
+<div class="note info"><p><strong>定理:</strong> 设 $X_1,X_2,\cdots$ i.i.d., $N$ 是停时, 则给定 $N&lt;\infty$ 的条件下, ${X_{n+N},n\ge 0}$ 也是 i.i.d., 且和原序列有相同的分布. 并且 ${X_{n+N},n\ge 1}$ 和 $\F_n$ 独立.</p>
+</div>
+
+<p>下面是两个关于停时的常用等式:</p>
+<div class="note info"><p>(Wald’s Equation) 设 $X_1,X_2\cdots$ i.i.d., $\E|X_i|&lt;\infty$, $S_n&#x3D;\sum_{i&#x3D;1}^n X_i,n\ge 1$, $\E X_i&#x3D;\mu$. $N$ 是停时, 且 $\E N&lt;\infty$. 则 $$\E S_N&#x3D;\mu\cdot \E N.$$</p>
+</div>
+
+<div class="note info"><p>(Wald’s Second Equation) 设 $X_1,X_2,\cdots$ i.i.d., $\E X_i&#x3D;0$, $\E X_i^2&#x3D;\sigma^2&lt;\infty$. $N$ 是停时, $\E N&lt;\infty$. 则 $$\E S_N^2&#x3D;\sigma^2\cdot \E N.$$</p>
+</div>
+
+<h2 id="鞅的几乎处处收敛"><a href="#鞅的几乎处处收敛" class="headerlink" title="鞅的几乎处处收敛"></a>鞅的几乎处处收敛</h2><div class="note info"><p><strong>定理</strong> 设 ${X_n, n\ge 0}$ 是关于 $\mathcal F_n$ 的下鞅. 且满足 $\sup_n \mathbb E X_n^+&lt;\infty$, 则 $X_n\to X$ a.s. 且 $\mathbb E |X|&lt;\infty$.</p>
+</div>
+
+<p>证明: 要证 $\mathbb P({\omega:\lim_{n\to\infty} X_n(\omega)存在})&#x3D;1$, 只需证明 $$\mathbb P({\omega:\limsup_{n\to\infty} X_n(\omega)&lt;\liminf_{n\to\infty} X_n(\omega)})&#x3D;0.$$ 常用的技巧是插入有理数: 由于 $${\omega: \liminf X_n(\omega)&lt;\limsup X_n(\omega)}\subset \bigcup_{a,b\in \mathbb Q} {\omega:\liminf X_n(\omega)&lt;a&lt;b&lt;\limsup X_n(\omega)},$$ 故只需证 $$\forall; a,b\in \mathbb Q, \mathbb P({\omega:\liminf X_n(\omega)&lt;a&lt;b&lt;\limsup X_n(\omega)})&#x3D;0.$$</p>
+<p>这里要注意到, 上极限大于 $a$, 代表有大于 $a$ 的子列, 下极限小于 $b$, 代表有小于 $b$ 的子列. 合起来考虑就会发现, 这等价于说整个序列穿越 $a, b$ 这两条线无穷多次. 这启发我们考虑 $$U_n(\omega):&#x3D;{X_n(\omega)序列在 m\le n 时上穿 a,b的次数}.$$</p>
+<p>设 $U_n(\omega)\nearrow U(\omega)$, 后者即为整个序列上穿 $a,b$ 的总次数.</p>
+<p>从实际意义考虑这个过程, 这相当于低价买进, 高价卖出股票, 且股票是下鞅, 即为好股票. 这就是说一个总体呈现上升趋势的过程, (我们希望证明: 这种穿越的过程应该次数有限). 所以 </p>
+<p>$${\omega: \liminf X_n(\omega)&lt;a&lt;b&lt;\limsup X_n(\omega)}\subset {\omega: U(\omega)&#x3D;\infty}$$</p>
+<p>把之前的想法翻译成数学语言: 定义<br>$$N_0&#x3D;-1,$$<br>$$N_1&#x3D;\inf{n: X_n\le a}, N_2&#x3D;\inf{n&gt;n_1: X_n\ge b}$$<br>$$\cdots$$<br>$$N_{2k-1}&#x3D;\inf{n&gt;N_{2k-2}:X_n\le a}, N_{2k}&#x3D;\inf{n&gt;N_{2k-1}, X_n\ge b}.$$</p>
+<p>可验证所有的 $N_j, j&#x3D;0,1,\cdots$ 都是停时. 定义<br>$$H_m&#x3D;\begin{cases}<br>1, &amp; \exists k, s.t. N_{2k-1}\le m&lt;N_{2k} (位于某个上穿过程, 即时刻 m 持有股票)\<br>0, &amp; \text{otherwise, (时刻 $m$ 不持有股票)}.<br>\end{cases}.$$</p>
+<p>$${H_m&#x3D;1} &#x3D;\bigcup_{k&#x3D;1}^\infty {N_{2k-1}&lt;m&lt; N_{2k}}&#x3D;\bigcup_{k&#x3D;1}^\infty {N_{2k-1}\le 2m-1}\cap{N_{2k}\le m-1}^c.$$</p>
+<p>最后那两个集合都属于 $\mathcal F_{m-1}$. 所以 ${H_m&#x3D;1}\in \mathcal F_{m-1}$, 即 $H_m$ 是可料的过程.</p>
+<p>$U_n&#x3D;\sup{k: N_{2k}\le n}$ 是完成的上穿次数.</p>
+<div class="note info"><p><strong>引理:</strong> (上穿不等式) 若 $X_n$ 是下鞅. 那么 $$(b-a) \E U_n\le \E(X_n-a)^+-\E(X_0-a)^+.$$</p>
+</div>
+
+<p>利用这个引理. 我们得到 $$\E[U_n]\le \frac 1{b-a}(\E(X_n-a)^+-\E(X_0-a)^+)\le\frac 1{b-a}(\E X_n^++|a|)\le \frac 1{b-a}(\sup_n\E X_n^++|a|)&lt;\infty.$$</p>
+<p>所以 $\E U\le \liminf\E U_n&lt;\infty.$ 这说明 $\p(U&lt;\infty)&#x3D;1$.</p>
+<p>下证 $\E |X|&lt;\infty$. $|X_n|&#x3D;X_n^++X_n^-$, $X_n&#x3D;X_n^+-X_n^-$, $|X_n|&#x3D;2X_n^+-X^-$.</p>
+<p>由 $X_n$ 是下鞅, $\E X_n\ge \E X_0$, $\E |X_n|\le 2\sup_n \E X_n^+-\E X_0&lt;\infty$. 由 Fatou 引理, $\E |X|\le \liminf \E |X_n|&lt;\infty$.</p>
+<div class="note info"><h4 id="推论-非负上鞅几乎处处收敛"><a href="#推论-非负上鞅几乎处处收敛" class="headerlink" title="推论: 非负上鞅几乎处处收敛."></a>推论: 非负上鞅几乎处处收敛.</h4><p>若 $X_n\ge 0$ 是上鞅, 那么 $X_n\to X\as$ 且 $\E X\le \E X_0$.</p>
+</div>
+
+<div class="note info"><h4 id="Doob-下鞅分解定理"><a href="#Doob-下鞅分解定理" class="headerlink" title="Doob 下鞅分解定理:"></a>Doob 下鞅分解定理:</h4><p>${X_n}$ 是下鞅, 存在唯一的鞅 $M_n$ 和可料的增序列 $A_n$, $A_0&#x3D;0$, $X_n&#x3D;M_n+A_n$.</p>
+</div>
+
+<div class="note info"><h4 id="有界增量鞅"><a href="#有界增量鞅" class="headerlink" title="有界增量鞅"></a>有界增量鞅</h4><p>设 $X_n$ 是鞅, 且 $|X_{n+1}-X_n|\le M&lt;\infty$.<br>$$C&#x3D;{\omega: \lim_{n\to\infty} X_n(\omega) 存在且有限},\ \ D&#x3D;{\liminf X_n&#x3D;-\infty, \limsup X_n&#x3D;\infty}.$$</p>
+<p>则 $\p(C\cup D)&#x3D;1$.</p>
+</div>
+
+<div class="note info"><h4 id="第二-Borel-Cantelli-引理"><a href="#第二-Borel-Cantelli-引理" class="headerlink" title="第二 Borel-Cantelli 引理"></a>第二 Borel-Cantelli 引理</h4><p>$\F_n$ 是一个 Filtration, $\F_0&#x3D;\sigma(\varnothing, \Omega)$. $A_n\in \F_n$. 则<br>$${A_n\io} \stackrel{p}{&#x3D;} {\sum_{n&#x3D;1}^\infty \p(A_{n+1}\mid \F_n)&#x3D;\infty}.$$</p>
+</div>
+
+<h2 id="鞅的各种不等式"><a href="#鞅的各种不等式" class="headerlink" title="鞅的各种不等式:"></a>鞅的各种不等式:</h2><div class="note info"><h4 id="L-p-不等式"><a href="#L-p-不等式" class="headerlink" title="$L^p$ 不等式"></a>$L^p$ 不等式</h4><ul>
+<li><p>若 $X_n$ 是下鞅, 记 $\bar X_n&#x3D;\max_1\le k\le n X_k^+$, 则 $$\E (\bar X_n)^p\le (\frac p{p-1})^p \E (X_n^+)^p\quad (p\ge 1).$$</p>
+</li>
+<li><p>若 $X_n$ 是下鞅, 令 $\log^+ x&#x3D;\max{\log x, 0}$, 则 $\E \bar X_n\le \frac1{1-e^{-1}}{1+\E X_n^+\log^+ X_n^+}$.</p>
+</li>
+</ul>
+</div>
+
+<div class="note info"><h4 id="Doob-不等式"><a href="#Doob-不等式" class="headerlink" title="Doob 不等式"></a>Doob 不等式</h4><p>设 $X_n$ 是下鞅, $\bar X_n&#x3D;\max_{0\le m\le n} X_m^+$, $\lambda&gt;0$. </p>
+<p>$A&#x3D;{\bar X_n\ge \lambda}$, 则 $$\lambda \p(A)\le \E X_n^+\1_A\le \E X_n^+.$$</p>
+</div>
+
+<div class="note info"><h4 id="Kolmogorov-不等式"><a href="#Kolmogorov-不等式" class="headerlink" title="Kolmogorov 不等式"></a>Kolmogorov 不等式</h4><p>设 $\xi_i$ 相互独立, $\E \xi_i&#x3D;0$, $\E \xi_i&#x3D;0$, $\E \xi_i^2&#x3D;\sigma^2$. $S_n&#x3D;\sum_{i&#x3D;1}^n \xi_i$. 则<br>$$\p(\max_{1\le m\le n} |S_m|\ge x)\le \frac1{x^2}\var S_n.$$</p>
+</div>
+<h2 id="鞅的-L-p-收敛"><a href="#鞅的-L-p-收敛" class="headerlink" title="鞅的 $L^p$ 收敛"></a>鞅的 $L^p$ 收敛</h2><div class="note info"><h4 id="可以当做一个版本的有界停时定理"><a href="#可以当做一个版本的有界停时定理" class="headerlink" title="可以当做一个版本的有界停时定理"></a>可以当做一个版本的有界停时定理</h4><p>$X_n$ 是下鞅, $N$ 是有界停时, 即存在 $k&gt;0$, 使得 $\p(N\le k)&#x3D;1$. 则 $\E X_0\le \E X_N\le \E X_k$.</p>
+</div>
+
+<h3 id="p-1"><a href="#p-1" class="headerlink" title="p&gt;1"></a>p&gt;1</h3><div class="note info"><h4 id="鞅的-L-p-收敛-p-1"><a href="#鞅的-L-p-收敛-p-1" class="headerlink" title="鞅的 $L^p$ 收敛 (p&gt;1)"></a>鞅的 $L^p$ 收敛 (p&gt;1)</h4><p>假设 $X_n$ 是鞅, 如果 $\sup_n \E |X_n|^p&lt;\infty$, 那么 $X_n\to X$ in $L^p$ (p&gt;1) 且 a.s.</p>
+</div>
+
+<div class="note info"><h4 id="鞅增量的正交性"><a href="#鞅增量的正交性" class="headerlink" title="鞅增量的正交性"></a>鞅增量的正交性</h4><p>$X_n$ 是鞅, $\E X_n^2&lt;\infty$. 那么对任意 $Y\in \F_m$, $\E Y^2&lt;\infty$, 则<br>$$\E (X_n-X_m) Y&#x3D;0,\quad \forall m\le n.$$</p>
+</div>
+
+<div class="note info"><h4 id="条件方差公式"><a href="#条件方差公式" class="headerlink" title="条件方差公式"></a>条件方差公式</h4><p>$X_n$ 是鞅, $\E X_n^2&lt;\infty$, $m\le n$. 则 $$\E[(X_n-X_m)^2\mid \F_m]&#x3D;\E[X_n^2\mid \F_m]- X_m^2.$$</p>
+</div>
+
+<div class="note info"><h4 id="命题"><a href="#命题" class="headerlink" title="命题:"></a>命题:</h4><p>$X\in L^1(\Omega,\F,\p)$. 则 ${\E[X\mid \mathcal G]: \mathcal G\subset \F 是子 \sigma 域}$ 是一致可积的.</p>
+</div>
+
+<p>在这里复习一下一致可积的性质:</p>
+<div class="note info"><h4 id="定理"><a href="#定理" class="headerlink" title="定理:"></a>定理:</h4><p>设 $\E |X_n|&lt;\infty, \E |X|&lt;\infty$. 且 $X_n\stackrel p\to X$. 则下列等价:</p>
+<ol>
+<li><p>$X_n$ UI.</p>
+</li>
+<li><p>$X_n\stackrel{L^1}\to X$.</p>
+</li>
+<li><p>$\E|X_n|\to \E |X|$.</p>
+</li>
+</ol>
+</div>]]></content>
+      <categories>
         <category>统计</category>
       </categories>
       <tags>
@@ -1783,179 +1926,6 @@ class="math inline">\(\frac 12-\delta\)</span>) - Hölder 连续的, 对任意
 ]]></content>
       <categories>
         <category>数学</category>
-        <category>统计</category>
-      </categories>
-      <tags>
-        <tag>笔记</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>随机过程笔记</title>
-    <url>/2025/02/14/stochastic_process/stochastic_process.md/stochastic_process/</url>
-    <content><![CDATA[<p>2025 Spring 高等概率论 II 课程笔记及课程总结.</p>
-<span id="more"></span>
-<p><span class="math display">\[
-    \newcommand{\Z}{\mathbb Z}
-    \newcommand{\E}{\mathbb E}
-    \newcommand{\p}{\mathbb P}
-    \newcommand{\F}{\mathcal F}
-    \newcommand{\Q}{\mathbb Q}
-\]</span></p>
-<h2 id="停时">停时</h2>
-<div class="note primary"><p><strong>定义:</strong> 设 <span class="math inline">\(T\)</span>
-是随机变量. 取值于 <span
-class="math inline">\(\{1,2,\cdots\}\cup\{\infty\}\)</span>. 若 <span
-class="math inline">\(\forall\;n\ge 0\)</span>, 有 <span
-class="math inline">\(\{T\le n\}\in \F_n\)</span>, 则称 <span
-class="math inline">\(T\)</span> 是停时.</p>
-</div>
-<div class="note warning"><p><strong>注:</strong> <span class="math inline">\(T\)</span>
-是停时等价于 <span class="math inline">\(\{T\le n\}\in \F_n\)</span>
-等价于 <span class="math inline">\(\{T=n\}\in \F_n\)</span>.</p>
-<p>停时的定义可以理解为: <span class="math inline">\(n\)</span>
-时刻卖出股票, 只需要根据 <span class="math inline">\(n\)</span>
-前的信息就能做出决策, 而不需要看之后的信息.</p>
-</div>
-<div class="note success"><p><strong>例子:</strong> (集合的首达时 (hitting time) 是停时) 设 <span
-class="math inline">\(A\)</span> 是 Borel 集, <span
-class="math inline">\(T=\inf\{n:X_n\in A\}\)</span> 是停时.</p>
-<p>因为: <span class="math inline">\(\{T=n\}=\{x_0\notin A, x_1\notin
-A,\cdots, x_{n-1}\notin A, x_n\in A\}\in \F_n\)</span>.</p>
-</div>
-<div class="note success"><p><strong>例子:</strong> 设 <span class="math inline">\(X_i\ge
-0\)</span>, <span class="math inline">\(S_n=\sum_{i=1}^n X_i\)</span>,
-<span class="math inline">\(S_0=0\)</span>. <span
-class="math inline">\(N_t:=\sup\{n:S_n\le t\}\)</span> 不是停时.</p>
-<p>因为: <span class="math inline">\(\{N_t=n\}=\{S_n\le t,
-S_{n+1}&gt;t,\cdots\}\notin \F_n\)</span>. 即 <span
-class="math inline">\(N_t\)</span> 表示最后一次小于等于 <span
-class="math inline">\(t\)</span> 的时刻, 无法根据之前的信息做出决策.</p>
-<p>但是 <span class="math inline">\(N_t+1\)</span> 是停时, <span
-class="math inline">\(N_t+1\)</span> 表示首次大于 <span
-class="math inline">\(t\)</span> 的时刻, 是集合的首达时.</p>
-<p><span class="math display">\[\{N_t+1=n\}=\{N_t=n-1\}=\{S_{n-1}\le t,
-S_n&gt;t, S_{n+1}&gt;t,\cdots\}=\{S_{n-1}\le t, S_n&gt;t\}\in
-\F_n.\]</span></p>
-</div>
-<div class="note info"><p>命题:</p>
-<ol type="1">
-<li><p>非负整数(常数) 是停时.</p></li>
-<li><p><span class="math inline">\(T_1, T_2\)</span> 是停时, 那么 <span
-class="math inline">\(T_1\wedge T_2\)</span>, <span
-class="math inline">\(T_1\vee T_2\)</span> 也是停时.</p></li>
-<li><p>若 <span class="math inline">\(T_n\nearrow T\)</span>, 或者 <span
-class="math inline">\(T_n\searrow T\)</span>, 且 <span
-class="math inline">\(T_n\)</span> 都是停时, 那么 <span
-class="math inline">\(T\)</span> 也是停时.</p></li>
-<li><p><span class="math inline">\(T\)</span> 是停时, 那么 <span
-class="math inline">\(T+n_0\)</span> 是停时, 对任意 <span
-class="math inline">\(n_0\in \Z_{\ge 0}\)</span>.</p></li>
-</ol>
-</div>
-<div class="note primary"><p><strong>定义:</strong> 设 <span class="math inline">\(T\)</span>
-是停时, <span class="math inline">\(\F_T:=\{A:A\cap\{T=n\}\in
-\F_n,\forall n\ge 0\}\)</span>.</p>
-<p>这是根据 <span class="math inline">\(n\)</span>
-时刻的信息可测的那些集合. 可以验证 <span
-class="math inline">\(\F_T\)</span> 是 <span
-class="math inline">\(\sigma\)</span>-field, 且 <span
-class="math inline">\(T\in \F_T\)</span>.</p>
-</div>
-<div class="note info"><p><strong>定理:</strong> 设 <span
-class="math inline">\(X_1,X_2,\cdots\)</span> i.i.d., <span
-class="math inline">\(N\)</span> 是停时, 则给定 <span
-class="math inline">\(N&lt;\infty\)</span> 的条件下, <span
-class="math inline">\(\{X_{n+N},n\ge 0\}\)</span> 也是 i.i.d.,
-且和原序列有相同的分布. 并且 <span class="math inline">\(\{X_{n+N},n\ge
-1\}\)</span> 和 <span class="math inline">\(\F_n\)</span> 独立.</p>
-</div>
-<p>下面是两个关于停时的常用等式:</p>
-<div class="note info"><p>(Wald's Equation) 设 <span
-class="math inline">\(X_1,X_2\cdots\)</span> i.i.d., <span
-class="math inline">\(\E|X_i|&lt;\infty\)</span>, <span
-class="math inline">\(S_n=\sum_{i=1}^n X_i,n\ge 1\)</span>, <span
-class="math inline">\(\E X_i=\mu\)</span>. <span
-class="math inline">\(N\)</span> 是停时, 且 <span
-class="math inline">\(\E N&lt;\infty\)</span>. 则 <span
-class="math display">\[\E S_N=\mu\cdot \E N.\]</span></p>
-</div>
-<div class="note info"><p>(Wald's Second Equation) 设 <span
-class="math inline">\(X_1,X_2,\cdots\)</span> i.i.d., <span
-class="math inline">\(\E X_i=0\)</span>, <span class="math inline">\(\E
-X_i^2=\sigma^2&lt;\infty\)</span>. <span
-class="math inline">\(N\)</span> 是停时, <span class="math inline">\(\E
-N&lt;\infty\)</span>. 则 <span class="math display">\[\E
-S_N^2=\sigma^2\cdot \E N.\]</span></p>
-</div>
-<h2 id="鞅的几乎处处收敛">鞅的几乎处处收敛</h2>
-<div class="note info"><p><strong>定理</strong> 设 <span class="math inline">\(\{X_n, n\ge
-0\}\)</span> 是关于 <span class="math inline">\(\mathcal F_n\)</span>
-的下鞅. 且满足 <span class="math inline">\(\sup_n \mathbb E
-X_n^+&lt;\infty\)</span>, 则 <span class="math inline">\(X_n\to
-X\)</span> a.s. 且 <span class="math inline">\(\mathbb E
-|X|&lt;\infty\)</span>.</p>
-</div>
-<p>证明: 要证 <span class="math inline">\(\mathbb
-P(\{\omega:\lim_{n\to\infty} X_n(\omega)存在\})=1\)</span>, 只需证明
-<span class="math display">\[\mathbb P(\{\omega:\limsup_{n\to\infty}
-X_n(\omega)&lt;\liminf_{n\to\infty} X_n(\omega)\})=0.\]</span>
-常用的技巧是插入有理数: 由于 <span class="math display">\[\{\omega:
-\liminf X_n(\omega)&lt;\limsup X_n(\omega)\}\subset \bigcup_{a,b\in
-\mathbb Q} \{\omega:\liminf X_n(\omega)&lt;a&lt;b&lt;\limsup
-X_n(\omega)\},\]</span> 故只需证 <span class="math display">\[\forall\;
-a,b\in \mathbb Q, \mathbb P(\{\omega:\liminf
-X_n(\omega)&lt;a&lt;b&lt;\limsup X_n(\omega)\})=0.\]</span></p>
-<p>这里要注意到, 上极限大于 <span class="math inline">\(a\)</span>,
-代表有大于 <span class="math inline">\(a\)</span> 的子列, 下极限小于
-<span class="math inline">\(b\)</span>, 代表有小于 <span
-class="math inline">\(b\)</span> 的子列. 合起来考虑就会发现,
-这等价于说整个序列穿越 <span class="math inline">\(a, b\)</span>
-这两条线无穷多次. 这启发我们考虑 <span
-class="math display">\[U_n(\omega):=\{X_n(\omega)序列在 m\le n 时上穿
-a,b的次数\}.\]</span></p>
-<p>设 <span class="math inline">\(U_n(\omega)\nearrow
-U(\omega)\)</span>, 后者即为整个序列上穿 <span
-class="math inline">\(a,b\)</span> 的总次数.</p>
-<p>从实际意义考虑这个过程, 这相当于低价买进, 高价卖出股票, 且股票是下鞅,
-即为好股票. 这就是说一个总体呈现上升趋势的过程, (我们希望证明:
-这种穿越的过程应该次数有限). 所以</p>
-<p><span class="math display">\[\{\omega: \liminf
-X_n(\omega)&lt;a&lt;b&lt;\limsup X_n(\omega)\}\subset \{\omega:
-U(\omega)=\infty\}\]</span></p>
-<p>把之前的想法翻译成数学语言: 定义 <span
-class="math display">\[N_0=-1,\]</span> <span
-class="math display">\[N_1=\inf\{n: X_n\le a\}, N_2=\inf\{n&gt;n_1:
-X_n\ge b\}\]</span> <span class="math display">\[\cdots\]</span> <span
-class="math display">\[N_{2k-1}=\inf\{n&gt;N_{2k-2}:X_n\le a\},
-N_{2k}=\inf\{n&gt;N_{2k-1}, X_n\ge b\}.\]</span></p>
-<p>可验证所有的 <span class="math inline">\(N_j, j=0,1,\cdots\)</span>
-都是停时. 定义 <span class="math display">\[H_m=\begin{cases}
-1, &amp; \exists k, s.t. N_{2k-1}\le m&lt;N_{2k} (位于某个上穿过程,
-即时刻 m 持有股票)\\
-0, &amp; \text{otherwise, (时刻 $m$ 不持有股票)}.
-\end{cases}.\]</span></p>
-<p><span class="math display">\[\{H_m=1\} =\bigcup_{k=1}^\infty
-\{N_{2k-1}&lt;m&lt; N_{2k}\}=\bigcup_{k=1}^\infty \{N_{2k-1}\le
-2m-1\}\cap\{N_{2k}\le m-1\}^c.\]</span></p>
-<p>最后那两个集合都属于 <span class="math inline">\(\mathcal
-F_{m-1}\)</span>. 所以 <span class="math inline">\(\{H_m=1\}\in \mathcal
-F_{m-1}\)</span>, 即 <span class="math inline">\(H_m\)</span>
-是可料的过程.</p>
-<p><span class="math inline">\(U_n=\sup\{k: N_{2k}\le n\}\)</span>
-是完成的上穿次数.</p>
-<div class="note info"><p><strong>引理:</strong> (上穿不等式) 若 <span
-class="math inline">\(X_n\)</span> 是下鞅. 那么 <span
-class="math display">\[(b-a) \E U_n\le
-\E(X_n-a)^+-\E(X_0-a)^+.\]</span></p>
-</div>
-<p>利用这个引理. 我们得到 <span class="math display">\[\E[U_n]\le \frac
-1{b-a}(\E(X_n-a)^+-\E(X_0-a)^+)\le\frac 1{b-a}(\E X_n^++|a|)\le \frac
-1{b-a}(\sup_n\E X_n^++|a|)&lt;\infty.\]</span></p>
-<p>所以 <span class="math inline">\(\E U\le \liminf\E
-U_n&lt;\infty.\)</span> 这说明 <span
-class="math inline">\(\p(U&lt;\infty)=1\)</span>.</p>
-]]></content>
-      <categories>
         <category>统计</category>
       </categories>
       <tags>
